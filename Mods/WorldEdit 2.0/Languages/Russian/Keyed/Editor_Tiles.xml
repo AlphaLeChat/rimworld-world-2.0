@@ -21,7 +21,7 @@
 	<TileEditorWindow_CurrentTileInfo>ID выбранного тайла: {0}</TileEditorWindow_CurrentTileInfo>
 	
 	<TileEditorWindow_SetToAllMap>Установить на всю карту</TileEditorWindow_SetToAllMap>
-	<TileEditorWindow_SetToAllBiome>Установить на выбранный</TileEditorWindow_SetToAllBiome>
+	<TileEditorWindow_SetToAllBiome>Установить на выбранный биом</TileEditorWindow_SetToAllBiome>
 	<SetType_Temperature>Температура</SetType_Temperature>
 	<SetType_Elevation>Высота</SetType_Elevation>
 	<SetType_Rainfall>Осадки</SetType_Rainfall>

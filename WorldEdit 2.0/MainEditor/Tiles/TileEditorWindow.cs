@@ -52,7 +52,7 @@ namespace WorldEdit_2_0.MainEditor.Tiles
         private string swampinessTmpField;
         private float swampiness;
 
-        private int selectedTileId;
+        private int selectedTileId = -1;
 
         private CustomRock customRockData = null;
 
@@ -61,6 +61,7 @@ namespace WorldEdit_2_0.MainEditor.Tiles
 
         public TileEditorWindow(TileEditor tileEditor)
         {
+            resizeable = false;
             this.tileEditor = tileEditor;
 
             biomeDefSize = tileEditor.AvaliableBiomes.Count * 25;
@@ -248,10 +249,13 @@ namespace WorldEdit_2_0.MainEditor.Tiles
                             }
                         }
 
-                        customRockData.Rocks = new List<ThingDef>(customRocksTmp);
-                        if (!customNaturalRocks.ResourceData.Keys.Contains(tileID))
+                        if (customRocksTmp != null)
                         {
-                            customNaturalRocks.ResourceData.Add(tileID, customRockData);
+                            customRockData.Rocks = new List<ThingDef>(customRocksTmp);
+                            if (!customNaturalRocks.ResourceData.Keys.Contains(tileID))
+                            {
+                                customNaturalRocks.ResourceData.Add(tileID, customRockData);
+                            }
                         }
 
                         tile.temperature = temperature;
@@ -268,7 +272,6 @@ namespace WorldEdit_2_0.MainEditor.Tiles
                 selectedTileId = clickTileId;
                 UpdateTileInfo(clickTileId);
             }
-
 
         }
 

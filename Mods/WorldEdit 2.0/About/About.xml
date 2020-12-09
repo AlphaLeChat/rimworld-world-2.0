@@ -3,15 +3,11 @@
 	<name>WorldEdit 2.0</name>
 	<author>FunkyShit</author>
 	<description>
-	Create your own world! Have you ever dreamed of playing on an extremely deserted or extremely cold planet? Or maybe you wanted a system of islands?
-	- Tile editor:
-
-	Создайте свой собственный мир! Мечтали когда-нибудь сыграть на экстремально пустынной или экстремально холодной планете? А может быть вы хотели систему островов?
-	- Редактор тайлов: 
-</description>
+		Create your own world! Have you ever dreamed of playing on an extremely deserted or extremely cold planet? Or maybe you wanted a system of islands?
+	</description>
 	<supportedVersions>
 		<li>1.1</li>
 		<li>1.2</li>
 	</supportedVersions>
-	<packageId>FunkyShit.WorldEdit_2_0</packageId>
+	<packageId>FunkyShit.Mods.WorldEdit</packageId>
 </ModMetaData>

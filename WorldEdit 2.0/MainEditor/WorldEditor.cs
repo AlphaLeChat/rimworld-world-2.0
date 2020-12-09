@@ -38,6 +38,8 @@ namespace WorldEdit_2_0.MainEditor
 
         public WorldUpdater WorldUpdater => worldUpdater;
 
+        private Editor openedEditor;
+
         public WorldEditor()
         {
 
@@ -58,6 +60,13 @@ namespace WorldEdit_2_0.MainEditor
             if (editor != null)
             {
                 editor.ShowEditor();
+
+                if(editor != openedEditor && openedEditor != null)
+                {
+                    openedEditor.CloseEditor();
+                }
+
+                openedEditor = editor;
             }
         }
 
@@ -116,6 +125,19 @@ namespace WorldEdit_2_0.MainEditor
             Scribe_Collections.Look(ref editors, "Editors", LookMode.Deep);
 
             editors.RemoveAll(x => x == null);
+        }
+
+        public T GetEditor<T>() where T : Editor
+        {
+            foreach(var editor in editors)
+            {
+                if(editor is T t)
+                {
+                    return t;
+                }
+            }
+
+            return null;
         }
     }
 }

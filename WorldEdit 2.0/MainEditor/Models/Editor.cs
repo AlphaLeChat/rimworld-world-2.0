@@ -48,6 +48,14 @@ namespace WorldEdit_2_0.MainEditor.Models
 
         }
 
+        public virtual void CloseEditor()
+        {
+            if(EditorWindow != null)
+            {
+                EditorWindow.Close();
+            }
+        }
+
         public void ExposeData()
         {
             Scribe_Values.Look(ref callKeyCode, "callKeyCode");

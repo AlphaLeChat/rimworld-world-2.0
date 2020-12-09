@@ -12,6 +12,8 @@
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -297,13 +299,34 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MainEditor\GenUIUtils.cs" />
     <Compile Include="MainEditor\Models\Editor.cs" />
+    <Compile Include="MainEditor\RiversAndRoads\RoadsEditorWindow.cs" />
+    <Compile Include="MainEditor\RiversAndRoads\RoadsEditor.cs" />
+    <Compile Include="MainEditor\RiversAndRoads\RiversEditor.cs" />
+    <Compile Include="MainEditor\RiversAndRoads\RiversEditorWindow.cs" />
+    <Compile Include="MainEditor\Templates\Page_CustomStartingSite.cs" />
+    <Compile Include="MainEditor\Templates\GameComponent_WorldEditTemplate.cs" />
+    <Compile Include="MainEditor\Templates\Page_SelectScenarioInGame.cs" />
+    <Compile Include="MainEditor\Templates\PawnEditor\AddTraitMenu.cs" />
+    <Compile Include="MainEditor\Templates\PawnEditor\RelationsMenu.cs" />
+    <Compile Include="MainEditor\Templates\PawnEditor\HealthMenu.cs" />
+    <Compile Include="MainEditor\Templates\PawnEditor\PawnMenu.cs" />
+    <Compile Include="MainEditor\Templates\TemplateEditor.cs" />
+    <Compile Include="MainEditor\Templates\TemplateEditorWindow.cs" />
     <Compile Include="MainEditor\Tiles\CustomRock.cs" />
-    <Compile Include="MainEditor\Tiles\CustomNaturalRocks.cs" />
+    <Compile Include="MainEditor\Tiles\GameComponent_CustomNaturalRocks.cs" />
     <Compile Include="MainEditor\Tiles\TileEditor.cs" />
     <Compile Include="MainEditor\Tiles\TileEditorWindow.cs" />
     <Compile Include="MainEditor\WorldEditor.cs" />
+    <Compile Include="MainEditor\WorldFeatures\WorldFeatureEditor.cs" />
+    <Compile Include="MainEditor\WorldFeatures\WorldFeatureEditorWindow.cs" />
+    <Compile Include="MainEditor\WorldObjects\Factions\FactionEditor.cs" />
+    <Compile Include="MainEditor\WorldObjects\Factions\FactionEditorWindow.cs" />
+    <Compile Include="MainEditor\WorldObjects\Settlements\SettlementEditor.cs" />
+    <Compile Include="MainEditor\WorldObjects\Settlements\SettlementEditorWindow.cs" />
     <Compile Include="MainEditor\WorldUpdater.cs" />
+    <Compile Include="Patches\WorldPatches\WE_World_ExposeComponents.cs" />
     <Compile Include="Patches\WorldPatches\WE_World_FinalizeInit.cs" />
     <Compile Include="Patches\WorldPatches\WE_World_HasCaves.cs" />
     <Compile Include="Patches\WorldPatches\WE_World_NaturalRockTypesIn.cs" />
@@ -315,6 +338,9 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Patches\Edb\" />
+    <Folder Include="Patches\MainMenu\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

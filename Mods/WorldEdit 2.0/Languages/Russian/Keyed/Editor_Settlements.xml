@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<LanguageData>
+	<SettlementEditorWindow_SettlementsList>Поселения</SettlementEditorWindow_SettlementsList>
+	<SettlementEditorWindow_AddNewSettlement>Добавить новое поселение</SettlementEditorWindow_AddNewSettlement>
+	<SettlementEditorWindow_DeleteSelectedSettlement>Удалить выбранное поселение</SettlementEditorWindow_DeleteSelectedSettlement>
+	<SettlementEditorWindow_SettlementInfoTitle>Настройки поселения</SettlementEditorWindow_SettlementInfoTitle>
+	<SettlementEditorWindow_SettlementNameField>Название поселения</SettlementEditorWindow_SettlementNameField>
+	<SettlementEditorWindow_SelectSettlementPlace>Выберите место поселения, нажав на место ЛКМ</SettlementEditorWindow_SelectSettlementPlace>
+	<SettlementEditorWindow_FixedFaction>Фиксированная фракция: {0}</SettlementEditorWindow_FixedFaction>
+	<SettlementEditorWindow_NoAvaliableFactions>Нет доступных фракций, чтобы основать поселение. Фракции механоидов, насекомых и древних не могут быть основой для поселений. Создайте фракцию и заного откройте редактор поселений.</SettlementEditorWindow_NoAvaliableFactions>
+	<SettlementEditorWindow_Def>Фракция: {0}</SettlementEditorWindow_Def>
+	<SettlementEditorWindow_SaveSettlement>Сохранить изменения</SettlementEditorWindow_SaveSettlement>
+	
+	<SettlementEditorWindow_SaveSettlementInfo>Изменения сохранены</SettlementEditorWindow_SaveSettlementInfo>
+	<SettlementEditorWindow_DeleteAllSettlements>Удалить все поселения</SettlementEditorWindow_DeleteAllSettlements>
+	<SettlementEditorWindow_AllSettlementsDeleted>Все поселения удалены</SettlementEditorWindow_AllSettlementsDeleted>
+	
+</LanguageData>
