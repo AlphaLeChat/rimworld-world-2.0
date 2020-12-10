@@ -326,6 +326,7 @@
     <Compile Include="MainEditor\WorldObjects\Settlements\SettlementEditor.cs" />
     <Compile Include="MainEditor\WorldObjects\Settlements\SettlementEditorWindow.cs" />
     <Compile Include="MainEditor\WorldUpdater.cs" />
+    <Compile Include="Patches\WorldPatches\WE_Game_FinalizeInit.cs" />
     <Compile Include="Patches\WorldPatches\WE_World_ExposeComponents.cs" />
     <Compile Include="Patches\WorldPatches\WE_World_FinalizeInit.cs" />
     <Compile Include="Patches\WorldPatches\WE_World_HasCaves.cs" />
