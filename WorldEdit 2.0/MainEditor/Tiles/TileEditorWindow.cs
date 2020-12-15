@@ -244,6 +244,7 @@ namespace WorldEdit_2_0.MainEditor.Tiles
                                 if (tile.hilliness != selectedHilliness)
                                 {
                                     tile.hilliness = selectedHilliness;
+                                    Find.WorldPathGrid.RecalculatePerceivedMovementDifficultyAt(tileID);
                                     worldEditor.WorldUpdater.RenderSingleHill(tileID, hillinessSubMeshes);
                                 }
                             }
