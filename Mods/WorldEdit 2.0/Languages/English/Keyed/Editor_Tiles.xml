@@ -33,5 +33,7 @@ This causes an almost complete reload of the world, which can take a long time. 
 	<TileEditorWindow_AddNewNaturalRock>Add rock</TileEditorWindow_AddNewNaturalRock>
 	<TileEditorWindow_HasCaves>Add caves</TileEditorWindow_HasCaves>
 
+	<TileEditorWindow_BrushEnable>Enable brush</TileEditorWindow_BrushEnable>
+	<TileEditorWindow_BrushSettings>Radius</TileEditorWindow_BrushSettings>
   
 </LanguageData>

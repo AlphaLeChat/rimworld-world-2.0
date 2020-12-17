@@ -222,7 +222,7 @@ namespace WorldEdit_2_0.MainEditor.WorldObjects.Factions
 
         private void CreateFaction()
         {
-            Faction faction = GenerateFaction();
+            Faction faction = factionEditor.GenerateFaction(avaliableFactionsDefs.RandomElement());
 
             foreach (Faction item in Find.FactionManager.AllFactions)
             {
@@ -248,71 +248,12 @@ namespace WorldEdit_2_0.MainEditor.WorldObjects.Factions
             RecacheFactions();
         }
 
-        private Faction GenerateFaction()
-        {
-            Faction faction = new Faction();
-            FactionDef facDef = null;
-            facDef = avaliableFactionsDefs.RandomElement();
-
-            faction.def = facDef;
-            faction.colorFromSpectrum = FactionGenerator.NewRandomColorFromSpectrum(faction);
-            if (!facDef.isPlayer)
-            {
-                if (facDef.fixedName != null)
-                {
-                    faction.Name = facDef.fixedName;
-                }
-                else
-                {
-                    faction.Name = NameGenerator.GenerateName(facDef.factionNameMaker, from fac in Find.FactionManager.AllFactionsVisible
-                                                                                       select fac.Name);
-                }
-            }
-            faction.centralMelanin = Rand.Value;
-
-            return faction;
-        }
-
         private void DeleteFaction(Faction faction)
         {
             if (faction == null || !avaliableFactionsDefs.Contains(faction.def))
                 return;
 
-            List<Faction> allFactions = typeof(FactionManager).GetField("allFactions", BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic).GetValue(Find.FactionManager) as List<Faction>;
-
-            if (!allFactions.Contains(faction))
-            {
-                return;
-            }
-
-            List<Settlement> toDelete = (Find.WorldObjects.Settlements.Where(sett => sett.Faction == faction)).ToList();
-            foreach (var del in toDelete)
-            {
-                Find.WorldObjects.Remove(del);
-            }
-
-            List<Pawn> allMapsWorldAndTemporary_AliveOrDead = PawnsFinder.AllMapsWorldAndTemporary_AliveOrDead;
-            for (int i = 0; i < allMapsWorldAndTemporary_AliveOrDead.Count; i++)
-            {
-                Pawn p = allMapsWorldAndTemporary_AliveOrDead[i];
-
-                if (p.Faction == faction && faction.leader != p)
-                {
-                    p.SetFaction(null);
-                }
-            }
-            for (int j = 0; j < Find.Maps.Count; j++)
-            {
-                Find.Maps[j].pawnDestinationReservationManager.Notify_FactionRemoved(faction);
-            }
-
-            Find.LetterStack.Notify_FactionRemoved(faction);
-            faction.RemoveAllRelations();
-            allFactions.Remove(faction);
-
-            faction.leader.SetFaction(null);
-
-            typeof(FactionManager).GetMethod("RecacheFactions", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic).Invoke(Find.FactionManager, null);
+            factionEditor.DeleteFaction(faction);
 
             selectedFaction = null;
 

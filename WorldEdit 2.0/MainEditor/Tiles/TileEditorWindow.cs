@@ -53,11 +53,14 @@ namespace WorldEdit_2_0.MainEditor.Tiles
         private float swampiness;
 
         private int selectedTileId = -1;
-
+ 
         private CustomRock customRockData = null;
 
         private GameComponent_CustomNaturalRocks customNaturalRocks;
         private List<ThingDef> customRocksTmp;
+
+        private IntRange brushRadius = new IntRange();
+        private bool brushEnabled = false;
 
         public TileEditorWindow(TileEditor tileEditor)
         {
@@ -79,7 +82,11 @@ namespace WorldEdit_2_0.MainEditor.Tiles
             WidgetRow row = new WidgetRow(0, 0, UIDirection.RightThenDown, 580);
             if (row.ButtonText(Translator.Translate("TileEditorWindow_UpdateAllTiles"), Translator.Translate("TileEditorWindow_UpdateAllTilesInfo")))
             {
-                worldUpdater.UpdateMap();
+                foreach(var layer in tileEditor.Layers)
+                {
+                    worldUpdater.UpdateLayer(layer.Value);
+                }
+                //worldUpdater.UpdateMap();
             }
             if (row.ButtonText(Translator.Translate("TileEditorWindow_UpdateHillsLayer"), Translator.Translate("TileEditorWindow_UpdateHillsLayerInfo")))
             {
@@ -144,7 +151,15 @@ namespace WorldEdit_2_0.MainEditor.Tiles
             DrawTileParameter(Translator.Translate("TileEditorWindow_Rainfall"), ref rainfallTmpField, ref rainfall, ref yButtonPos, SetType.Rainfall);
             DrawTileParameter(Translator.Translate("TileEditorWindow_Swampiness"), ref swampinessTmpField, ref swampiness, ref yButtonPos, SetType.Swampiness);
 
-            if(customRockData != null)
+            if (Widgets.RadioButtonLabeled(new Rect(0, yButtonPos, 250, 20), $"{Translator.Translate("TileEditorWindow_BrushEnable")} - {brushRadius.min} / {brushRadius.max}", brushEnabled))
+            {
+                brushEnabled = !brushEnabled;
+            }
+            yButtonPos += 25;
+            Widgets.IntRange(new Rect(0, yButtonPos, 250, 20), 3424354, ref brushRadius, 0, 100, Translator.Translate("TileEditorWindow_BrushSettings"));
+
+            //right side
+            if (customRockData != null)
             {
                 yButtonPos = 300;
 
@@ -215,55 +230,15 @@ namespace WorldEdit_2_0.MainEditor.Tiles
         {
             if (Input.GetKey(KeyCode.Mouse1))
             {
-                int tileID = GenWorld.MouseTile();
-                if (tileID >= 0)
+                if(brushEnabled)
                 {
-                    Tile tile = Find.WorldGrid[tileID];
+                    RadiusTile();
+                }
+                else
+                {
+                    int tileID = GenWorld.MouseTile();
 
-                    if (tile != null)
-                    {
-                        if ((tile.biome != selectedBiome) || (tile.hilliness != selectedHilliness))
-                        {
-                            if (selectedBiome != null)
-                            {
-                                if (selectedBiome != tile.biome)
-                                {
-                                    tile.biome = selectedBiome;
-
-                                    if (selectedBiome == BiomeDefOf.Ocean || selectedBiome == BiomeDefOf.Lake)
-                                    {
-                                        tile.elevation = -400f;
-                                    }
-
-                                    worldEditor.WorldUpdater.RenderSingleTile(tileID, tile.biome.DrawMaterial, terrainSubMeshes);
-                                }
-                            }
-
-                            if (selectedHilliness != Hilliness.Undefined)
-                            {
-                                if (tile.hilliness != selectedHilliness)
-                                {
-                                    tile.hilliness = selectedHilliness;
-                                    Find.WorldPathGrid.RecalculatePerceivedMovementDifficultyAt(tileID);
-                                    worldEditor.WorldUpdater.RenderSingleHill(tileID, hillinessSubMeshes);
-                                }
-                            }
-                        }
-
-                        if (customRocksTmp != null)
-                        {
-                            customRockData.Rocks = new List<ThingDef>(customRocksTmp);
-                            if (!customNaturalRocks.ResourceData.Keys.Contains(tileID))
-                            {
-                                customNaturalRocks.ResourceData.Add(tileID, customRockData);
-                            }
-                        }
-
-                        tile.temperature = temperature;
-                        tile.elevation = elevation;
-                        tile.rainfall = rainfall;
-                        tile.swampiness = swampiness;
-                    }
+                    SingleTile(tileID);
                 }
             }
 
@@ -274,6 +249,80 @@ namespace WorldEdit_2_0.MainEditor.Tiles
                 UpdateTileInfo(clickTileId);
             }
 
+        }
+
+        private void SingleTile(int tileID)
+        {
+            if (tileID >= 0)
+            {
+                Tile tile = Find.WorldGrid[tileID];
+
+                if (tile != null)
+                {
+                    if (selectedBiome != null)
+                    {
+                        if (selectedBiome != tile.biome)
+                        {
+                            tile.biome = selectedBiome;
+
+                            if (selectedBiome == BiomeDefOf.Ocean || selectedBiome == BiomeDefOf.Lake)
+                            {
+                                tile.elevation = -400f;
+                            }
+
+                            worldEditor.WorldUpdater.RenderSingleTile(tileID, tile.biome.DrawMaterial, terrainSubMeshes);
+                        }
+                    }
+
+                    if (selectedHilliness != Hilliness.Undefined)
+                    {
+                        if (tile.hilliness != selectedHilliness)
+                        {
+                            tile.hilliness = selectedHilliness;
+                            Find.WorldPathGrid.RecalculatePerceivedMovementDifficultyAt(tileID);
+                            worldEditor.WorldUpdater.RenderSingleHill(tileID, hillinessSubMeshes);
+                        }
+                    }
+
+                    if (customRocksTmp != null)
+                    {
+                        customRockData.Rocks = new List<ThingDef>(customRocksTmp);
+                        if (!customNaturalRocks.ResourceData.Keys.Contains(tileID))
+                        {
+                            customNaturalRocks.ResourceData.Add(tileID, customRockData);
+                        }
+                    }
+
+                    tile.temperature = temperature;
+                    tile.elevation = elevation;
+                    tile.rainfall = rainfall;
+                    tile.swampiness = swampiness;
+                }
+            }
+        }
+
+        private void RadiusTile()
+        {
+            int tileID = GenWorld.MouseTile();
+
+            List<int> radiusTiles = new List<int>();
+            Find.WorldFloodFiller.FloodFill(tileID, (int tile) => Find.WorldGrid.InBounds(tile), delegate (int tile, int dist)
+            {
+                if (dist > brushRadius.max)
+                    return true;
+
+                if (dist >= brushRadius.min)
+                {
+                    radiusTiles.Add(tile);
+                }
+
+                return false;
+            });
+
+            foreach(var tile in radiusTiles)
+            {
+                SingleTile(tile);
+            }
         }
 
         private void UpdateTileInfo(int tileId)

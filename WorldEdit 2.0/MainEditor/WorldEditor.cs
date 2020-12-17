@@ -40,6 +40,11 @@ namespace WorldEdit_2_0.MainEditor
 
         private Editor openedEditor;
 
+        public bool HidePrevOpenedEditor = true;
+
+        private bool activeEditor;
+        public bool ActiveEditor => activeEditor;
+
         public WorldEditor()
         {
 
@@ -47,7 +52,7 @@ namespace WorldEdit_2_0.MainEditor
 
         public void WorldEditorUpdate()
         {
-            if (!settings.ActiveEditor)
+            if (!ActiveEditor)
                 return;
 
             if (!IsInit)
@@ -61,7 +66,7 @@ namespace WorldEdit_2_0.MainEditor
             {
                 editor.ShowEditor();
 
-                if(editor != openedEditor && openedEditor != null)
+                if(HidePrevOpenedEditor && editor != openedEditor && openedEditor != null)
                 {
                     openedEditor.CloseEditor();
                 }
@@ -122,9 +127,27 @@ namespace WorldEdit_2_0.MainEditor
 
         public void ExposeData()
         {
-            Scribe_Collections.Look(ref editors, "Editors", LookMode.Deep);
+            Scribe_Values.Look(ref HidePrevOpenedEditor, "HidePrevOpenedEditor", true);
+            Scribe_Values.Look(ref activeEditor, "activeEditor", true);
 
+            Scribe_Collections.Look(ref editors, "Editors", LookMode.Deep);
+             
             editors.RemoveAll(x => x == null);
+        }
+
+        public void DrawSettings(Rect inRect, Listing_Standard listing_Standard)
+        {
+            Rect rect = new Rect(0, listing_Standard.CurHeight, 600, 20);
+            TooltipHandler.TipRegion(rect, Translator.Translate("WE_Settings_ActiveEditor_ToolTip"));
+            if (listing_Standard.RadioButton(Translator.Translate("WE_Settings_ActiveEditor"), activeEditor))
+            {
+                activeEditor = !activeEditor;
+            }
+            if (listing_Standard.RadioButton(Translator.Translate("WE_Settings_HidePrevOpenedEditor"), HidePrevOpenedEditor))
+            {
+                HidePrevOpenedEditor = !HidePrevOpenedEditor;
+            }
+            listing_Standard.GapLine();
         }
 
         public T GetEditor<T>() where T : Editor

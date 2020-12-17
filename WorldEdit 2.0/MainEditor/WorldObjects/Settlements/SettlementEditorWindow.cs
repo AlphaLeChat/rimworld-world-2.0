@@ -168,11 +168,7 @@ namespace WorldEdit_2_0.MainEditor.WorldObjects.Settlements
 
         private void DeleteAllSettlements()
         {
-            List<Settlement> allSettlements = new List<Settlement>(Find.WorldObjects.Settlements);
-            foreach(var settlement in allSettlements)
-            {
-                Find.WorldObjects.Remove(settlement);
-            }
+            settlementEditor.DeleteAllSettlements();
 
             Messages.Message("SettlementEditorWindow_AllSettlementsDeleted".Translate(), MessageTypeDefOf.NeutralEvent, false);
         }
@@ -234,22 +230,7 @@ namespace WorldEdit_2_0.MainEditor.WorldObjects.Settlements
 
         private void AddNewSettlement(int tile, bool select = false)
         {
-            WorldObject obj = (WorldObject)Activator.CreateInstance(WorldObjectDefOf.Settlement.worldObjectClass);
-            obj.def = WorldObjectDefOf.Settlement;
-            obj.ID = Find.UniqueIDsManager.GetNextWorldObjectID();
-            obj.creationGameTicks = Find.TickManager.TicksGame;
-            obj.PostMake();
-
-            Settlement settlement = (Settlement)obj;
-            
-            if(fixedFactionOnSpawn == null)
-                settlement.SetFaction(avaliableFactions.RandomElement());
-            else
-                settlement.SetFaction(fixedFactionOnSpawn);
-            settlement.Tile = tile;
-            settlement.Name = "New settlement " + obj.ID;
-
-            Find.WorldObjects.Add(settlement);
+            Settlement settlement = settlementEditor.AddNewSettlement(tile, fixedFactionOnSpawn ?? avaliableFactions.RandomElement());
 
             if(select)
             {

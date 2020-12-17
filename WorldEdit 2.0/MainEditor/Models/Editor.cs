@@ -5,12 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 using Verse;
+using WorldEdit_2_0.Settings;
 
 namespace WorldEdit_2_0.MainEditor.Models
 {
     public abstract class Editor : IExposable
     {
-        protected Window EditorWindow;
+        protected Window editorWindow;
 
         protected abstract Type WindowType { get; }
 
@@ -30,12 +31,12 @@ namespace WorldEdit_2_0.MainEditor.Models
 
         public virtual void ShowEditor()
         {
-            if (EditorWindow == null)
+            if (editorWindow == null)
             {
-                EditorWindow = (Window)Activator.CreateInstance(WindowType, this);
+                editorWindow = (Window)Activator.CreateInstance(WindowType, this);
             }
 
-            Find.WindowStack.Add(EditorWindow);
+            Find.WindowStack.Add(editorWindow);
         }
 
         public void SetKey(KeyCode keyCode)
@@ -50,9 +51,22 @@ namespace WorldEdit_2_0.MainEditor.Models
 
         public virtual void CloseEditor()
         {
-            if(EditorWindow != null)
+            if(editorWindow != null)
             {
-                EditorWindow.Close();
+                editorWindow.Close();
+            }
+        }
+
+        public T GetEditorWindow<T>() where T : class
+        {
+            return editorWindow as T;
+        }
+
+        public virtual void DrawSettings(Rect inRect, Listing_Standard listing_Standard)
+        {
+            if (listing_Standard.ButtonText($"{EditorName}: {CallKeyCode}"))
+            {
+                SettingsManager.SetKeyWithList((code) => SetKey(code));
             }
         }
 

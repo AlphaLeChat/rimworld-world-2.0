@@ -36,29 +36,20 @@ namespace WorldEdit_2_0.Settings
             listing_Standard.GapLine();
             listing_Standard.Label(Translator.Translate("WE_Settings_General"));
 
-            Rect rect = new Rect(0, listing_Standard.CurHeight, 600, 20);
-            TooltipHandler.TipRegion(rect, Translator.Translate("WE_Settings_ActiveEditor_ToolTip"));
-            if (listing_Standard.RadioButton(Translator.Translate("WE_Settings_ActiveEditor"), activeEditor))
-            {
-                activeEditor = !activeEditor;
-            }
-            listing_Standard.GapLine();
+            WorldEditor.WorldEditorInstance.DrawSettings(inRect, listing_Standard);
 
             foreach(var editor in editors)
             {
                 if (editor == null)
                     continue;
 
-                if (listing_Standard.ButtonText($"{editor.EditorName}: {editor.CallKeyCode}"))
-                {
-                    SetKeyWithList((code) => editor.SetKey(code));
-                }
+                editor.DrawSettings(inRect, listing_Standard);
             }
            
             listing_Standard.End();
         }
 
-        private void SetKeyWithList(Action<KeyCode> callback)
+        public static void SetKeyWithList(Action<KeyCode> callback)
         {
             List<FloatMenuOption> list = new List<FloatMenuOption>();
             foreach (KeyCode code in Enum.GetValues(typeof(KeyCode)))

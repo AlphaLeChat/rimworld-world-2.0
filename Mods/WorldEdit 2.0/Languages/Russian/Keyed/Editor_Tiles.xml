@@ -32,6 +32,9 @@
 	
 	<TileEditorWindow_AddNewNaturalRock>Добавить породу</TileEditorWindow_AddNewNaturalRock>
 	<TileEditorWindow_HasCaves>Добавить пещеры</TileEditorWindow_HasCaves>
+	
+	<TileEditorWindow_BrushEnable>Включить кисть</TileEditorWindow_BrushEnable>
+	<TileEditorWindow_BrushSettings>Радиус</TileEditorWindow_BrushSettings>
 
   
 </LanguageData>

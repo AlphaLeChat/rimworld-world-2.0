@@ -172,21 +172,7 @@ namespace WorldEdit_2_0.MainEditor.WorldFeatures
 
         private void DeleteAllFeatures()
         {
-            WorldGrid grid = Find.WorldGrid;
-
-            foreach (var feature in Find.WorldFeatures.features)
-            {
-                foreach (var tileID in feature.Tiles)
-                {
-                    grid[tileID].feature = null;
-                }
-            }
-
-            Find.WorldFeatures.features.Clear();
-
-            Find.WorldFeatures.textsCreated = false;
-
-            Find.WorldFeatures.UpdateFeatures();
+            worldFeatureEditor.DeleteAllFeatures();
 
             selectedFeature = null;
 
@@ -198,54 +184,9 @@ namespace WorldEdit_2_0.MainEditor.WorldFeatures
             if (worldFeature == null)
                 return;
 
-            WorldGrid grid = Find.WorldGrid;
-            foreach (var t in worldFeature.Tiles)
-            {
-                if (grid[t].feature == worldFeature)
-                    grid[t].feature = null;
-            }
-
-            Find.WorldFeatures.features.Remove(worldFeature);
-
-            Find.WorldFeatures.textsCreated = false;
-            Find.WorldFeatures.UpdateFeatures();
+            DeleteFeature(worldFeature);
 
             selectedFeature = null;
-        }
-
-        private void AddNewFeature(bool select = false)
-        {
-            int tile = Find.WorldSelector.selectedTile;
-            if (tile < 0)
-            {
-                Messages.Message("WorldFeatureEditorWindow_WrongTile".Translate(), MessageTypeDefOf.NeutralEvent, false);
-                return;
-            }
-
-            WorldFeature worldFeature = new WorldFeature
-            {
-                uniqueID = Find.UniqueIDsManager.GetNextWorldFeatureID(),
-                def = DefDatabase<FeatureDef>.GetRandom(),
-                name = "New feature"
-            };
-            WorldGrid worldGrid = Find.WorldGrid;
-            worldGrid[tile].feature = worldFeature;
-
-            worldFeature.drawCenter = worldGrid.GetTileCenter(tile);
-            worldFeature.maxDrawSizeInTiles = 10f;
-            worldFeature.drawAngle = 0f;
-
-            Find.WorldFeatures.features.Add(worldFeature);
-
-            Find.WorldFeatures.textsCreated = false;
-            Find.WorldFeatures.UpdateFeatures();
-
-            if (select)
-            {
-                SelectNewFeature(worldFeature);
-            }
-
-            Messages.Message("WorldFeatureEditorWindow_Created".Translate(), MessageTypeDefOf.NeutralEvent, false);
         }
 
         private void AddNewFeature(int tile, bool select = false)
@@ -256,23 +197,7 @@ namespace WorldEdit_2_0.MainEditor.WorldFeatures
                 return;
             }
 
-            WorldFeature worldFeature = new WorldFeature
-            {
-                uniqueID = Find.UniqueIDsManager.GetNextWorldFeatureID(),
-                def = DefDatabase<FeatureDef>.GetRandom(),
-                name = "New feature"
-            };
-            WorldGrid worldGrid = Find.WorldGrid;
-            worldGrid[tile].feature = worldFeature;
-
-            worldFeature.drawCenter = worldGrid.GetTileCenter(tile);
-            worldFeature.maxDrawSizeInTiles = 10f;
-            worldFeature.drawAngle = 0f;
-
-            Find.WorldFeatures.features.Add(worldFeature);
-
-            Find.WorldFeatures.textsCreated = false;
-            Find.WorldFeatures.UpdateFeatures();
+            WorldFeature worldFeature = worldFeatureEditor.CreateNewFeature(tile);
 
             if(select)
             {

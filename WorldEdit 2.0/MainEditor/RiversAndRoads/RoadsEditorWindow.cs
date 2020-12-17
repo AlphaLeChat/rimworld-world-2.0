@@ -26,7 +26,7 @@ namespace WorldEdit_2_0.MainEditor.RiversAndRoads
         private int startRoadTile;
         private int endRoadTile;
 
-        private WorldLayer roadsLayer;
+        private WorldLayer roadsLayer => roadsEditor.RoadsLayer;
 
         private bool removeMode;
 
@@ -36,8 +36,6 @@ namespace WorldEdit_2_0.MainEditor.RiversAndRoads
         {
             roadsEditor = editor;
             resizeable = false;
-
-            roadsLayer = WorldEditor.WorldEditorInstance.GetEditor<TileEditor>().Layers["WorldLayer_Roads"];
         }
 
         public override void DoWindowContents(Rect inRect)
@@ -50,7 +48,7 @@ namespace WorldEdit_2_0.MainEditor.RiversAndRoads
 
             if (Widgets.ButtonText(new Rect(10, 10, 420, 20), Translator.Translate("RoadsEditorWindow_RemoveAllRoads")))
             {
-                RemoveAllRoads();
+                roadsEditor.RemoveAllRoads();
             }
 
             Text.Anchor = TextAnchor.MiddleCenter;
@@ -86,20 +84,6 @@ namespace WorldEdit_2_0.MainEditor.RiversAndRoads
             Widgets.EndScrollView();
         }
 
-        private void RemoveAllRoads()
-        {
-            for (int i = 0; i < Find.WorldGrid.TilesCount; i++)
-            {
-                Tile tile = Find.WorldGrid[i];
-
-                tile.potentialRoads = null;
-            }
-
-            worldEditor.WorldUpdater.UpdateLayer(roadsLayer);
-
-            Messages.Message($"RoadsEditorWindow_RemoveAllRoadsInfo".Translate(), MessageTypeDefOf.NeutralEvent, false);
-        }
-
         public override void WindowUpdate()
         {
             if (Input.GetKey(KeyCode.Mouse0))
@@ -114,40 +98,12 @@ namespace WorldEdit_2_0.MainEditor.RiversAndRoads
                 if (startRoadTile >= 0 && endRoadTile >= 0)
                 {
                     if (!removeMode && selectedRoad != null)
-                        CreateRoad(startRoadTile, endRoadTile, selectedRoad);
+                        roadsEditor.CreateRoad(startRoadTile, endRoadTile, selectedRoad);
                     else if (removeMode)
-                        RemoveRoad(startRoadTile, endRoadTile);
+                        roadsEditor.RemoveRoad(startRoadTile, endRoadTile);
 
                 }
             }
-        }
-
-        private void CreateRoad(int tile1ID, int tile2ID, RoadDef road)
-        {
-            WorldGrid worldGrid = Find.WorldGrid;
-            var path = Find.WorldPathFinder.FindPath(tile1ID, tile2ID, null);
-
-            for (int i = 0; i < path.NodesLeftCount - 1; i++)
-            {
-                worldGrid.OverlayRoad(path.Peek(i), path.Peek(i + 1), road);
-            }
-
-            worldEditor.WorldUpdater.UpdateLayer(roadsLayer);
-        }
-
-        private void RemoveRoad(int tile1ID, int tile2ID)
-        {
-            WorldGrid worldGrid = Find.WorldGrid;
-            var path = Find.WorldPathFinder.FindPath(tile1ID, tile2ID, null);
-            for (int i = 0; i < path.NodesLeftCount - 1; i++)
-            {
-                Tile tile = worldGrid[path.Peek(i)];
-                tile.potentialRoads = null;
-            }
-
-            worldGrid[tile2ID].potentialRoads = null;
-
-            worldEditor.WorldUpdater.UpdateLayer(roadsLayer);
         }
     }
 }

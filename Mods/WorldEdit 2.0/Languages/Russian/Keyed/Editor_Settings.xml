@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <LanguageData>
 	<WE_Settings_General>Основные настройки</WE_Settings_General>
+	<WE_Settings_HidePrevOpenedEditor>Скрывать предыдущий редактор, после открытия нового</WE_Settings_HidePrevOpenedEditor>
 	
 	<WE_Settings_ActiveEditor_ToolTip>Активирован ли редактор</WE_Settings_ActiveEditor_ToolTip>
 	
