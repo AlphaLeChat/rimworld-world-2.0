@@ -32,6 +32,11 @@ namespace WorldEdit_2_0.MainEditor.WorldObjects.Settlements
 
         private FactionManager rimFactionManager;
 
+        private string searchBuff;
+        private string oldSearchBuff;
+
+        private List<Settlement> settlements;
+
         public SettlementEditorWindow(SettlementEditor editor)
         {
             settlementEditor = editor;
@@ -48,9 +53,14 @@ namespace WorldEdit_2_0.MainEditor.WorldObjects.Settlements
         {
             base.PostOpen();
 
+            searchBuff = string.Empty;
+            oldSearchBuff = string.Empty;
+
             avaliableFactions = Find.FactionManager.AllFactions.Where(faction =>
                                         !faction.IsPlayer && faction != Faction.OfAncients && faction != Faction.OfAncientsHostile &&
                                         faction != Faction.OfInsects && faction != Faction.OfMechanoids).ToList();
+
+            RecacheSettlements();
         }
 
         public override void PostClose()
@@ -58,6 +68,11 @@ namespace WorldEdit_2_0.MainEditor.WorldObjects.Settlements
             base.PostClose();
 
             createSettlementClick = false;
+        }
+
+        private void RecacheSettlements()
+        {
+            settlements = Find.WorldObjects.Settlements.Where(settl => string.IsNullOrEmpty(searchBuff) || (!string.IsNullOrEmpty(searchBuff) && settl.Name.Contains(searchBuff))).ToList();
         }
 
         public override void DoWindowContents(Rect inRect)
@@ -71,12 +86,20 @@ namespace WorldEdit_2_0.MainEditor.WorldObjects.Settlements
             Widgets.Label(new Rect(0, 0, 350, 30), Translator.Translate("SettlementEditorWindow_SettlementsList"));
             Text.Anchor = TextAnchor.UpperLeft;
 
-            int size = Find.WorldObjects.Settlements.Count * 30;
-            Rect scrollRectFact = new Rect(10, 50, 330, 490);
+            searchBuff = Widgets.TextField(new Rect(0, 24, 320, 20), searchBuff);
+            if (searchBuff != oldSearchBuff)
+            {
+                oldSearchBuff = searchBuff;
+
+                RecacheSettlements();
+            }
+
+            int size = Find.WorldObjects.Settlements.Count * 23;
+            Rect scrollRectFact = new Rect(10, 50, 320, 460);
             Rect scrollVertRectFact = new Rect(0, 0, scrollRectFact.x, size);
             Widgets.BeginScrollView(scrollRectFact, ref settlementsScrollPosition, scrollVertRectFact);
             int x = 0;
-            foreach (var settlement in Find.WorldObjects.Settlements)
+            foreach (var settlement in settlements)
             {
                 if (Widgets.ButtonText(new Rect(0, x, 305, 20), settlement.Name))
                 {

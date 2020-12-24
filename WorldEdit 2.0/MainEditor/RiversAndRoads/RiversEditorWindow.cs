@@ -118,7 +118,7 @@ namespace WorldEdit_2_0.MainEditor.RiversAndRoads
 
         public override void WindowUpdate()
         {
-            if (Input.GetKey(KeyCode.Mouse0))
+            if (Input.GetKeyDown(KeyCode.Mouse0))
             {
                 startRiverTile = GenWorld.MouseTile();
 
@@ -140,7 +140,7 @@ namespace WorldEdit_2_0.MainEditor.RiversAndRoads
                 }
             }
 
-            if (Input.GetKey(KeyCode.Mouse1))
+            if (Input.GetKeyDown(KeyCode.Mouse1))
             {
                 endRiverTile = GenWorld.MouseTile();
 

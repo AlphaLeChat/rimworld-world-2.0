@@ -74,5 +74,10 @@ namespace WorldEdit_2_0.MainEditor.Models
         {
             Scribe_Values.Look(ref callKeyCode, "callKeyCode");
         }
+
+        public bool IsClickOutsideWindow(KeyCode keyCode)
+        {
+            return Input.GetKeyDown(keyCode) && Find.WindowStack.GetWindowAt(UI.MousePosUIInvertedUseEventIfCan) == null;
+        }
     }
 }

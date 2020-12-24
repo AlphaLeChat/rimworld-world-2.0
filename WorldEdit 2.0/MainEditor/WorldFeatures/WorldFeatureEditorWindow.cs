@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using Verse;
 
 namespace WorldEdit_2_0.MainEditor.WorldFeatures
@@ -28,6 +29,11 @@ namespace WorldEdit_2_0.MainEditor.WorldFeatures
 
         private bool createFeatureClick = false;
 
+        private string searchBuff;
+        private string oldSearchBuff;
+
+        private List<WorldFeature> features;
+
         public WorldFeatureEditorWindow(WorldFeatureEditor editor)
         {
             worldFeatureEditor = editor;
@@ -43,6 +49,21 @@ namespace WorldEdit_2_0.MainEditor.WorldFeatures
             createFeatureClick = false;
         }
 
+        public override void PostOpen()
+        {
+            base.PostOpen();
+
+            searchBuff = string.Empty;
+            oldSearchBuff = string.Empty;
+
+            RecacheWorldFeatures();
+        }
+
+        private void RecacheWorldFeatures()
+        {
+            features = Find.WorldFeatures.features.Where(worldFeature => string.IsNullOrEmpty(searchBuff) || (!string.IsNullOrEmpty(searchBuff) && worldFeature.name.Contains(searchBuff))).ToList();
+        }
+
         public override void DoWindowContents(Rect inRect)
         {
             if (createFeatureClick)
@@ -54,12 +75,20 @@ namespace WorldEdit_2_0.MainEditor.WorldFeatures
             Widgets.Label(new Rect(10, 0, 310, 20), Translator.Translate("WorldFeatureEditorWindow_WorldPrintsTitle"));
             Text.Anchor = TextAnchor.UpperLeft;
 
-            int size1 = Find.WorldFeatures.features.Count * 22;
+            searchBuff = Widgets.TextField(new Rect(0, 24, 300, 20), searchBuff);
+            if(searchBuff != oldSearchBuff)
+            {
+                oldSearchBuff = searchBuff;
+
+                RecacheWorldFeatures();
+            }
+
+            int size1 = features.Count * 22;
             Rect scrollRectFact = new Rect(0, 50, 300, 280);
             Rect scrollVertRectFact = new Rect(0, 0, scrollRectFact.x, size1);
             Widgets.BeginScrollView(scrollRectFact, ref scrollPosition, scrollVertRectFact);
             int x = 0;
-            foreach (var feat in Find.WorldFeatures.features)
+            foreach (var feat in features)
             {
                 if (Widgets.ButtonText(new Rect(0, x, 290, 20), feat.name))
                 {
@@ -124,7 +153,7 @@ namespace WorldEdit_2_0.MainEditor.WorldFeatures
 
         public override void WindowUpdate()
         {
-            if(Input.GetKeyDown(KeyCode.Mouse0))
+            if (worldFeatureEditor.IsClickOutsideWindow(KeyCode.Mouse0))
             {
                 int clickTile = GenWorld.MouseTile();
                 if (clickTile >= 0)
@@ -184,7 +213,7 @@ namespace WorldEdit_2_0.MainEditor.WorldFeatures
             if (worldFeature == null)
                 return;
 
-            DeleteFeature(worldFeature);
+            worldFeatureEditor.DeleteFeature(worldFeature);
 
             selectedFeature = null;
         }

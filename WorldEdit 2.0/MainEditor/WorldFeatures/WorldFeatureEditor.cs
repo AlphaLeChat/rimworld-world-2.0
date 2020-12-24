@@ -58,12 +58,12 @@ namespace WorldEdit_2_0.MainEditor.WorldFeatures
 
         public WorldFeature CreateNewFeature(int tile)
         {
-            return CreateNewFeature(tile);
+            return CreateNewFeature(tile, "New feature");
         }
 
         public WorldFeature CreateNewFeature(int tile, string featureName = "New Feature")
         {
-            return CreateNewFeature(tile, featureName);
+            return CreateNewFeature(tile, featureName, 10, 0);
         }
 
         public WorldFeature CreateNewFeature(int tile, string featureName, float drawSize = 10f, float drawAngle = 0f)

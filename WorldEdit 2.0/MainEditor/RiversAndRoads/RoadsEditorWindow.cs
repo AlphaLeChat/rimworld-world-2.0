@@ -86,12 +86,12 @@ namespace WorldEdit_2_0.MainEditor.RiversAndRoads
 
         public override void WindowUpdate()
         {
-            if (Input.GetKey(KeyCode.Mouse0))
+            if (Input.GetKeyDown(KeyCode.Mouse0))
             {
                 startRoadTile = GenWorld.MouseTile();
             }
 
-            if (Input.GetKey(KeyCode.Mouse1))
+            if (Input.GetKeyDown(KeyCode.Mouse1))
             {
                 endRoadTile = GenWorld.MouseTile();
 

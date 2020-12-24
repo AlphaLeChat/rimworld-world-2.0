@@ -37,6 +37,9 @@ namespace WorldEdit_2_0.MainEditor.WorldObjects.Factions
         private List<FactionRelation> newFactionRelation;
         private string[] newFactionGoodwillBuff;
 
+        private string searchBuff;
+        private string oldSearchBuff;
+
         public FactionEditorWindow(FactionEditor editor)
         {
             factionEditor = editor;
@@ -53,12 +56,15 @@ namespace WorldEdit_2_0.MainEditor.WorldObjects.Factions
         {
             base.PostOpen();
 
+            searchBuff = string.Empty;
+            oldSearchBuff = string.Empty;
+
             RecacheFactions();
         }
 
         private void RecacheFactions()
         {
-            spawnedFactions = rimFactionManager.AllFactionsListForReading.Where(fac => avaliableFactionsDefs.Contains(fac.def)).ToList();
+            spawnedFactions = rimFactionManager.AllFactionsListForReading.Where(fac => avaliableFactionsDefs.Contains(fac.def) && (string.IsNullOrEmpty(searchBuff) || (!string.IsNullOrEmpty(searchBuff) && fac.Name.Contains(searchBuff)))).ToList();
         }
 
         public override void DoWindowContents(Rect inRect)
@@ -69,8 +75,16 @@ namespace WorldEdit_2_0.MainEditor.WorldObjects.Factions
             Widgets.Label(new Rect(10, 0, 320, 20), Translator.Translate("FactionEditorWindow_FactionCreatorTitle"));
             Text.Anchor = TextAnchor.UpperLeft;
 
+            searchBuff = Widgets.TextField(new Rect(0, 24, 300, 20), searchBuff);
+            if (searchBuff != oldSearchBuff)
+            {
+                oldSearchBuff = searchBuff;
+
+                RecacheFactions();
+            }
+
             int factionListSize = rimFactionManager.AllFactionsListForReading.Count * 25;
-            Rect scrollRectFact = new Rect(0, 25, 320, 550);
+            Rect scrollRectFact = new Rect(0, 45, 320, 530);
             Rect scrollVertRectFact = new Rect(0, 0, scrollRectFact.x, factionListSize);
             Widgets.BeginScrollView(scrollRectFact, ref scrollPositionFactionList, scrollVertRectFact);
 
