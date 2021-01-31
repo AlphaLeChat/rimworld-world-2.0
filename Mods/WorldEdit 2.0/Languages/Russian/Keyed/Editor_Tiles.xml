@@ -35,6 +35,9 @@
 	
 	<TileEditorWindow_BrushEnable>Включить кисть</TileEditorWindow_BrushEnable>
 	<TileEditorWindow_BrushSettings>Радиус</TileEditorWindow_BrushSettings>
+	
+	<TileEditorWindow_SetBiomeToWholeMap>Установить биом на всю карту</TileEditorWindow_SetBiomeToWholeMap>
+	
 
   
 </LanguageData>

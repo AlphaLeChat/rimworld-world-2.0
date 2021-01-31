@@ -205,6 +205,8 @@ namespace WorldEdit_2_0.MainEditor.WorldFeatures
 
             selectedFeature = null;
 
+            RecacheWorldFeatures();
+
             Messages.Message("WorldFeatureEditorWindow_DeleteAllFeaturesMessage".Translate(), MessageTypeDefOf.NeutralEvent, false);
         }
 

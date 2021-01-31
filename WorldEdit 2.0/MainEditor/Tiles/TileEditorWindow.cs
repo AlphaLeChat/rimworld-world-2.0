@@ -98,7 +98,7 @@ namespace WorldEdit_2_0.MainEditor.Tiles
             }
 
             Widgets.Label(new Rect(80, 25, 50, 20), Translator.Translate("TileEditorWindow_Biome"));
-            Rect scrollRect = new Rect(0, 45, 250, 240);
+            Rect scrollRect = new Rect(0, 45, 250, 220);
             Rect scrollVertRect = new Rect(0, 0, scrollRect.x, biomeDefSize);
             Widgets.BeginScrollView(scrollRect, ref scrollPosition, scrollVertRect);
             int yButtonPos = 5;
@@ -131,6 +131,10 @@ namespace WorldEdit_2_0.MainEditor.Tiles
                 yButtonPos += 22;
             }
             Widgets.EndScrollView();
+            if (Widgets.ButtonText(new Rect(0, 275, 250, 20), "TileEditorWindow_SetBiomeToWholeMap".Translate()))
+            {
+                tileEditor.SetBiomeToWholeMap(selectedBiome, false);
+            }
 
             Widgets.Label(new Rect(380, 25, 50, 20), Translator.Translate("TileEditorWindow_Hilliness"));
             yButtonPos = 50;
@@ -186,8 +190,8 @@ namespace WorldEdit_2_0.MainEditor.Tiles
                 for (int i = 0; i < customRocksTmp.Count; i++)
                 {
                     ThingDef d = customRocksTmp[i];
-                    Widgets.Label(new Rect(0, y, 160, 20), d.LabelCap);
-                    if (Widgets.ButtonText(new Rect(170, y, 20, 20), "X"))
+                    Widgets.Label(new Rect(0, y, 280, 20), d.LabelCap);
+                    if (Widgets.ButtonText(new Rect(290, y, 20, 20), "X"))
                     {
                         customRocksTmp.Remove(d);
                     }

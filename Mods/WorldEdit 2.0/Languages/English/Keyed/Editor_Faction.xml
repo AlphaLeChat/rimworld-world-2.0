@@ -20,4 +20,8 @@
 	<FactionEditorWindow_SaveFactionInfo>Faction saved</FactionEditorWindow_SaveFactionInfo>
 	<FactionEditorWindow_FactionRemoved>Faction removed</FactionEditorWindow_FactionRemoved>
 	
+	<FactionEditorWindow_Group>Group by: {0}</FactionEditorWindow_Group>
+	<FactionGroupBy_None>No group</FactionGroupBy_None>
+	<FactionGroupBy_FactionDef>Faction template def</FactionGroupBy_FactionDef>
+	
 </LanguageData>

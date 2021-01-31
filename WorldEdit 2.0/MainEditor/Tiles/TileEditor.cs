@@ -47,5 +47,42 @@ namespace WorldEdit_2_0.MainEditor.Tiles
                 LayersSubMeshes.Add(layer.GetType().Name, meshes);
             }
         }
+
+        public void SetBiomeToWholeMap(BiomeDef biome, bool oceanAlso)
+        {
+            if (biome == null)
+            {
+                Messages.Message("SetToAllBiomes_InvalidBiomeMessage".Translate(), MessageTypeDefOf.NeutralEvent, false);
+                return;
+            }
+
+            WorldGrid grid = Find.WorldGrid;
+            if (oceanAlso)
+            {
+                grid.tiles.ForEach(tile =>
+                {
+                    tile.biome = biome;
+                });
+            }
+            else
+            {
+                foreach (var tile in grid.tiles.Where(tile => tile.biome != BiomeDefOf.Ocean && tile.biome != BiomeDefOf.Lake))
+                {
+                    tile.biome = biome;
+                }
+            }
+
+            LongEventHandler.QueueLongEvent(delegate
+            {
+                WorldUpdater worldUpdater = WorldEditor.WorldEditorInstance.WorldUpdater;
+
+                foreach (var layer in Layers)
+                {
+                    LayersSubMeshes[layer.Key].Clear();
+
+                    WorldEditor.WorldEditorInstance.WorldUpdater.UpdateLayer(layer.Value);
+                }
+            }, "Updating...", doAsynchronously: false, null);
+        }
     }
 }

@@ -321,10 +321,13 @@
     <Compile Include="MainEditor\WorldEditor.cs" />
     <Compile Include="MainEditor\WorldFeatures\WorldFeatureEditor.cs" />
     <Compile Include="MainEditor\WorldFeatures\WorldFeatureEditorWindow.cs" />
+    <Compile Include="MainEditor\WorldFeatures\WorldObjectsExtensions.cs" />
     <Compile Include="MainEditor\WorldObjects\Factions\FactionEditor.cs" />
     <Compile Include="MainEditor\WorldObjects\Factions\FactionEditorWindow.cs" />
     <Compile Include="MainEditor\WorldObjects\Settlements\SettlementEditor.cs" />
     <Compile Include="MainEditor\WorldObjects\Settlements\SettlementEditorWindow.cs" />
+    <Compile Include="MainEditor\WorldObjects\SortWorldObjectBy.cs" />
+    <Compile Include="MainEditor\WorldObjects\WorldObjectsUtils.cs" />
     <Compile Include="MainEditor\WorldUpdater.cs" />
     <Compile Include="Patches\WorldPatches\WE_Game_FinalizeInit.cs" />
     <Compile Include="Patches\WorldPatches\WE_World_ExposeComponents.cs" />
@@ -340,6 +343,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="MainEditor\Utils\" />
     <Folder Include="Patches\Edb\" />
     <Folder Include="Patches\MainMenu\" />
   </ItemGroup>

@@ -36,4 +36,6 @@ This causes an almost complete reload of the world, which can take a long time. 
 	<TileEditorWindow_BrushEnable>Enable brush</TileEditorWindow_BrushEnable>
 	<TileEditorWindow_BrushSettings>Radius</TileEditorWindow_BrushSettings>
   
+	<TileEditorWindow_SetBiomeToWholeMap>Set biome to whole map </TileEditorWindow_SetBiomeToWholeMap>
+  
 </LanguageData>

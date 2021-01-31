@@ -3,4 +3,7 @@
 	<CreateWorldParams_EnabledEditorLabel>Активировать редактор</CreateWorldParams_EnabledEditorLabel>
 	<NoText>Нет</NoText>
 	
+	<SortWorldObjectBy_ID>ID</SortWorldObjectBy_ID>
+	<SortWorldObjectBy_ABC>Алфавиту</SortWorldObjectBy_ABC>
+	
 </LanguageData>

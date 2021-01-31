@@ -8,11 +8,18 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 using Verse;
+using WorldEdit_2_0.MainEditor.WorldFeatures;
 
 namespace WorldEdit_2_0.MainEditor.WorldObjects.Factions
 {
     public class FactionEditorWindow : EditWindow
     {
+        enum FactionGroupBy : byte
+        {
+            None = 0,
+            FactionDef
+        }
+
         private FactionEditor factionEditor;
 
         public override Vector2 InitialSize => new Vector2(920, 650);
@@ -20,13 +27,17 @@ namespace WorldEdit_2_0.MainEditor.WorldObjects.Factions
         private List<FactionDef> avaliableFactionsDefs;
         private List<Faction> spawnedFactions;
 
+        private List<IGrouping<string, Faction>> spawnedFactionsSorted;
+        private Func<Faction, string> factionDefGroupFunc = delegate (Faction fact) { return fact.def.LabelCap; };
+        private int sliderSize = 0;
+        private FactionGroupBy groupBy = FactionGroupBy.None;
+
         private Vector2 scrollPositionFactionList = Vector2.zero;
-        private Vector2 scrollPositionDefsList = Vector2.zero;
         private Vector2 scrollPositionRelation = Vector2.zero;
 
         private Faction selectedFaction;
 
-        private FactionManager rimFactionManager;
+        private FactionManager rimFactionManager => Find.FactionManager;
 
         //temp
         private FactionDef tmpSelectedFactionDef;
@@ -40,12 +51,12 @@ namespace WorldEdit_2_0.MainEditor.WorldObjects.Factions
         private string searchBuff;
         private string oldSearchBuff;
 
+        private SortWorldObjectBy sortWorldObjectBy = SortWorldObjectBy.ABC;
+
         public FactionEditorWindow(FactionEditor editor)
         {
             factionEditor = editor;
             resizeable = false;
-
-            rimFactionManager = Find.FactionManager;
 
             avaliableFactionsDefs = DefDatabase<FactionDef>.AllDefs.Where(f => !f.isPlayer &&
             rimFactionManager.OfMechanoids?.def != f && rimFactionManager.OfInsects?.def != f &&
@@ -65,6 +76,29 @@ namespace WorldEdit_2_0.MainEditor.WorldObjects.Factions
         private void RecacheFactions()
         {
             spawnedFactions = rimFactionManager.AllFactionsListForReading.Where(fac => avaliableFactionsDefs.Contains(fac.def) && (string.IsNullOrEmpty(searchBuff) || (!string.IsNullOrEmpty(searchBuff) && fac.Name.Contains(searchBuff)))).ToList();
+
+            switch (groupBy)
+            {
+                case FactionGroupBy.FactionDef:
+                    {
+                        spawnedFactionsSorted = spawnedFactions.GroupBy(gKey => factionDefGroupFunc(gKey)).ToList();
+                        break;
+                    }
+            }
+
+            if (groupBy == FactionGroupBy.None)
+            {
+                sliderSize = spawnedFactions.Count * 22;
+            }
+            else
+            {
+                sliderSize = spawnedFactionsSorted.Count * 20;
+                foreach (var gValue in spawnedFactionsSorted)
+                {
+                    sliderSize += gValue.Count() * 22;
+                }
+
+            }
         }
 
         public override void DoWindowContents(Rect inRect)
@@ -83,9 +117,8 @@ namespace WorldEdit_2_0.MainEditor.WorldObjects.Factions
                 RecacheFactions();
             }
 
-            int factionListSize = rimFactionManager.AllFactionsListForReading.Count * 25;
-            Rect scrollRectFact = new Rect(0, 45, 320, 530);
-            Rect scrollVertRectFact = new Rect(0, 0, scrollRectFact.x, factionListSize);
+            Rect scrollRectFact = new Rect(0, 45, 320, 490);
+            Rect scrollVertRectFact = new Rect(0, 0, scrollRectFact.x, sliderSize);
             Widgets.BeginScrollView(scrollRectFact, ref scrollPositionFactionList, scrollVertRectFact);
 
             int yButtonPos = 5;
@@ -94,31 +127,92 @@ namespace WorldEdit_2_0.MainEditor.WorldObjects.Factions
                 selectedFaction = null;
             }
             yButtonPos += 25;
-            foreach (var spawnedFaction in spawnedFactions)
+
+            if (groupBy == FactionGroupBy.None)
             {
-                var spawnedFactionButtonRect = new Rect(0, yButtonPos, 300, 20);
-
-                if (Widgets.ButtonText(spawnedFactionButtonRect, spawnedFaction.Name))
+                foreach (var spawnedFaction in WorldObjectsUtils.SortFactionBy(spawnedFactions, sortWorldObjectBy))
                 {
-                    SelectNewFaction(spawnedFaction);
-                }
+                    var spawnedFactionButtonRect = new Rect(0, yButtonPos, 300, 20);
 
-                if (selectedFaction == spawnedFaction)
-                {
-                    Widgets.DrawBox(spawnedFactionButtonRect, 2);
-                }
+                    if (Widgets.ButtonText(spawnedFactionButtonRect, spawnedFaction.Name))
+                    {
+                        SelectNewFaction(spawnedFaction);
+                    }
 
-                yButtonPos += 22;
+                    if (selectedFaction == spawnedFaction)
+                    {
+                        Widgets.DrawBox(spawnedFactionButtonRect, 2);
+                    }
+
+                    yButtonPos += 22;
+                }
             }
+            else
+            {
+                foreach (var spawnedFactionGroup in spawnedFactionsSorted)
+                {
+                    Widgets.Label(new Rect(0, yButtonPos, 300, 20), spawnedFactionGroup.Key);
+
+                    yButtonPos += 20;
+
+                    foreach (var spawnedFaction in WorldObjectsUtils.SortFactionBy(spawnedFactionGroup, sortWorldObjectBy))
+                    {
+                        var spawnedFactionButtonRect = new Rect(15, yButtonPos, 285, 20);
+
+                        if (Widgets.ButtonText(spawnedFactionButtonRect, spawnedFaction.Name))
+                        {
+                            SelectNewFaction(spawnedFaction);
+                        }
+
+                        if (selectedFaction == spawnedFaction)
+                        {
+                            Widgets.DrawBox(spawnedFactionButtonRect, 2);
+                        }
+
+                        yButtonPos += 22;
+                    }
+                }
+            }
+
             Widgets.EndScrollView();
 
-            if (Widgets.ButtonText(new Rect(0, 590, 300, 20), Translator.Translate("FactionEditorWindow_AddNewFaction")))
+            if (Widgets.ButtonText(new Rect(0, 550, 300, 20), Translator.Translate("FactionEditorWindow_AddNewFaction")))
             {
                 CreateFaction();
             }
-            if (Widgets.ButtonText(new Rect(0, 610, 300, 20), Translator.Translate("FactionEditorWindow_DeleteSelectedFaction")))
+            if (Widgets.ButtonText(new Rect(0, 570, 300, 20), Translator.Translate("FactionEditorWindow_DeleteSelectedFaction")))
             {
                 DeleteFaction(selectedFaction);
+            }
+            if (Widgets.ButtonText(new Rect(0, 590, 300, 20), "FactionEditorWindow_Group".Translate(TranslateFactionGroupLabel(groupBy))))
+            {
+                List<FloatMenuOption> list = new List<FloatMenuOption>();
+
+                foreach (FactionGroupBy groupParam in Enum.GetValues(typeof(FactionGroupBy)))
+                {
+                    list.Add(new FloatMenuOption(TranslateFactionGroupLabel(groupParam), () =>
+                    {
+                        groupBy = groupParam;
+
+                        RecacheFactions();
+                    }));
+                }
+
+                Find.WindowStack.Add(new FloatMenu(list));
+            }
+            if (Widgets.ButtonText(new Rect(0, 610, 300, 20), "FactionEditorWindow_Sort".Translate(sortWorldObjectBy.TranslateSortWorldObjectBy())))
+            {
+                List<FloatMenuOption> list = new List<FloatMenuOption>();
+
+                foreach (SortWorldObjectBy groupParam in Enum.GetValues(typeof(SortWorldObjectBy)))
+                {
+                    list.Add(new FloatMenuOption(groupParam.TranslateSortWorldObjectBy(), () =>
+                    {
+                        sortWorldObjectBy = groupParam;
+                    }));
+                }
+
+                Find.WindowStack.Add(new FloatMenu(list));
             }
 
             Widgets.DrawLineVertical(330, 5, inRect.height - 10);
@@ -234,6 +328,11 @@ namespace WorldEdit_2_0.MainEditor.WorldObjects.Factions
             }
         }
 
+        private string TranslateFactionGroupLabel(FactionGroupBy groupBy)
+        {
+            return $"FactionGroupBy_{groupBy}".Translate();
+        }
+
         private void CreateFaction()
         {
             Faction faction = factionEditor.GenerateFaction(avaliableFactionsDefs.RandomElement());
@@ -286,6 +385,8 @@ namespace WorldEdit_2_0.MainEditor.WorldObjects.Factions
             }
 
             Messages.Message("FactionEditorWindow_SaveFactionInfo".Translate(), MessageTypeDefOf.NeutralEvent, false);
+
+            RecacheFactions();
         }
 
         private void SelectNewFaction(Faction faction)

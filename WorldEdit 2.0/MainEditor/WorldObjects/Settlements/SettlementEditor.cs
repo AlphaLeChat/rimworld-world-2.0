@@ -19,9 +19,15 @@ namespace WorldEdit_2_0.MainEditor.WorldObjects.Settlements
 
         public override string EditorName => "WE_Settings_SettlementEditorKey".Translate();
 
+        public KeyCode DragAndDropKey => dragAndDropKey;
+        private KeyCode dragAndDropKey;
+
         public void DeleteAllSettlements()
         {
-            List<Settlement> allSettlements = new List<Settlement>(Find.WorldObjects.Settlements);
+            List<Settlement> allSettlements = new List<Settlement>(Find.WorldObjects.Settlements.Where(stl =>
+                                            stl.Faction != Faction.OfAncients && stl.Faction != Faction.OfInsects &&
+                                            stl.Faction != Faction.OfMechanoids && stl.Faction != Faction.OfAncientsHostile &&
+                                            stl.Faction != Faction.OfPlayer));
             foreach (var settlement in allSettlements)
             {
                 Find.WorldObjects.Remove(settlement);
@@ -45,6 +51,33 @@ namespace WorldEdit_2_0.MainEditor.WorldObjects.Settlements
             Find.WorldObjects.Add(settlement);
 
             return settlement;
+        }
+
+        public override void DrawSettings(Rect inRect, Listing_Standard listing_Standard)
+        {
+            base.DrawSettings(inRect, listing_Standard);
+
+            if (listing_Standard.ButtonText($"{EditorName} {"SettlementEditor_DragAndDropKey".Translate()}: {dragAndDropKey}"))
+            {
+                List<FloatMenuOption> list = new List<FloatMenuOption>();
+                foreach (KeyCode code in Enum.GetValues(typeof(KeyCode)))
+                {
+                    list.Add(new FloatMenuOption(code.ToString(), delegate
+                    {
+                        dragAndDropKey = code;
+
+                        Messages.Message("WE_Settings_Key_Update".Translate(code.ToString()), MessageTypeDefOf.NeutralEvent, false);
+                    }));
+                }
+                Find.WindowStack.Add(new FloatMenu(list));
+            }
+        }
+
+        public override void ExposeData()
+        {
+            base.ExposeData();
+
+            Scribe_Values.Look(ref dragAndDropKey, "dragAndDropKey", KeyCode.Mouse2);
         }
     }
 }

@@ -19,5 +19,10 @@
 	<FactionEditorWindow_SaveFaction>Сохранить изменения</FactionEditorWindow_SaveFaction>
 	<FactionEditorWindow_SaveFactionInfo>Фракция сохранена</FactionEditorWindow_SaveFactionInfo>
 	<FactionEditorWindow_FactionRemoved>Фракция удалена</FactionEditorWindow_FactionRemoved>
+
+	<FactionEditorWindow_Group>Группировать по: {0}</FactionEditorWindow_Group>
+	<FactionGroupBy_None>Без группировки</FactionGroupBy_None>
+	<FactionGroupBy_FactionDef>Def шаблон фракции</FactionGroupBy_FactionDef>
 	
+	<FactionEditorWindow_Sort>Сортировать по: {0}</FactionEditorWindow_Sort>
 </LanguageData>
