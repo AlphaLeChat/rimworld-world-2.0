@@ -15,6 +15,9 @@ using WorldEdit_2_0.MainEditor.Templates;
 using WorldEdit_2_0.MainEditor.Tiles;
 using WorldEdit_2_0.MainEditor.WorldFeatures;
 using WorldEdit_2_0.MainEditor.WorldObjects.Factions;
+using WorldEdit_2_0.MainEditor.WorldObjects.Other;
+using WorldEdit_2_0.MainEditor.WorldObjects.Other.Objects;
+using WorldEdit_2_0.MainEditor.WorldObjects.Other.WorldObjectComps;
 using WorldEdit_2_0.MainEditor.WorldObjects.Settlements;
 using WorldEdit_2_0.Settings;
 
@@ -35,6 +38,35 @@ namespace WorldEdit_2_0
         private static bool edbLoaded = false;
         public static bool EdbLoaded => edbLoaded;
 
+        private List<Type> toRegisterEditors = new List<Type>
+        {
+            typeof(TileEditor),
+            typeof(TemplateEditor),
+            typeof(RiversEditor),
+            typeof(RoadsEditor),
+            typeof(WorldFeatureEditor),
+            typeof(FactionEditor),
+            typeof(SettlementEditor),
+            typeof(ObjectsEditor)
+        };
+
+        private List<Type> toRegisterObjectsEditors = new List<Type>
+        {
+            typeof(WorldEditWorldObject_AbandonedSettlement),
+            typeof(WorldEditWorldObject_DestroyedSettlement),
+            typeof(WorldEditWorldObject_EscapeShip),
+            typeof(WorldEditWorldObject_PeaceTalks),
+            typeof(WorldEditWorldObject_Site)
+
+        };
+
+        private List<Type> toRegisterObjectsComps = new List<Type>
+        {
+            typeof(WorldEditTimeoutComp),
+            //typeof(WorldEditDefeatAllEnemiesQuestComp) //legacy
+            typeof(WorldEditItemStashContentsComp), //legacy
+        };
+
         public WorldEdit(ModContentPack content) : base(content)
         {
             harmonyInstance = new Harmony("net.funkyshit.worldedit_2_0");
@@ -52,6 +84,28 @@ namespace WorldEdit_2_0
         private void InjectDependencies()
         {
             //EdbPatch();
+
+            RegisterWorldObjects();
+
+            RegisterWorldObjectsComps();
+        }
+
+        private void RegisterWorldObjects()
+        {
+            ObjectsEditor objectsEditor = worldEditor.GetEditor<ObjectsEditor>();
+            for (int i = 0; i < toRegisterObjectsEditors.Count; i++)
+            {
+                objectsEditor.RegisterWorldEditObject((WorldEditWorldObject)Activator.CreateInstance(toRegisterObjectsEditors[i]));
+            }
+        }
+
+        private void RegisterWorldObjectsComps()
+        {
+            ObjectsEditor objectsEditor = worldEditor.GetEditor<ObjectsEditor>();
+            for (int i = 0; i < toRegisterObjectsComps.Count; i++)
+            {
+                objectsEditor.RegisterWorldEditWorldOjectComp((WorldEditWorldObjectComp)Activator.CreateInstance(toRegisterObjectsComps[i]));
+            }
         }
 
         //private void EdbPatch()
@@ -77,13 +131,10 @@ namespace WorldEdit_2_0
 
         private void RegisterEditors()
         {
-            RegisterEditor(typeof(TileEditor));
-            RegisterEditor(typeof(TemplateEditor));
-            RegisterEditor(typeof(RiversEditor));
-            RegisterEditor(typeof(RoadsEditor));
-            RegisterEditor(typeof(WorldFeatureEditor));
-            RegisterEditor(typeof(FactionEditor));
-            RegisterEditor(typeof(SettlementEditor));
+            for(int i = 0; i  < toRegisterEditors.Count; i++)
+            {
+                RegisterEditor(toRegisterEditors[i]);
+            }
         }
 
         public override string SettingsCategory()

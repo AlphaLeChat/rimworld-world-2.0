@@ -11,7 +11,7 @@ using WorldEdit_2_0.MainEditor.WorldFeatures;
 
 namespace WorldEdit_2_0.MainEditor.WorldObjects.Settlements
 {
-    class SettlementEditorWindow : EditWindow
+    public class SettlementEditorWindow : EditWindow
     {
         enum SettlementGroupBy : byte
         {
@@ -44,7 +44,8 @@ namespace WorldEdit_2_0.MainEditor.WorldObjects.Settlements
         private string oldSearchBuff;
 
         private List<Settlement> settlements;
-        private List<IGrouping<string, Settlement>> settlementsSorted;
+        private List<IGrouping<string, Settlement>> settlementsGrouped;
+        private List<Settlement> settlementsSorted;
 
         private Func<Settlement, string> factionGroupFunc = delegate (Settlement settl) { return settl.Faction.Name; };
         private Func<Settlement, string> factionDefGroupFunc = delegate (Settlement settl) { return settl.Faction.def.LabelCap; };
@@ -92,16 +93,18 @@ namespace WorldEdit_2_0.MainEditor.WorldObjects.Settlements
         private void RecacheSettlements()
         {
             settlements = Find.WorldObjects.Settlements.Where(settl => string.IsNullOrEmpty(searchBuff) || (!string.IsNullOrEmpty(searchBuff) && settl.Name.Contains(searchBuff))).ToList();
-            switch(groupBy)
+            settlementsSorted = WorldObjectsUtils.SortWorldObjectsBy(settlements, sortWorldObjectBy).ToList();
+
+            switch (groupBy)
             {
                 case SettlementGroupBy.FactionName:
                     {
-                        settlementsSorted = settlements.GroupBy(gKey => factionGroupFunc(gKey)).ToList();
+                        settlementsGrouped = settlementsSorted.GroupBy(gKey => factionGroupFunc(gKey)).ToList();
                         break;
                     }
                 case SettlementGroupBy.FactionDef:
                     {
-                        settlementsSorted = settlements.GroupBy(gKey => factionDefGroupFunc(gKey)).ToList();
+                        settlementsGrouped = settlementsSorted.GroupBy(gKey => factionDefGroupFunc(gKey)).ToList();
                         break;
                     }
             }
@@ -112,12 +115,11 @@ namespace WorldEdit_2_0.MainEditor.WorldObjects.Settlements
             }
             else
             {
-                sliderSize = settlementsSorted.Count * 20;
-                foreach (var gValue in settlementsSorted)
+                sliderSize = settlementsGrouped.Count * 20;
+                foreach (var gValue in settlementsGrouped)
                 {
                     sliderSize += gValue.Count() * 22;
                 }
-
             }
         }
 
@@ -146,7 +148,7 @@ namespace WorldEdit_2_0.MainEditor.WorldObjects.Settlements
             int x = 0;
             if (groupBy == SettlementGroupBy.None)
             {
-                foreach (var settlement in WorldObjectsUtils.SortWorldObjectsBy(settlements, sortWorldObjectBy))
+                foreach (var settlement in settlementsSorted)
                 {
                     var settlButtonRect = new Rect(0, x, 305, 20);
 
@@ -166,13 +168,13 @@ namespace WorldEdit_2_0.MainEditor.WorldObjects.Settlements
             }
             else
             {
-                foreach (var settlementGroup in settlementsSorted)
+                foreach (var settlementGroup in settlementsGrouped)
                 {
                     Widgets.Label(new Rect(0, x, 305, 20), settlementGroup.Key);
 
                     x += 20;
 
-                    foreach (var settlement in WorldObjectsUtils.SortWorldObjectsBy(settlementGroup, sortWorldObjectBy))
+                    foreach (var settlement in settlementGroup)
                     {
                         var settlButtonRect = new Rect(15, x, 290, 20);
 
@@ -249,6 +251,8 @@ namespace WorldEdit_2_0.MainEditor.WorldObjects.Settlements
                     list.Add(new FloatMenuOption(groupParam.TranslateSortWorldObjectBy(), () =>
                     {
                         sortWorldObjectBy = groupParam;
+
+                        RecacheSettlements();
                     }));
                 }
 
@@ -368,12 +372,8 @@ namespace WorldEdit_2_0.MainEditor.WorldObjects.Settlements
                     {
                         var tileSettlement = Find.WorldObjects.SettlementAt(clickTile);
 
-                        Log.Message($"CLICK ON" + tileSettlement);
-
                         if (tileSettlement != null && tileSettlement != selectedSettlement)
                         {
-                            Log.Message($"tileSettlement != null && tileSettlement != selectedSettlement");
-
                             SelectNewSettlement(tileSettlement);
                         }
                     }
@@ -425,21 +425,17 @@ namespace WorldEdit_2_0.MainEditor.WorldObjects.Settlements
             {
                 SelectNewSettlement(settlement);
             }
+
+            RecacheSettlements();
         }
 
         private void SelectNewSettlement(Settlement settlement)
         {
-            Log.Message($"Tryin select" + settlement);
-
             selectedSettlement = settlement;
 
             tmpSettlementName = settlement.Name;
 
-            Log.Message($"Name: " + settlement.Name);
-
             tmpFaction = settlement.Faction;
-
-            Log.Message($"Faction: " + settlement.Faction);
         }
 
         private void DeleteSettlement(Settlement settlement)
@@ -448,6 +444,8 @@ namespace WorldEdit_2_0.MainEditor.WorldObjects.Settlements
                 return;
 
             Find.WorldObjects.Remove(settlement);
+
+            RecacheSettlements();
         }
 
     }

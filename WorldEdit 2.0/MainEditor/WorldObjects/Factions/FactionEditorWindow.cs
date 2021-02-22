@@ -27,10 +27,11 @@ namespace WorldEdit_2_0.MainEditor.WorldObjects.Factions
         private List<FactionDef> avaliableFactionsDefs;
         private List<Faction> spawnedFactions;
 
-        private List<IGrouping<string, Faction>> spawnedFactionsSorted;
+        private List<IGrouping<string, Faction>> spawnedFactionsGrouped;
         private Func<Faction, string> factionDefGroupFunc = delegate (Faction fact) { return fact.def.LabelCap; };
         private int sliderSize = 0;
         private FactionGroupBy groupBy = FactionGroupBy.None;
+        private List<Faction> spawnedFactionsSorted;
 
         private Vector2 scrollPositionFactionList = Vector2.zero;
         private Vector2 scrollPositionRelation = Vector2.zero;
@@ -76,12 +77,13 @@ namespace WorldEdit_2_0.MainEditor.WorldObjects.Factions
         private void RecacheFactions()
         {
             spawnedFactions = rimFactionManager.AllFactionsListForReading.Where(fac => avaliableFactionsDefs.Contains(fac.def) && (string.IsNullOrEmpty(searchBuff) || (!string.IsNullOrEmpty(searchBuff) && fac.Name.Contains(searchBuff)))).ToList();
+            spawnedFactionsSorted = WorldObjectsUtils.SortFactionBy(spawnedFactions, sortWorldObjectBy).ToList();
 
             switch (groupBy)
             {
                 case FactionGroupBy.FactionDef:
                     {
-                        spawnedFactionsSorted = spawnedFactions.GroupBy(gKey => factionDefGroupFunc(gKey)).ToList();
+                        spawnedFactionsGrouped = spawnedFactionsSorted.GroupBy(gKey => factionDefGroupFunc(gKey)).ToList();
                         break;
                     }
             }
@@ -92,8 +94,8 @@ namespace WorldEdit_2_0.MainEditor.WorldObjects.Factions
             }
             else
             {
-                sliderSize = spawnedFactionsSorted.Count * 20;
-                foreach (var gValue in spawnedFactionsSorted)
+                sliderSize = spawnedFactionsGrouped.Count * 20;
+                foreach (var gValue in spawnedFactionsGrouped)
                 {
                     sliderSize += gValue.Count() * 22;
                 }
@@ -130,7 +132,7 @@ namespace WorldEdit_2_0.MainEditor.WorldObjects.Factions
 
             if (groupBy == FactionGroupBy.None)
             {
-                foreach (var spawnedFaction in WorldObjectsUtils.SortFactionBy(spawnedFactions, sortWorldObjectBy))
+                foreach (var spawnedFaction in spawnedFactionsSorted)
                 {
                     var spawnedFactionButtonRect = new Rect(0, yButtonPos, 300, 20);
 
@@ -149,13 +151,13 @@ namespace WorldEdit_2_0.MainEditor.WorldObjects.Factions
             }
             else
             {
-                foreach (var spawnedFactionGroup in spawnedFactionsSorted)
+                foreach (var spawnedFactionGroup in spawnedFactionsGrouped)
                 {
                     Widgets.Label(new Rect(0, yButtonPos, 300, 20), spawnedFactionGroup.Key);
 
                     yButtonPos += 20;
 
-                    foreach (var spawnedFaction in WorldObjectsUtils.SortFactionBy(spawnedFactionGroup, sortWorldObjectBy))
+                    foreach (var spawnedFaction in spawnedFactionGroup)
                     {
                         var spawnedFactionButtonRect = new Rect(15, yButtonPos, 285, 20);
 
@@ -209,6 +211,8 @@ namespace WorldEdit_2_0.MainEditor.WorldObjects.Factions
                     list.Add(new FloatMenuOption(groupParam.TranslateSortWorldObjectBy(), () =>
                     {
                         sortWorldObjectBy = groupParam;
+
+                        RecacheFactions();
                     }));
                 }
 
