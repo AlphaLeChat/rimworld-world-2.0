@@ -19,9 +19,12 @@
 	<SettlementGroupBy_None>Без группировки</SettlementGroupBy_None>
 	<SettlementGroupBy_FactionName>Фракции</SettlementGroupBy_FactionName>
 	<SettlementGroupBy_FactionDef>Def фракции</SettlementGroupBy_FactionDef>
+	<SettlementGroupBy_SettlementDef>Def поселения</SettlementGroupBy_SettlementDef>
 	
 	<SettlementEditorWindow_Sort>Сортировать по: {0}</SettlementEditorWindow_Sort>
 	
 	<SettlementEditor_DragAndDropKey>Кнопка для переноса поселений</SettlementEditor_DragAndDropKey>
+	
+	<SettlementEditorWindow_NoAvaliableSettlementDefs>Нет доступных шаблонов для поселений</SettlementEditorWindow_NoAvaliableSettlementDefs>
 	
 </LanguageData>

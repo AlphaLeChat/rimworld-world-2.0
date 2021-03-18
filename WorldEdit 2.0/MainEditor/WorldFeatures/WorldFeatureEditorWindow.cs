@@ -218,6 +218,8 @@ namespace WorldEdit_2_0.MainEditor.WorldFeatures
             worldFeatureEditor.DeleteFeature(worldFeature);
 
             selectedFeature = null;
+
+            RecacheWorldFeatures();
         }
 
         private void AddNewFeature(int tile, bool select = false)

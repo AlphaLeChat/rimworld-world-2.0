@@ -22,6 +22,33 @@ namespace WorldEdit_2_0.MainEditor.WorldObjects.Settlements
         public KeyCode DragAndDropKey => dragAndDropKey;
         private KeyCode dragAndDropKey;
 
+        private List<WorldObjectDef> avaliableSettlementsDefs = new List<WorldObjectDef>();
+        public IEnumerable<WorldObjectDef> AvaliableSettlementsDefs => avaliableSettlementsDefs.AsEnumerable();
+
+        private List<string> registeredSettlementDefNames = new List<string>();
+
+        public IEnumerable<string> RegisteredSettlementDefNames => registeredSettlementDefNames.AsEnumerable();
+        public void RegisterSettlementWorldObjectDef(WorldObjectDef settlementWorldObjectDef)
+        {
+            if (avaliableSettlementsDefs.Contains(settlementWorldObjectDef))
+                return;
+
+            if(settlementWorldObjectDef.worldObjectClass != typeof(Settlement) && !settlementWorldObjectDef.worldObjectClass.IsSubclassOf(typeof(Settlement)))
+            {
+                Log.Error($"Trying add {settlementWorldObjectDef.defName} but worldObjectClass is not assignable from Settlement. May cause errors");
+            }
+
+            avaliableSettlementsDefs.Add(settlementWorldObjectDef);
+        }
+
+        public void RegisterSettlementWorldObjectDefName(string worldObjectDefName)
+        {
+            if (registeredSettlementDefNames.Contains(worldObjectDefName))
+                return;
+
+            registeredSettlementDefNames.Add(worldObjectDefName);
+        }
+
         public void DeleteAllSettlements()
         {
             List<Settlement> allSettlements = new List<Settlement>(Find.WorldObjects.Settlements.Where(stl =>
@@ -34,10 +61,10 @@ namespace WorldEdit_2_0.MainEditor.WorldObjects.Settlements
             }
         }
 
-        public Settlement AddNewSettlement(int tile, Faction faction)
+        public Settlement AddNewSettlement(int tile, Faction faction, WorldObjectDef worldObjectDef)
         {
-            WorldObject obj = (WorldObject)Activator.CreateInstance(WorldObjectDefOf.Settlement.worldObjectClass);
-            obj.def = WorldObjectDefOf.Settlement;
+            WorldObject obj = (WorldObject)Activator.CreateInstance(worldObjectDef.worldObjectClass);
+            obj.def = worldObjectDef;
             obj.ID = Find.UniqueIDsManager.GetNextWorldObjectID();
             obj.creationGameTicks = Find.TickManager.TicksGame;
             obj.PostMake();
@@ -46,7 +73,7 @@ namespace WorldEdit_2_0.MainEditor.WorldObjects.Settlements
 
             settlement.SetFaction(faction);
             settlement.Tile = tile;
-            settlement.Name = "New settlement " + obj.ID;
+            settlement.Name = $"{worldObjectDef.defName} " + obj.ID;
 
             Find.WorldObjects.Add(settlement);
 
@@ -70,6 +97,27 @@ namespace WorldEdit_2_0.MainEditor.WorldObjects.Settlements
                     }));
                 }
                 Find.WindowStack.Add(new FloatMenu(list));
+            }
+        }
+
+        public override void WorldFinalizeInit()
+        {
+            base.WorldFinalizeInit();
+
+            avaliableSettlementsDefs.Clear();
+
+            foreach (var registeredSettlementDefName in registeredSettlementDefNames)
+            {
+                try
+                {
+                    WorldObjectDef settlementWorldObjectDef = DefDatabase<WorldObjectDef>.GetNamed(registeredSettlementDefName);
+
+                    RegisterSettlementWorldObjectDef(settlementWorldObjectDef);
+                }
+                catch(Exception ex)
+                {
+                    Log.Error($"Cannot to create {registeredSettlementDefName}, because {ex}");
+                }
             }
         }
 

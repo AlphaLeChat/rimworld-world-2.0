@@ -23,7 +23,6 @@ using WorldEdit_2_0.Settings;
 
 namespace WorldEdit_2_0
 {
-    [StaticConstructorOnStartup]
     public class WorldEdit : Mod
     {
         private static Harmony harmonyInstance;
@@ -67,6 +66,11 @@ namespace WorldEdit_2_0
             typeof(WorldEditItemStashContentsComp), //legacy
         };
 
+        private List<string> settlementWorldObjects = new List<string>
+        {
+            "Settlement"
+        };
+
         public WorldEdit(ModContentPack content) : base(content)
         {
             harmonyInstance = new Harmony("net.funkyshit.worldedit_2_0");
@@ -88,6 +92,8 @@ namespace WorldEdit_2_0
             RegisterWorldObjects();
 
             RegisterWorldObjectsComps();
+
+            RegisterSettlementsWorldObjectDefs();
         }
 
         private void RegisterWorldObjects()
@@ -105,6 +111,15 @@ namespace WorldEdit_2_0
             for (int i = 0; i < toRegisterObjectsComps.Count; i++)
             {
                 objectsEditor.RegisterWorldEditWorldOjectComp((WorldEditWorldObjectComp)Activator.CreateInstance(toRegisterObjectsComps[i]));
+            }
+        }
+
+        private void RegisterSettlementsWorldObjectDefs()
+        {
+            SettlementEditor settlementEditor = worldEditor.GetEditor<SettlementEditor>();
+            for (int i = 0; i < settlementWorldObjects.Count; i++)
+            {
+                settlementEditor.RegisterSettlementWorldObjectDefName(settlementWorldObjects[i]);
             }
         }
 

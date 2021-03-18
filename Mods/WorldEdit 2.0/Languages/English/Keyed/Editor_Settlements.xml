@@ -19,9 +19,12 @@
 	<SettlementGroupBy_None>No group</SettlementGroupBy_None>
 	<SettlementGroupBy_FactionName>Faction</SettlementGroupBy_FactionName>
 	<SettlementGroupBy_FactionDef>Faction def</SettlementGroupBy_FactionDef>
+	<SettlementGroupBy_SettlementDef>Settlement def</SettlementGroupBy_SettlementDef>
 	
 	<SettlementEditorWindow_Sort>Sort by: {0}</SettlementEditorWindow_Sort>
 	
 	<SettlementEditor_DragAndDropKey>Settlement 'drag and drop' button</SettlementEditor_DragAndDropKey>
+	
+	<SettlementEditorWindow_NoAvaliableSettlementDefs>No templates available for settlements </SettlementEditorWindow_NoAvaliableSettlementDefs>
 	
 </LanguageData>

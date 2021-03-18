@@ -17,7 +17,8 @@ namespace WorldEdit_2_0.MainEditor.WorldObjects.Settlements
         {
             None = 0,
             FactionName,
-            FactionDef
+            FactionDef,
+            SettlementDef
         }
 
         private SettlementEditor settlementEditor;
@@ -33,6 +34,7 @@ namespace WorldEdit_2_0.MainEditor.WorldObjects.Settlements
         private Faction tmpFaction;
 
         private bool createSettlementClick = false;
+        private WorldObjectDef settlementDef;
 
         private Texture2D mouseSettlementTexture;
 
@@ -49,6 +51,7 @@ namespace WorldEdit_2_0.MainEditor.WorldObjects.Settlements
 
         private Func<Settlement, string> factionGroupFunc = delegate (Settlement settl) { return settl.Faction.Name; };
         private Func<Settlement, string> factionDefGroupFunc = delegate (Settlement settl) { return settl.Faction.def.LabelCap; };
+        private Func<Settlement, string> settlementDefGroupFunc = delegate (Settlement settl) { return settl.def.defName; };
 
         private int sliderSize = 0;
         private SettlementGroupBy groupBy = SettlementGroupBy.None;
@@ -105,6 +108,11 @@ namespace WorldEdit_2_0.MainEditor.WorldObjects.Settlements
                 case SettlementGroupBy.FactionDef:
                     {
                         settlementsGrouped = settlementsSorted.GroupBy(gKey => factionDefGroupFunc(gKey)).ToList();
+                        break;
+                    }
+                case SettlementGroupBy.SettlementDef:
+                    {
+                        settlementsGrouped = settlementsSorted.GroupBy(gKey => settlementDefGroupFunc(gKey)).ToList();
                         break;
                     }
             }
@@ -170,7 +178,7 @@ namespace WorldEdit_2_0.MainEditor.WorldObjects.Settlements
             {
                 foreach (var settlementGroup in settlementsGrouped)
                 {
-                    Widgets.Label(new Rect(0, x, 305, 20), settlementGroup.Key);
+                    Widgets.Label(new Rect(0, x, 305, 23), settlementGroup.Key);
 
                     x += 20;
 
@@ -205,10 +213,31 @@ namespace WorldEdit_2_0.MainEditor.WorldObjects.Settlements
             {
                 if (avaliableFactions.Count > 0)
                 {
-                    createSettlementClick = true;
-                    closeOnCancel = false;
+                    if (settlementEditor.AvaliableSettlementsDefs.Any())
+                    {
+                        if (settlementEditor.AvaliableSettlementsDefs.Count() > 1)
+                        {
+                            List<FloatMenuOption> list = new List<FloatMenuOption>();
 
-                    Messages.Message("SettlementEditorWindow_SelectSettlementPlace".Translate(), MessageTypeDefOf.NeutralEvent, false);
+                            foreach (WorldObjectDef settlDef in settlementEditor.AvaliableSettlementsDefs)
+                            {
+                                list.Add(new FloatMenuOption(settlDef.LabelCap, () =>
+                                {
+                                    InitClickCreateSettlement(settlDef);
+                                }));
+                            }
+
+                            Find.WindowStack.Add(new FloatMenu(list));
+                        }
+                        else
+                        {
+                            InitClickCreateSettlement(settlementEditor.AvaliableSettlementsDefs.First());
+                        }
+                    }
+                    else
+                    {
+                        Messages.Message("SettlementEditorWindow_NoAvaliableSettlementDefs".Translate(), MessageTypeDefOf.NeutralEvent, false);
+                    }
                 }
                 else
                 {
@@ -310,6 +339,15 @@ namespace WorldEdit_2_0.MainEditor.WorldObjects.Settlements
                     SaveSettlement();
                 }
             }
+        }
+
+        private void InitClickCreateSettlement(WorldObjectDef settlDef)
+        {
+            createSettlementClick = true;
+            closeOnCancel = false;
+            settlementDef = settlDef;
+
+            Messages.Message("SettlementEditorWindow_SelectSettlementPlace".Translate(), MessageTypeDefOf.NeutralEvent, false);
         }
 
         private string TranslateSettlementGroupLabel(SettlementGroupBy groupBy)
@@ -419,7 +457,7 @@ namespace WorldEdit_2_0.MainEditor.WorldObjects.Settlements
 
         private void AddNewSettlement(int tile, bool select = false)
         {
-            Settlement settlement = settlementEditor.AddNewSettlement(tile, fixedFactionOnSpawn ?? avaliableFactions.RandomElement());
+            Settlement settlement = settlementEditor.AddNewSettlement(tile, fixedFactionOnSpawn ?? avaliableFactions.RandomElement(), settlementDef);
 
             if(select)
             {

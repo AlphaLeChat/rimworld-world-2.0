@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorldEdit 2.0", "WorldEdit 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestApi", "test\TestApi.csproj", "{CDE35FAF-E31D-48FB-8F3D-0FE4BF24CBE4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorldEdit_RimCity", "WorldEdit_RimCity\WorldEdit_RimCity.csproj", "{7BEF2A7F-12C0-4C53-84A3-9FAC2CA462E6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{CDE35FAF-E31D-48FB-8F3D-0FE4BF24CBE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CDE35FAF-E31D-48FB-8F3D-0FE4BF24CBE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CDE35FAF-E31D-48FB-8F3D-0FE4BF24CBE4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7BEF2A7F-12C0-4C53-84A3-9FAC2CA462E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7BEF2A7F-12C0-4C53-84A3-9FAC2CA462E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7BEF2A7F-12C0-4C53-84A3-9FAC2CA462E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7BEF2A7F-12C0-4C53-84A3-9FAC2CA462E6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
