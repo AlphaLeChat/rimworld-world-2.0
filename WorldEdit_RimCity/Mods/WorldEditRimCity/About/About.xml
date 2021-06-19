@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ModMetaData>
-	<name>WorldEdit 2.0 - RimCity compatability</name>
+	<name>WorldEdit 2.0 - RimCities compatibility</name>
 	<author>FunkyShit</author>
 	<description>
-		Adds world objects from rimcity to create 
+		Adds world objects from rimcities to create 
 	</description>
 	<supportedVersions>
 		<li>1.1</li>
 		<li>1.2</li>
 	</supportedVersions>
-	<packageId>FunkyShit.Mods.WorldEdit.RimCity</packageId>
+	<packageId>FunkyShit.Mods.WorldEdit.RimCities</packageId>
 </ModMetaData>

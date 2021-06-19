@@ -56,7 +56,7 @@ namespace WorldEdit_2_0.MainEditor.Tiles
  
         private CustomRock customRockData = null;
 
-        private GameComponent_CustomNaturalRocks customNaturalRocks;
+        private GameComponent_CustomNaturalRocks customNaturalRocks => Current.Game.GetComponent<GameComponent_CustomNaturalRocks>();
         private List<ThingDef> customRocksTmp;
 
         private IntRange brushRadius = new IntRange();
@@ -71,8 +71,6 @@ namespace WorldEdit_2_0.MainEditor.Tiles
 
             terrainSubMeshes = tileEditor.LayersSubMeshes["WorldLayer_Terrain"];
             hillinessSubMeshes = tileEditor.LayersSubMeshes["WorldLayer_Hills"];
-
-            customNaturalRocks = Current.Game.GetComponent<GameComponent_CustomNaturalRocks>();
         }
 
         public override void DoWindowContents(Rect inRect)
@@ -325,6 +323,8 @@ namespace WorldEdit_2_0.MainEditor.Tiles
 
             foreach(var tile in radiusTiles)
             {
+                GetCustomRocksFor(tile);
+
                 SingleTile(tile);
             }
         }
@@ -343,6 +343,13 @@ namespace WorldEdit_2_0.MainEditor.Tiles
             rainfall = tile.rainfall;
             elevation = tile.elevation;
 
+            GetCustomRocksFor(tileId);
+
+            customRocksTmp = new List<ThingDef>(customRockData.Rocks);
+        }
+
+        private void GetCustomRocksFor(int tileId)
+        {
             if (customNaturalRocks.ResourceData.ContainsKey(tileId))
             {
                 customRockData = customNaturalRocks.ResourceData[tileId];
@@ -351,8 +358,6 @@ namespace WorldEdit_2_0.MainEditor.Tiles
             {
                 customRockData = new CustomRock(tileId, Find.World.NaturalRockTypesIn(tileId).ToList(), Find.World.HasCaves(tileId));
             }
-
-            customRocksTmp = new List<ThingDef>(customRockData.Rocks);
         }
 
         private string GetString(SetType setType)

@@ -42,9 +42,12 @@ namespace WorldEdit_2_0.MainEditor.Tiles
             LayersSubMeshes = new Dictionary<string, List<LayerSubMesh>>(tempLayers.Count);
             foreach (var layer in tempLayers)
             {
-                Layers.Add(layer.GetType().Name, layer);
-                List<LayerSubMesh> meshes = fieldMeshes.GetValue(layer) as List<LayerSubMesh>;
-                LayersSubMeshes.Add(layer.GetType().Name, meshes);
+                if (!Layers.ContainsKey(layer.GetType().Name))
+                {
+                    Layers.Add(layer.GetType().Name, layer);
+                    List<LayerSubMesh> meshes = fieldMeshes.GetValue(layer) as List<LayerSubMesh>;
+                    LayersSubMeshes.Add(layer.GetType().Name, meshes);
+                }
             }
         }
 
