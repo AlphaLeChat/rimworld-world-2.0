@@ -283,7 +283,7 @@ namespace WorldEdit_2_0.MainEditor.WorldObjects.Factions
 
                     y += 35;
                     Widgets.Label(new Rect(5, y, 142, 30), Translator.Translate("FactionEditorWindow_FactionGoodness"));
-                    Widgets.TextFieldNumeric(new Rect(150, y, 375, 30), ref rel.goodwill, ref newFactionGoodwillBuff[i], -10000000000f);
+                    Widgets.TextFieldNumeric(new Rect(150, y, 375, 30), ref rel.baseGoodwill, ref newFactionGoodwillBuff[i], -10000000000f);
 
                     y += 35;
                     switch (rel.kind)
@@ -351,7 +351,7 @@ namespace WorldEdit_2_0.MainEditor.WorldObjects.Factions
             newFactionGoodwillBuff = new string[newFactionRelation.Count];
 
             for (int i = 0; i < newFactionRelation.Count; i++)
-                newFactionGoodwillBuff[i] = newFactionRelation[i].goodwill.ToString();
+                newFactionGoodwillBuff[i] = newFactionRelation[i].baseGoodwill.ToString();
 
             if (faction.TryGenerateNewLeader())
             {
@@ -409,7 +409,7 @@ namespace WorldEdit_2_0.MainEditor.WorldObjects.Factions
             newFactionGoodwillBuff = new string[newFactionRelation.Count];
 
             for (int i = 0; i < newFactionRelation.Count; i++)
-                newFactionGoodwillBuff[i] = newFactionRelation[i].goodwill.ToString();
+                newFactionGoodwillBuff[i] = newFactionRelation[i].baseGoodwill.ToString();
         }
     }
 }

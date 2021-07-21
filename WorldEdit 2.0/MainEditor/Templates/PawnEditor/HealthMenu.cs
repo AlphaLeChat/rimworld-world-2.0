@@ -223,7 +223,7 @@ namespace WorldEdit_2_0.MainEditor.Templates.PawnEditor
             }
             else
             {
-                GUI.color = HealthUtility.DarkRedColor;
+                GUI.color = HealthUtility.RedColor;
                 Widgets.Label(new Rect(0f, curY, num, 100f), "WholeBody".Translate());
             }
             GUI.color = Color.white;

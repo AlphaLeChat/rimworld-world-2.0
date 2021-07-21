@@ -142,7 +142,7 @@ namespace WorldEdit_2_0.MainEditor.Templates.PawnEditor
                 Vector2 pawnSelectorPortraitSize3 = PawnSelectorPortraitSize;
                 float x2 = pawnSelectorPortraitSize3.x;
                 Vector2 pawnSelectorPortraitSize4 = PawnSelectorPortraitSize;
-                GUI.DrawTexture(new Rect(x, y, x2, pawnSelectorPortraitSize4.y), PortraitsCache.Get(pawn, PawnSelectorPortraitSize));
+                GUI.DrawTexture(new Rect(x, y, x2, pawnSelectorPortraitSize4.y), PortraitsCache.Get(pawn, PawnSelectorPortraitSize, Rot4.South));
                 GUI.color = Color.white;
                 Rect rect4 = rect3.ContractedBy(4f).Rounded();
                 NameTriple nameTriple = pawn.Name as NameTriple;
@@ -198,7 +198,7 @@ namespace WorldEdit_2_0.MainEditor.Templates.PawnEditor
             Vector2 pawnPortraitSize2 = PawnPortraitSize;
             float x3 = pawnPortraitSize2.x;
             Vector2 pawnPortraitSize3 = PawnPortraitSize;
-            GUI.DrawTexture(new Rect(x2, y, x3, pawnPortraitSize3.y), PortraitsCache.Get(curPawn, PawnPortraitSize));
+            GUI.DrawTexture(new Rect(x2, y, x3, pawnPortraitSize3.y), PortraitsCache.Get(curPawn, PawnPortraitSize, Rot4.South));
             Rect rect2 = rect;
             rect2.width = 500f;
             DrawCharacterCard(rect2, curPawn, rect);
