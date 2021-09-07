@@ -341,6 +341,15 @@ namespace WorldEdit_2_0.MainEditor.WorldObjects.Factions
         {
             Faction faction = factionEditor.GenerateFaction(avaliableFactionsDefs.RandomElement());
 
+            if (faction.def.humanlikeFaction)
+            {
+                faction.ideos = new FactionIdeosTracker(faction);
+                if (!faction.IsPlayer || !ModsConfig.IdeologyActive || !Find.GameInitData.startedFromEntry)
+                {
+                    faction.ideos.ChooseOrGenerateIdeo(default(IdeoGenerationParms));
+                }
+            }
+
             foreach (Faction item in Find.FactionManager.AllFactions)
             {
                 faction.TryMakeInitialRelationsWith(item);

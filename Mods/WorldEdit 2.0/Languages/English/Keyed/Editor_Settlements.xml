@@ -25,6 +25,7 @@
 	
 	<SettlementEditor_DragAndDropKey>Settlement 'drag and drop' button</SettlementEditor_DragAndDropKey>
 	
-	<SettlementEditorWindow_NoAvaliableSettlementDefs>No templates available for settlements </SettlementEditorWindow_NoAvaliableSettlementDefs>
+	<SettlementEditorWindow_NoAvaliableSettlementDefs>No templates available for settlements</SettlementEditorWindow_NoAvaliableSettlementDefs>
+	<SettlementEditor_DeleteSettlementKey>Deleting the selected settlement</SettlementEditor_DeleteSettlementKey>
 	
 </LanguageData>

@@ -453,6 +453,14 @@ namespace WorldEdit_2_0.MainEditor.WorldObjects.Settlements
 
                 closeOnCancel = true;
             }
+
+            if(Input.GetKeyDown(settlementEditor.DeleteSettlementKey))
+            {
+                if(Find.WorldSelector.FirstSelectedObject is Settlement settlement)
+                {
+                    DeleteSettlement(settlement);
+                }
+            }
         }
 
         private void AddNewSettlement(int tile, bool select = false)

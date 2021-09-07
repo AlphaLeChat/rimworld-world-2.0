@@ -26,5 +26,6 @@
 	<SettlementEditor_DragAndDropKey>Кнопка для переноса поселений</SettlementEditor_DragAndDropKey>
 	
 	<SettlementEditorWindow_NoAvaliableSettlementDefs>Нет доступных шаблонов для поселений</SettlementEditorWindow_NoAvaliableSettlementDefs>
+	<SettlementEditor_DeleteSettlementKey>Быстрое удаление выделенного поселения</SettlementEditor_DeleteSettlementKey>
 	
 </LanguageData>

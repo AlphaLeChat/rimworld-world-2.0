@@ -22,6 +22,9 @@ namespace WorldEdit_2_0.MainEditor.WorldObjects.Settlements
         public KeyCode DragAndDropKey => dragAndDropKey;
         private KeyCode dragAndDropKey;
 
+        public KeyCode DeleteSettlementKey => deleteSettlementKey;
+        private KeyCode deleteSettlementKey;
+
         private List<WorldObjectDef> avaliableSettlementsDefs = new List<WorldObjectDef>();
         public IEnumerable<WorldObjectDef> AvaliableSettlementsDefs => avaliableSettlementsDefs.AsEnumerable();
 
@@ -73,7 +76,8 @@ namespace WorldEdit_2_0.MainEditor.WorldObjects.Settlements
 
             settlement.SetFaction(faction);
             settlement.Tile = tile;
-            settlement.Name = $"{worldObjectDef.defName} " + obj.ID;
+            settlement.Name = faction.Name;
+            //settlement.Name = $"{worldObjectDef.defName} " + obj.ID;
 
             Find.WorldObjects.Add(settlement);
 
@@ -92,6 +96,21 @@ namespace WorldEdit_2_0.MainEditor.WorldObjects.Settlements
                     list.Add(new FloatMenuOption(code.ToString(), delegate
                     {
                         dragAndDropKey = code;
+
+                        Messages.Message("WE_Settings_Key_Update".Translate(code.ToString()), MessageTypeDefOf.NeutralEvent, false);
+                    }));
+                }
+                Find.WindowStack.Add(new FloatMenu(list));
+            }
+
+            if (listing_Standard.ButtonText($"{EditorName} {"SettlementEditor_DeleteSettlementKey".Translate()}: {deleteSettlementKey}"))
+            {
+                List<FloatMenuOption> list = new List<FloatMenuOption>();
+                foreach (KeyCode code in Enum.GetValues(typeof(KeyCode)))
+                {
+                    list.Add(new FloatMenuOption(code.ToString(), delegate
+                    {
+                        deleteSettlementKey = code;
 
                         Messages.Message("WE_Settings_Key_Update".Translate(code.ToString()), MessageTypeDefOf.NeutralEvent, false);
                     }));
@@ -126,6 +145,7 @@ namespace WorldEdit_2_0.MainEditor.WorldObjects.Settlements
             base.ExposeData();
 
             Scribe_Values.Look(ref dragAndDropKey, "dragAndDropKey", KeyCode.Mouse2);
+            Scribe_Values.Look(ref deleteSettlementKey, "deleteSettlementKey", KeyCode.Delete);
         }
     }
 }
