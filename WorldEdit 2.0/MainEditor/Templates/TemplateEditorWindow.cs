@@ -1,9 +1,12 @@
 ﻿using RimWorld;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
+using System.Xml.Linq;
 using UnityEngine;
 using Verse;
 using WorldEdit_2_0.MainEditor.Templates.PawnEditor;
@@ -56,6 +59,7 @@ namespace WorldEdit_2_0.MainEditor.Templates
             Widgets.Label(new Rect(0, 100, 150, 20), Translator.Translate("TemplateEditorWindow_Description"));
             description = Widgets.TextAreaScrollable(new Rect(0, 120, 300, 430), description, ref scrollDesc);
 
+            /*
             Widgets.Label(new Rect(310, 15, 400, 20), Translator.Translate("TemplateEditorWindow_SelectStoryteller"));
             if (Widgets.ButtonText(new Rect(310, 40, 400, 20), Current.Game.storyteller.def.LabelCap))
             {
@@ -92,6 +96,7 @@ namespace WorldEdit_2_0.MainEditor.Templates
                     }
                 }
             }
+            */
 
             if (Widgets.ButtonText(new Rect(0, 555, 710, 20), Translator.Translate("TemplateEditorWindow_CreateTemplate")))
             {
@@ -99,15 +104,15 @@ namespace WorldEdit_2_0.MainEditor.Templates
             }
         }
 
-        private void ShowStandartEditor()
-        {
-            Find.WindowStack.Add(new PawnMenu(Find.GameInitData.startingAndOptionalPawns, 99));
-        }
+        //private void ShowStandartEditor()
+        //{
+        //    Find.WindowStack.Add(new PawnMenu(Find.GameInitData.startingAndOptionalPawns, 99));
+        //}
 
-        private void ShowEdbEditor()
-        {
+        //private void ShowEdbEditor()
+        //{
             
-        }
+        //}
 
         private void CreateWorldTemplate()
         {
@@ -133,11 +138,71 @@ namespace WorldEdit_2_0.MainEditor.Templates
             worldTemplate.SetAuthor(author);
             worldTemplate.SetDescription(description);
             worldTemplate.SetCanSelectPawns(canSelectPawns);
-            worldTemplate.SetForceStartPawns(Find.GameInitData.startingAndOptionalPawns);
+            //worldTemplate.SetForceStartPawns(Find.GameInitData.startingAndOptionalPawns);
 
-            GameDataSaveLoader.SaveGame(worldTemplate.TemplateName);
+            //GameDataSaveLoader.SaveGame(worldTemplate.TemplateName);
 
-            worldTemplate.ClearTemplate();
+            //worldTemplate.ClearTemplate();
+
+            //WorldTemplateDef worldTemplateDef = TemplateEditor.GenerateTemplateFromCurrentWorld(templateName.Replace(" ", "_").Replace("-", ""), templateName, author, description);
+            //string genBlueprintsFolder = Path.Combine(GenFilePaths.ConfigFolderPath, TemplateEditor.TemplateFolder);
+            //if (!Directory.Exists(genBlueprintsFolder))
+            //{
+            //    Directory.CreateDirectory(genBlueprintsFolder);
+            //}
+            //string blueprintName = Path.Combine(genBlueprintsFolder, $"{worldTemplateDef.defName}.xml");
+            //if (File.Exists(blueprintName))
+            //{
+            //    File.Delete(blueprintName);
+            //}
+
+            //Scribe.saver.InitSaving(Path.Combine(genBlueprintsFolder, $"{worldTemplateDef.defName}.xml"), "Defs");
+            //Scribe_Deep.Look(ref worldTemplateDef, "WorldEdit_2_0.WorldTemplateDef");
+            //Scribe.saver.FinalizeSaving();
+
+            WorldTemplateDef worldTemplateDef = TemplateEditor.GenerateTemplateFromCurrentWorld(templateName.Replace(" ", "_").Replace("-", ""), templateName, author, description);
+
+            string genBlueprintsFolder = Path.Combine(GenFilePaths.ConfigFolderPath, TemplateEditor.TemplateFolder);
+            if (!Directory.Exists(genBlueprintsFolder))
+            {
+                Directory.CreateDirectory(genBlueprintsFolder);
+            }
+
+            string blueprintName = Path.Combine(genBlueprintsFolder, $"{worldTemplateDef.defName}.xml");
+            string saveName = Path.Combine(genBlueprintsFolder, $"{worldTemplateDef.defName}-save");
+
+            SafeSaver.Save(GenFilePaths.FilePathForSavedGame(saveName), "savegame", delegate
+            {
+                ScribeMetaHeaderUtility.WriteMetaHeader();
+                Game target = Current.Game;
+                Scribe_Deep.Look(ref target, "game");
+            }, Find.GameInfo.permadeathMode);
+
+            //XmlDocument xmlDocument = new XmlDocument();
+            //xmlDocument.Load($"{saveName}.rws");
+
+            //worldTemplateDef.savegame = xmlDocument.CreateCDataSection(xmlDocument.InnerXml).OuterXml;
+            XDocument xDocument = XDocument.Load($"{saveName}.rws");
+
+            Scribe.saver.InitSaving(Path.Combine(genBlueprintsFolder, $"{worldTemplateDef.defName}.xml"), "Defs");
+            XmlWriter xmlWriter = (XmlWriter)typeof(ScribeSaver).GetField("writer", System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).GetValue(Scribe.saver);
+
+            xmlWriter.WriteStartElement("WorldEdit_2_0.WorldTemplateDef");
+
+            xmlWriter.WriteElementString("defName", worldTemplateDef.defName);
+            xmlWriter.WriteElementString("label", worldTemplateDef.label);
+            xmlWriter.WriteElementString("description", worldTemplateDef.description);
+            xmlWriter.WriteElementString("author", worldTemplateDef.author);
+
+            //Scribe_Deep.Look(ref worldTemplateDef, "info");
+
+            xmlWriter.WriteStartElement("savegame");
+            xmlWriter.WriteCData(string.Concat(xDocument.Root.Element("meta"), xDocument.Root.Element("game")));
+            xmlWriter.WriteEndElement();
+
+            xmlWriter.WriteEndElement();
+
+            Scribe.saver.FinalizeSaving();
 
             Page_SelectStartingSite page_SelectStartingSite = Find.WindowStack.Windows.FirstOrDefault(window => window is Page_SelectStartingSite) as Page_SelectStartingSite;
             if (page_SelectStartingSite != null)
@@ -146,7 +211,7 @@ namespace WorldEdit_2_0.MainEditor.Templates
                 page_SelectStartingSite.Close();
             }
 
-            Messages.Message("TemplateEditorWindow_SuccessSave".Translate(), MessageTypeDefOf.PositiveEvent, false);
+            Messages.Message("TemplateEditorWindow_SuccessSave".Translate(blueprintName), MessageTypeDefOf.PositiveEvent, false);
 
             Close();
         }

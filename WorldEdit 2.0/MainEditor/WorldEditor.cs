@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RimWorld.Planet;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -45,6 +46,8 @@ namespace WorldEdit_2_0.MainEditor
         private bool activeEditor;
         public bool ActiveEditor => activeEditor;
 
+        public static WorldTemplateDef InitWorldTemplateDef;
+
         public WorldEditor()
         {
 
@@ -66,7 +69,7 @@ namespace WorldEdit_2_0.MainEditor
             {
                 editor.ShowEditor();
 
-                if(HidePrevOpenedEditor && editor != openedEditor && openedEditor != null)
+                if (HidePrevOpenedEditor && editor != openedEditor && openedEditor != null)
                 {
                     openedEditor.CloseEditor();
                 }

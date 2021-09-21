@@ -21,6 +21,6 @@
 	<TemplateEditorWindow_EnterCorrectAuthor>Введите корректное имя автора</TemplateEditorWindow_EnterCorrectAuthor>
 	<TemplateEditorWindow_EnterCorrectDescription>Введите хотя бы минимальное описание шаблона</TemplateEditorWindow_EnterCorrectDescription>
 	
-	<TemplateEditorWindow_SuccessSave>Шаблон успешно сохранен. Его можно загрузить через "Загрузить игру"</TemplateEditorWindow_SuccessSave>
+	<TemplateEditorWindow_SuccessSave>Шаблон успешно сохранен по пути {0}. Его можно загрузить через "Загрузить игру"</TemplateEditorWindow_SuccessSave>
   
 </LanguageData>

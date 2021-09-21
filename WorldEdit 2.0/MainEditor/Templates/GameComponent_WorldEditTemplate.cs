@@ -25,7 +25,11 @@ namespace WorldEdit_2_0.MainEditor.Templates
         private List<Pawn> forceStartPawns = new List<Pawn>();
         public List<Pawn> ForceStartPawns => forceStartPawns;
 
+        [Obsolete]
         public bool IsValidTemplate => !string.IsNullOrEmpty(templateName) && !string.IsNullOrEmpty(description) && !string.IsNullOrEmpty(author);
+
+        public static WorldTemplateDef WorldTemplateDef;
+        public static Scenario SelectedScenario;
 
         public GameComponent_WorldEditTemplate()
         {

@@ -300,10 +300,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Defs\SitePartDefOf.cs" />
+    <Compile Include="Defs\WorldGenStepDefOf.cs" />
+    <Compile Include="Defs\WorldTemplateDefOf.cs" />
     <Compile Include="MainEditor\GenUIUtils.cs" />
     <Compile Include="MainEditor\Models\Editor.cs" />
     <Compile Include="MainEditor\Models\WorldEditWorldObjectComp.cs" />
     <Compile Include="MainEditor\Models\WorldEditWorldObject.cs" />
+    <Compile Include="MainEditor\Models\WorldTemplateFactions.cs" />
+    <Compile Include="MainEditor\Models\WorldTemplateGrid.cs" />
+    <Compile Include="MainEditor\Models\WorldTemplateFeatureGridElement.cs" />
+    <Compile Include="MainEditor\Models\WorldTemplateGridElement.cs" />
+    <Compile Include="MainEditor\Page_SelectWorldTemplate.cs" />
     <Compile Include="MainEditor\RiversAndRoads\RoadsEditorWindow.cs" />
     <Compile Include="MainEditor\RiversAndRoads\RoadsEditor.cs" />
     <Compile Include="MainEditor\RiversAndRoads\RiversEditor.cs" />
@@ -355,23 +362,28 @@
     <Compile Include="MainEditor\WorldObjects\Settlements\SettlementEditorWindow.cs" />
     <Compile Include="MainEditor\WorldObjects\SortWorldObjectBy.cs" />
     <Compile Include="MainEditor\WorldObjects\WorldObjectsUtils.cs" />
+    <Compile Include="MainEditor\WorldTemplateDef.cs" />
     <Compile Include="MainEditor\WorldUpdater.cs" />
+    <Compile Include="Patches\MainMenu\WE_Scenario_BeginScenarioConfiguration.cs" />
+    <Compile Include="Patches\SavedGameLoaderNow_LoadGameFromSaveFileNow_WorldEdit.cs" />
+    <Compile Include="Patches\MainMenu\WE_ScenPart_PlayerFaction_PreMapGenerate.cs" />
+    <Compile Include="Patches\MainMenu\WE_Scenario_GetFirstConfigPage.cs" />
     <Compile Include="Patches\WorldPatches\WE_Game_FinalizeInit.cs" />
-    <Compile Include="Patches\WorldPatches\WE_World_ExposeComponents.cs" />
     <Compile Include="Patches\WorldPatches\WE_World_FinalizeInit.cs" />
     <Compile Include="Patches\WorldPatches\WE_World_HasCaves.cs" />
     <Compile Include="Patches\WorldPatches\WE_World_NaturalRockTypesIn.cs" />
     <Compile Include="Patches\WorldPatches\WE_World_WorldUpdate_Patch.cs" />
+    <Compile Include="ReflectionUtility.cs" />
     <Compile Include="Settings\SettingsManager.cs" />
     <Compile Include="WorldEdit.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WorldTemplateGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Patches\Edb\" />
-    <Folder Include="Patches\MainMenu\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

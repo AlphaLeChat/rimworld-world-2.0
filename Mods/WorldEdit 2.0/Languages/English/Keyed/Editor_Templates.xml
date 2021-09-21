@@ -21,6 +21,6 @@
 	<TemplateEditorWindow_EnterCorrectAuthor>Please enter a correct author name</TemplateEditorWindow_EnterCorrectAuthor>
 	<TemplateEditorWindow_EnterCorrectDescription>Enter at least a minimal description of the template</TemplateEditorWindow_EnterCorrectDescription>
 	
-	<TemplateEditorWindow_SuccessSave>The template was saved successfully. It can be loaed via "Load Game"</TemplateEditorWindow_SuccessSave>
+	<TemplateEditorWindow_SuccessSave>The template was saved successfully on path {0}. It can be loaed via "Load Game"</TemplateEditorWindow_SuccessSave>
   
 </LanguageData>
