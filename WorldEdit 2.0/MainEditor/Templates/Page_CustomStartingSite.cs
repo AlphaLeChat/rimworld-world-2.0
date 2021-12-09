@@ -149,15 +149,37 @@ namespace WorldEdit_2_0.MainEditor.Templates
             Vector2 bottomButSize17 = Page.BottomButSize;
             if (Widgets.ButtonText(new Rect(x9, y5, x10, bottomButSize17.y), "Next".Translate()))
             {
-                if (Find.WorldSelector.selectedTile < 0)
-                    return;
+                //if (Find.WorldSelector.selectedTile < 0)
+                //    return;
 
-                StartGame(Find.WorldSelector.selectedTile);
+                DoNext();
+                //StartGame(Find.WorldSelector.selectedTile);
             }
             float num14 = num7;
             Vector2 bottomButSize18 = Page.BottomButSize;
             num7 = num14 + (bottomButSize18.x + 10f);
             GenUI.AbsorbClicksInRect(rect);
+        }
+
+        protected override void DoNext()
+        {
+            int selTile = Find.WorldInterface.SelectedTile;
+            SettlementProximityGoodwillUtility.CheckConfirmSettle(selTile, delegate
+            {
+                OverrideStartingTile = selTile;
+
+                foreach (var scenPart in Find.Scenario.AllParts)
+                {
+                    ScenPart_ConfigPage_ConfigureStartingPawns part = scenPart as ScenPart_ConfigPage_ConfigureStartingPawns;
+                    if (part != null)
+                    {
+                        part.PostIdeoChosen();
+                        break;
+                    }
+                }
+
+                base.DoNext();
+            });
         }
 
         private void StartGame(int tile)

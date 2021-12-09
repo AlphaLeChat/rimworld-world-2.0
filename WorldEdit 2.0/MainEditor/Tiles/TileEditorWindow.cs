@@ -25,7 +25,7 @@ namespace WorldEdit_2_0.MainEditor.Tiles
 
         private WorldEditor worldEditor => WorldEditor.WorldEditorInstance;
 
-        public override Vector2 InitialSize => new Vector2(600, 700);
+        public override Vector2 InitialSize => new Vector2(600, 780);
         private Vector2 scrollPosition = Vector2.zero;
         private Vector2 scrollPositionNaturalRocks = Vector2.zero;
 
@@ -42,15 +42,19 @@ namespace WorldEdit_2_0.MainEditor.Tiles
 
         private string temperatureTmpField;
         private float temperature;
+        private bool enableTemperatureChange;
 
         private string elevationTmpField;
         private float elevation;
+        private bool enableElevationChange;
 
         private string rainfallTmpField;
         private float rainfall;
+        private bool enableRainfallChange;
 
         private string swampinessTmpField;
         private float swampiness;
+        private bool enableSwampinessChange;
 
         private int selectedTileId = -1;
  
@@ -148,10 +152,10 @@ namespace WorldEdit_2_0.MainEditor.Tiles
             yButtonPos = 300;
             Widgets.Label(new Rect(0, yButtonPos, 250, 20), "TileEditorWindow_CurrentTileInfo".Translate(selectedTileId));
             yButtonPos = 320;
-            DrawTileParameter(Translator.Translate("TileEditorWindow_Temperature"), ref temperatureTmpField, ref temperature, ref yButtonPos, SetType.Temperature);
-            DrawTileParameter(Translator.Translate("TileEditorWindow_Elevation"), ref elevationTmpField, ref elevation, ref yButtonPos, SetType.Elevation);
-            DrawTileParameter(Translator.Translate("TileEditorWindow_Rainfall"), ref rainfallTmpField, ref rainfall, ref yButtonPos, SetType.Rainfall);
-            DrawTileParameter(Translator.Translate("TileEditorWindow_Swampiness"), ref swampinessTmpField, ref swampiness, ref yButtonPos, SetType.Swampiness);
+            DrawTileParameter(Translator.Translate("TileEditorWindow_Temperature"), ref temperatureTmpField, ref temperature, ref yButtonPos, ref enableTemperatureChange, SetType.Temperature);
+            DrawTileParameter(Translator.Translate("TileEditorWindow_Elevation"), ref elevationTmpField, ref elevation, ref yButtonPos, ref enableElevationChange, SetType.Elevation);
+            DrawTileParameter(Translator.Translate("TileEditorWindow_Rainfall"), ref rainfallTmpField, ref rainfall, ref yButtonPos, ref enableRainfallChange, SetType.Rainfall);
+            DrawTileParameter(Translator.Translate("TileEditorWindow_Swampiness"), ref swampinessTmpField, ref swampiness, ref yButtonPos, ref enableSwampinessChange, SetType.Swampiness);
 
             if (Widgets.RadioButtonLabeled(new Rect(0, yButtonPos, 250, 20), $"{Translator.Translate("TileEditorWindow_BrushEnable")} - {brushRadius.min} / {brushRadius.max}", brushEnabled))
             {
@@ -206,7 +210,7 @@ namespace WorldEdit_2_0.MainEditor.Tiles
             }
         }
 
-        private void DrawTileParameter(string label, ref string tmpField, ref float param, ref int yButtonPos, SetType setType)
+        private void DrawTileParameter(string label, ref string tmpField, ref float param, ref int yButtonPos, ref bool enableGetter, SetType setType)
         {
             Widgets.Label(new Rect(0, yButtonPos, 100, 20), label);
             tmpField = Widgets.TextField(new Rect(110, yButtonPos, 140, 20), tmpField);
@@ -224,6 +228,8 @@ namespace WorldEdit_2_0.MainEditor.Tiles
             {
                 SetToAllBiomes(setType);
             }
+            yButtonPos += 25;
+            enableGetter ^= Widgets.RadioButtonLabeled(new Rect(0, yButtonPos, 250, 20), "TileEditorWindow_Enable".Translate(), enableGetter);
             yButtonPos += 25;
         }
 
@@ -295,10 +301,17 @@ namespace WorldEdit_2_0.MainEditor.Tiles
                         }
                     }
 
-                    tile.temperature = temperature;
-                    tile.elevation = elevation;
-                    tile.rainfall = rainfall;
-                    tile.swampiness = swampiness;
+                    if(enableTemperatureChange)
+                        tile.temperature = temperature;
+
+                    if(enableElevationChange)
+                        tile.elevation = elevation;
+
+                    if(enableRainfallChange)
+                        tile.rainfall = rainfall;
+
+                    if (enableSwampinessChange)
+                        tile.swampiness = swampiness;
                 }
             }
         }

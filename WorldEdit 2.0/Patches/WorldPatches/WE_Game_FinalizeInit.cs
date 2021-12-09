@@ -46,12 +46,11 @@ namespace WorldEdit_2_0.Patches.WorldPatches
 
                         Page_CustomStartingSite page_CustomStartingSite = new Page_CustomStartingSite();
                         list.Add(page_CustomStartingSite);
-                        // list.Add(new Page_SelectStartingSite());
                         if (ModsConfig.IdeologyActive)
                         {
                             list.Add(new Page_ChooseIdeoPreset());
                         }
-                        foreach (Page item in Current.Game.Scenario.AllParts.Where(x => !(x is ScenPart_ConfigPage_ConfigureStartingPawns)).SelectMany((ScenPart p) => p.GetConfigPages()))
+                        foreach (Page item in Current.Game.Scenario.AllParts.SelectMany((ScenPart p) => p.GetConfigPages()))
                         {
                             list.Add(item);
                         }
@@ -68,6 +67,8 @@ namespace WorldEdit_2_0.Patches.WorldPatches
                                 PageUtility.InitGameStart();
                             };
                         }
+
+                        Find.GameInitData.permadeathChosen = true;
 
                         //Page_ConfigureStartingPawns page_ConfigureStartingPawns = list.Find(x => x.next is Page_ConfigureStartingPawns).next as Page_ConfigureStartingPawns;
                         //page_ConfigureStartingPawns.prev = page_CustomStartingSite;

@@ -38,6 +38,6 @@
 	
 	<TileEditorWindow_SetBiomeToWholeMap>Установить биом на всю карту</TileEditorWindow_SetBiomeToWholeMap>
 	
-
+	<TileEditorWindow_Enable>Активно</TileEditorWindow_Enable>
   
 </LanguageData>
