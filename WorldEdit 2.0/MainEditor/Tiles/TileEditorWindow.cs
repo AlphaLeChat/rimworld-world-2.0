@@ -57,6 +57,7 @@ namespace WorldEdit_2_0.MainEditor.Tiles
         private bool enableSwampinessChange;
 
         private int selectedTileId = -1;
+        public int SelectedTileId => selectedTileId;
  
         private CustomRock customRockData = null;
 
@@ -88,7 +89,6 @@ namespace WorldEdit_2_0.MainEditor.Tiles
                 {
                     worldUpdater.UpdateLayer(layer.Value);
                 }
-                //worldUpdater.UpdateMap();
             }
             if (row.ButtonText(Translator.Translate("TileEditorWindow_UpdateHillsLayer"), Translator.Translate("TileEditorWindow_UpdateHillsLayerInfo")))
             {
@@ -208,6 +208,13 @@ namespace WorldEdit_2_0.MainEditor.Tiles
                     customRockData.Caves = !customRockData.Caves;
                 }
             }
+
+            DrawCustom(inRect, yButtonPos);
+        }
+
+        private void DrawCustom(Rect inRect, float lastPos)
+        {
+
         }
 
         private void DrawTileParameter(string label, ref string tmpField, ref float param, ref int yButtonPos, ref bool enableGetter, SetType setType)

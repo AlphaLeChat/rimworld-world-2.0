@@ -252,7 +252,13 @@ namespace WorldEdit_2_0.MainEditor.WorldObjects.Settlements
 
             if (Widgets.ButtonText(new Rect(10, 520, 300, 20), Translator.Translate("SettlementEditorWindow_DeleteAllSettlements")))
             {
-                DeleteAllSettlements();
+                Find.WindowStack.Add(new Dialog_Confirm((answer) =>
+                {
+                    if (answer)
+                    {
+                        DeleteAllSettlements();
+                    }
+                }));
             }
 
             if (Widgets.ButtonText(new Rect(10, 560, 300, 20), "SettlementEditorWindow_Group".Translate(TranslateSettlementGroupLabel(groupBy))))

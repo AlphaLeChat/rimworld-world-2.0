@@ -14,4 +14,8 @@
 	
 	<MustChooseWorldTemplateDef>Choose a world template </MustChooseWorldTemplateDef>
 	
+	<Dialog_Confirm.Title>Confirm action?</Dialog_Confirm.Title>
+	<Dialog_Confirm.Ok>Yes</Dialog_Confirm.Ok>
+	<Dialog_Confirm.Decline>Decline</Dialog_Confirm.Decline>
+	
 </LanguageData>

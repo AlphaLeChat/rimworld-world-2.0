@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  
+  <GeologicalLandforms_Landform>Landform (GL): {0}</GeologicalLandforms_Landform>
+  <GeologicalLandforms_Landform.NotSet>default</GeologicalLandforms_Landform.NotSet>
+   <GeologicalLandforms_Landform.Reset>Reset to default</GeologicalLandforms_Landform.Reset>
+  
+</LanguageData>

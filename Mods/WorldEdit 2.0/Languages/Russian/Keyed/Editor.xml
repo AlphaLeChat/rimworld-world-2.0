@@ -12,4 +12,8 @@
 	<PSWL_Author>Автор: {0}</PSWL_Author>
 	
 	<MustChooseWorldTemplateDef>Выберите шаблон мира</MustChooseWorldTemplateDef>
+	
+	<Dialog_Confirm.Title>Подтвердите действие</Dialog_Confirm.Title>
+	<Dialog_Confirm.Ok>ОК</Dialog_Confirm.Ok>
+	<Dialog_Confirm.Decline>Отмена</Dialog_Confirm.Decline>
 </LanguageData>
