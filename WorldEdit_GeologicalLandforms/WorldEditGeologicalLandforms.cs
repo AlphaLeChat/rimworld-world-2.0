@@ -18,7 +18,7 @@ namespace WorldEdit_GeologicalLandforms
 
         public WorldEditGeologicalLandforms(ModContentPack content) : base(content)
         {
-            harmonyInstance = new Harmony("net.funkyshit.worldedit_2_0");
+            harmonyInstance = new Harmony("net.funkyshit.worldedit_2_0.geologicalplatform");
             harmonyInstance.PatchAll(Assembly.GetExecutingAssembly());
         }
     }
