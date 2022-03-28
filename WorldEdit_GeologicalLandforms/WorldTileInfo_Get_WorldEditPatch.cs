@@ -1,4 +1,5 @@
 ﻿using GeologicalLandforms;
+using GeologicalLandforms.GraphEditor;
 using HarmonyLib;
 using System;
 using System.Collections.Generic;
@@ -12,8 +13,8 @@ using WorldEdit_2_0.MainEditor.Tiles;
 namespace WorldEdit_GeologicalLandforms
 {
     [HarmonyPatch(typeof(WorldTileInfo))]
-    [HarmonyPatch("GetWorldTileInfo")]
-    public class WorldTileInfo_GetWorldTileInfo_WorldEditPatch
+    [HarmonyPatch("Get")]
+    public class WorldTileInfo_Get_WorldEditPatch
     {
         private static GameComponent_GeologicalLandforms landformCache => Current.Game?.GetComponent<GameComponent_GeologicalLandforms>();
 
@@ -21,9 +22,9 @@ namespace WorldEdit_GeologicalLandforms
         {
             if (landformCache != null && __result != null)
             {
-                if (landformCache.TileData.TryGetValue(__result.TileId, out string lasndformId))
+                if (landformCache.TileData.TryGetValue(__result.TileId, out string lasndformId) && LandformManager.Landforms.TryGetValue(lasndformId, out var landform))
                 {
-                    __result.LandformId = lasndformId;
+                    AccessTools.Property(typeof(WorldTileInfo), "Landform").SetValue(__result, landform);
                 }
             }
         }

@@ -1,4 +1,5 @@
 ﻿using GeologicalLandforms;
+using GeologicalLandforms.GraphEditor;
 using HarmonyLib;
 using System;
 using System.Collections.Generic;
@@ -20,10 +21,10 @@ namespace WorldEdit_GeologicalLandforms
         private static void Postfix(TileEditorWindow __instance, ref Rect inRect, ref float lastPos)
         {
             lastPos += 35;
-            WorldTileInfo tileInfo = WorldTileInfo.GetWorldTileInfo(__instance.SelectedTileId);
-            Landform landform = Main.Settings.Landforms.TryGetValue(tileInfo.LandformId);
+            WorldTileInfo tileInfo = WorldTileInfo.Get(__instance.SelectedTileId);
+            //Landform landform = LandformManager.Landforms.TryGetValue(tileInfo.Lan);
 
-            if (Widgets.ButtonText(new Rect(270, lastPos, 310, 25), "GeologicalLandforms_Landform".Translate(landform == null ? "GeologicalLandforms_Landform.NotSet".Translate().ToString() : landform.TranslatedName)))
+            if (Widgets.ButtonText(new Rect(270, lastPos, 310, 25), "GeologicalLandforms_Landform".Translate(tileInfo.Landform == null ? "GeologicalLandforms_Landform.NotSet".Translate().ToString() : tileInfo.Landform.TranslatedName)))
             {
                 List<FloatMenuOption> options = new List<FloatMenuOption>();
 
@@ -36,7 +37,7 @@ namespace WorldEdit_GeologicalLandforms
                     AccessTools.Field(typeof(WorldTileInfo), "_cache").SetValue(null, null);
                 }));
 
-                foreach(var landFormPair in Main.Settings.Landforms)
+                foreach(var landFormPair in LandformManager.Landforms)
                 {
                     options.Add(new FloatMenuOption(landFormPair.Value.TranslatedName, () =>
                     {

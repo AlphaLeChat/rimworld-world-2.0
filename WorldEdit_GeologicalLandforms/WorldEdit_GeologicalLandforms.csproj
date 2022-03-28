@@ -34,12 +34,15 @@
     <Reference Include="0Harmony, Version=2.2.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Lib.Harmony.2.2.1\lib\net472\0Harmony.dll</HintPath>
     </Reference>
+    <Reference Include="0_TerrainGraph">
+      <HintPath>.\0_TerrainGraph.dll</HintPath>
+    </Reference>
+    <Reference Include="1_GeologicalLandforms">
+      <HintPath>.\1_GeologicalLandforms.dll</HintPath>
+    </Reference>
     <Reference Include="Assembly-CSharp">
       <HintPath>..\..\..\Steam\steamapps\common\RimWorld\RimWorldWin64_Data\Managed\Assembly-CSharp.dll</HintPath>
       <Private>False</Private>
-    </Reference>
-    <Reference Include="GeologicalLandforms">
-      <HintPath>.\GeologicalLandforms.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -300,7 +303,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GameComponent_GeologicalLandforms.cs" />
-    <Compile Include="WorldTileInfo_GetWorldTileInfo_WorldEditPatch.cs" />
+    <Compile Include="WorldTileInfo_Get_WorldEditPatch.cs" />
     <Compile Include="TileEditorWindow_DrawCustom_WorldEditPatch.cs" />
     <Compile Include="WorldEditGeologicalLandforms.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
