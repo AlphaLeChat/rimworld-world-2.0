@@ -22,9 +22,23 @@ namespace WorldEdit_GeologicalLandforms
         {
             if (landformCache != null && __result != null)
             {
-                if (landformCache.TileData.TryGetValue(__result.TileId, out string lasndformId) && LandformManager.Landforms.TryGetValue(lasndformId, out var landform))
+                if (landformCache.TileData.TryGetValue(__result.TileId, out GeoTileData geoTileData))
                 {
-                    AccessTools.Property(typeof(WorldTileInfo), "Landform").SetValue(__result, landform);
+                    List<Landform> list = (List<Landform>)AccessTools.Field(typeof(WorldTileInfo), "_landforms").GetValue(__result);
+                    if(list == null)
+                    {
+                        list = new List<Landform>();
+                        AccessTools.Field(typeof(WorldTileInfo), "_landforms").SetValue(__result, list);
+                    }
+
+                    list.Clear();
+                    foreach (var landformId in geoTileData.landformsIds)
+                    {
+                        if(LandformManager.Landforms.TryGetValue(landformId, out Landform landform))
+                        {
+                            list.Add(landform);
+                        }
+                    }
                 }
             }
         }

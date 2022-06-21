@@ -25,4 +25,6 @@
 	<FactionGroupBy_FactionDef>Faction template def</FactionGroupBy_FactionDef>
 	
 	<FactionEditorWindow_Sort>Sort by: {0}</FactionEditorWindow_Sort>
+	<FactionEditorWindow_SelectIdeo>Ideology: {0} (Culture: {1})</FactionEditorWindow_SelectIdeo>
+	
 </LanguageData>

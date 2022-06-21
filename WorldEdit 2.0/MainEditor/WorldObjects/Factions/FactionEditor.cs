@@ -43,6 +43,15 @@ namespace WorldEdit_2_0.MainEditor.WorldObjects.Factions
             }
             faction.centralMelanin = Rand.Value;
 
+            if (facDef.humanlikeFaction)
+            {
+                faction.ideos = new FactionIdeosTracker(faction);
+                if (!faction.IsPlayer || !ModsConfig.IdeologyActive || !Find.GameInitData.startedFromEntry)
+                {
+                    faction.ideos.ChooseOrGenerateIdeo(new IdeoGenerationParms(facDef));
+                }
+            }
+
             return faction;
         }
 

@@ -45,6 +45,7 @@ namespace WorldEdit_2_0.MainEditor.WorldObjects.Factions
         private string tmpFactionName;
         private bool tmpIsDefeated;
         private string tmpLeaderName;
+        private FactionIdeosTracker tmpFactionIdeosTracker;
 
         private List<FactionRelation> newFactionRelation;
         private string[] newFactionGoodwillBuff;
@@ -237,6 +238,8 @@ namespace WorldEdit_2_0.MainEditor.WorldObjects.Factions
                         list.Add(new FloatMenuOption(factionDef.LabelCap, () =>
                         {
                             tmpSelectedFactionDef = factionDef;
+
+                            tmpFactionIdeosTracker.ChooseOrGenerateIdeo(new IdeoGenerationParms(tmpSelectedFactionDef));
                         }));
                     }
 
@@ -325,7 +328,21 @@ namespace WorldEdit_2_0.MainEditor.WorldObjects.Factions
                     tmpLeaderName = Widgets.TextField(new Rect(465, 540, 425, 30), tmpLeaderName);
                 }
 
-                if (Widgets.ButtonText(new Rect(340, 600, 520, 20), Translator.Translate("FactionEditorWindow_SaveFaction")))
+                if (Widgets.ButtonText(new Rect(340, 580, 520, 25), "FactionEditorWindow_SelectIdeo".Translate(tmpFactionIdeosTracker.PrimaryIdeo.name, tmpFactionIdeosTracker.PrimaryIdeo.culture.LabelCap)))
+                {
+                    List<FloatMenuOption> options = new List<FloatMenuOption>();
+                    foreach(var ideo in Find.IdeoManager.IdeosListForReading)
+                    {
+                        options.Add(new FloatMenuOption(ideo.name, () =>
+                        {
+                            tmpFactionIdeosTracker.SetPrimary(ideo);
+                        }));
+                    }
+
+                    Find.WindowStack.Add(new FloatMenu(options));
+                }
+
+                if (Widgets.ButtonText(new Rect(340, 610, 520, 20), Translator.Translate("FactionEditorWindow_SaveFaction")))
                 {
                     SaveFaction();
                 }
@@ -391,6 +408,7 @@ namespace WorldEdit_2_0.MainEditor.WorldObjects.Factions
             selectedFaction.def = tmpSelectedFactionDef;
             selectedFaction.Name = tmpFactionName;
             selectedFaction.defeated = tmpIsDefeated;
+            selectedFaction.ideos = tmpFactionIdeosTracker;
 
             if (selectedFaction.leader != null)
             {
@@ -410,7 +428,10 @@ namespace WorldEdit_2_0.MainEditor.WorldObjects.Factions
             tmpFactionName = selectedFaction.Name;
             tmpIsDefeated = selectedFaction.defeated;
 
-            if(selectedFaction.leader != null)
+            tmpFactionIdeosTracker = new FactionIdeosTracker(selectedFaction);
+            tmpFactionIdeosTracker.SetPrimary(selectedFaction.ideos.PrimaryIdeo);
+
+            if (selectedFaction.leader != null)
                 tmpLeaderName = selectedFaction.leader.Name.ToStringFull;
 
             FieldInfo relations = typeof(Faction).GetField("relations", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);

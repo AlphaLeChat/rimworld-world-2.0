@@ -303,6 +303,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GameComponent_GeologicalLandforms.cs" />
+    <Compile Include="GeoTileData.cs" />
     <Compile Include="WorldTileInfo_Get_WorldEditPatch.cs" />
     <Compile Include="TileEditorWindow_DrawCustom_WorldEditPatch.cs" />
     <Compile Include="WorldEditGeologicalLandforms.cs" />

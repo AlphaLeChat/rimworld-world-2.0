@@ -9,7 +9,7 @@ namespace WorldEdit_GeologicalLandforms
 {
     public class GameComponent_GeologicalLandforms : GameComponent
     {
-        public Dictionary<int, string> TileData = new Dictionary<int, string>();
+        public Dictionary<int, GeoTileData> TileData = new Dictionary<int, GeoTileData>();
 
         public GameComponent_GeologicalLandforms()
         {
@@ -19,11 +19,30 @@ namespace WorldEdit_GeologicalLandforms
         {
         }
 
+        public void Add(int tileID, string landformId)
+        {
+            if(!TileData.TryGetValue(tileID, out GeoTileData geoTileData))
+            {
+                geoTileData = new GeoTileData();
+                TileData.Add(tileID, geoTileData);
+            }
+
+            geoTileData.landformsIds.Add(landformId);
+        }
+
+        public void Remove(int tileID, string landformId)
+        {
+            if (TileData.TryGetValue(tileID, out GeoTileData geoTileData))
+            {
+                geoTileData.landformsIds.Remove(landformId);
+            }
+        }
+
         public override void ExposeData()
         {
             base.ExposeData();
 
-            Scribe_Collections.Look(ref TileData, "TileData", LookMode.Value, LookMode.Value);
+            Scribe_Collections.Look(ref TileData, "TileData", LookMode.Value, LookMode.Deep);
         }
     }
 }
