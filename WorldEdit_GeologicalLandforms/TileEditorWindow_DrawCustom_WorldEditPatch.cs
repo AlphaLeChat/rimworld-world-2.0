@@ -22,6 +22,9 @@ namespace WorldEdit_GeologicalLandforms
 
         private static void Postfix(TileEditorWindow __instance, ref Rect inRect, ref float lastPos)
         {
+            if (__instance.SelectedTileId < 0)
+                return;
+
             lastPos += 35;
             WorldTileInfo tileInfo = WorldTileInfo.Get(__instance.SelectedTileId);
             if (tileInfo == null)

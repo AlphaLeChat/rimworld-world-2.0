@@ -336,7 +336,7 @@ namespace WorldEdit_2_0.MainEditor.Templates.PawnEditor
                     TooltipHandler.TipRegion(rect8, "RenameColonist".Translate());
                     if (Widgets.ButtonImage(rect8, null))
                     {
-                        Find.WindowStack.Add(new Dialog_NamePawn(pawn));
+                        Find.WindowStack.Add(pawn.NamePawnDialog());
                     }
                     num -= 40f;
                 }
@@ -358,7 +358,7 @@ namespace WorldEdit_2_0.MainEditor.Templates.PawnEditor
             {
                 foreach (BackstorySlot backstorySlot in Enum.GetValues(typeof(BackstorySlot)))
                 {
-                    Backstory backstory = pawn.story.GetBackstory(backstorySlot);
+                    BackstoryDef backstory = pawn.story.GetBackstory(backstorySlot);
                     if (backstory != null)
                     {
                         Rect rect10 = new Rect(0f, num2, position.width, 24f);
@@ -378,14 +378,14 @@ namespace WorldEdit_2_0.MainEditor.Templates.PawnEditor
                         if (Widgets.ButtonText(rect11, label2))
                         {
                             List<FloatMenuOption> list = new List<FloatMenuOption>();
-                            foreach (var story in BackstoryDatabase.allBackstories.Where(story => story.Value.slot == backstorySlot).ToList())
+                            foreach (var story in DefDatabase<BackstoryDef>.AllDefs.Where(x => x.slot == backstorySlot))
                             {
-                                list.Add(new FloatMenuOption(story.Value.title, delegate
+                                list.Add(new FloatMenuOption(story.title, delegate
                                 {
                                     if (backstorySlot == BackstorySlot.Adulthood)
-                                        pawn.story.adulthood = story.Value;
+                                        pawn.story.Adulthood = story;
                                     else
-                                        pawn.story.childhood = story.Value;
+                                        pawn.story.Childhood = story;
 
                                     RecacheSkillsData(pawn);
                                 }));

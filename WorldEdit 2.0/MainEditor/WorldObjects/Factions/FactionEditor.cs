@@ -41,7 +41,6 @@ namespace WorldEdit_2_0.MainEditor.WorldObjects.Factions
                                                                                        select fac.Name);
                 }
             }
-            faction.centralMelanin = Rand.Value;
 
             if (facDef.humanlikeFaction)
             {
