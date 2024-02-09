@@ -9,11 +9,12 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>WorldEdit_2_0</RootNamespace>
     <AssemblyName>WorldEdit 2.0</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -366,6 +367,7 @@
     <Compile Include="MainEditor\WorldTemplateDef.cs" />
     <Compile Include="MainEditor\WorldUpdater.cs" />
     <Compile Include="Patches\MainMenu\WE_Scenario_BeginScenarioConfiguration.cs" />
+    <Compile Include="Patches\MainMenu\WE_MainButtonsRoot_MainButtonsOnGUI.cs" />
     <Compile Include="Patches\SavedGameLoaderNow_LoadGameFromSaveFileNow_WorldEdit.cs" />
     <Compile Include="Patches\MainMenu\WE_ScenPart_PlayerFaction_PreMapGenerate.cs" />
     <Compile Include="Patches\MainMenu\WE_Scenario_GetFirstConfigPage.cs" />

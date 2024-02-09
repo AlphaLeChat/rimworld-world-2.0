@@ -60,6 +60,7 @@ namespace WorldEdit_2_0.MainEditor.Tiles
         public int SelectedTileId => selectedTileId;
  
         private CustomRock customRockData = null;
+        private bool randomizeRocks;
 
         private GameComponent_CustomNaturalRocks customNaturalRocks => Current.Game.GetComponent<GameComponent_CustomNaturalRocks>();
         private List<ThingDef> customRocksTmp;
@@ -203,9 +204,16 @@ namespace WorldEdit_2_0.MainEditor.Tiles
 
                 yButtonPos += 200;
 
-                if (Widgets.RadioButtonLabeled(new Rect(270, yButtonPos, 240, 40), Translator.Translate("TileEditorWindow_HasCaves"), customRockData.Caves == true))
+                if (Widgets.RadioButtonLabeled(new Rect(270, yButtonPos, 240, 25), Translator.Translate("TileEditorWindow_HasCaves"), customRockData.Caves == true))
                 {
                     customRockData.Caves = !customRockData.Caves;
+                }
+
+                yButtonPos += 25;
+
+                if (Widgets.RadioButtonLabeled(new Rect(270, yButtonPos, 240, 40), Translator.Translate("TileEditorWindow_VanillaRocks"), randomizeRocks))
+                {
+                    randomizeRocks = !randomizeRocks;
                 }
             }
 
@@ -299,12 +307,22 @@ namespace WorldEdit_2_0.MainEditor.Tiles
                         }
                     }
 
-                    if (customRocksTmp != null)
+                    if (randomizeRocks)
                     {
-                        customRockData.Rocks = new List<ThingDef>(customRocksTmp);
-                        if (!customNaturalRocks.ResourceData.Keys.Contains(tileID))
+                        if (customNaturalRocks.ResourceData.Keys.Contains(tileID))
                         {
-                            customNaturalRocks.ResourceData.Add(tileID, customRockData);
+                            customNaturalRocks.ResourceData.Remove(tileID);
+                        }
+                    }
+                    else
+                    {
+                        if (customRocksTmp != null)
+                        {
+                            customRockData.Rocks = new List<ThingDef>(customRocksTmp);
+                            if (!customNaturalRocks.ResourceData.Keys.Contains(tileID))
+                            {
+                                customNaturalRocks.ResourceData.Add(tileID, customRockData);
+                            }
                         }
                     }
 
