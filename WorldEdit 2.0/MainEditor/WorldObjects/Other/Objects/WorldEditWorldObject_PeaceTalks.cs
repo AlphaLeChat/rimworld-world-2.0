@@ -13,7 +13,7 @@ namespace WorldEdit_2_0.MainEditor.WorldObjects.Other.Objects
     {
         public override string ObjectName => "WorldEditWorldObject_PeaceTalks".Translate();
 
-        public override WorldObjectDef WorldObjectEditorDef => WorldObjectDefOf.PeaceTalks;
+        public override WorldObjectDef WorldObjectEditorDef => WorldObjectDefOfLocal.PeaceTalks;
 
         protected override Type Window => typeof(WorldEditWorldObject_PeaceTalksWindow);
     }

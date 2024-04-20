@@ -37,7 +37,7 @@ namespace WorldEdit_2_0.MainEditor.Models
 
         public override void ExposeData()
         {
-            DataExposeUtility.ByteArray(ref data, "data");
+            DataExposeUtility.LookByteArray(ref data, "data");
             Scribe_Collections.Look(ref features, "features", LookMode.Deep);
         }
     }

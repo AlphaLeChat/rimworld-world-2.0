@@ -23,7 +23,7 @@ namespace WorldEdit_2_0.MainEditor.WorldObjects.Other.Objects
             if (worldObject is Site site)
             {
                 if (!site.parts.Any())
-                    site.AddPart(new SitePart(site, SitePartDefOf.Outpost, SitePartDefOf.Outpost.Worker.GenerateDefaultParams(1, site.Tile, site.Faction)));
+                    site.AddPart(new SitePart(site, SitePartDefOfLocal.Outpost, SitePartDefOfLocal.Outpost.Worker.GenerateDefaultParams(1, site.Tile, site.Faction)));
             }
         }
     }

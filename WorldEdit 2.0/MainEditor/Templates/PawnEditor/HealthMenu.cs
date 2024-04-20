@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 using Verse;
+using LudeonTK;
 
 namespace WorldEdit_2_0.MainEditor.Templates.PawnEditor
 {
@@ -48,7 +49,7 @@ namespace WorldEdit_2_0.MainEditor.Templates.PawnEditor
             RecalculateHeight();
 
             bodyPart = pawn.health.hediffSet.GetNotMissingParts().RandomElement();
-            hediffDef = HediffDefOf.Asthma;
+            hediffDef = DefDatabase<HediffDef>.GetNamed("Asthma");
 
             if (hediffDef.stages != null)
                 hediffStage = hediffDef.stages.RandomElement();
@@ -59,7 +60,7 @@ namespace WorldEdit_2_0.MainEditor.Templates.PawnEditor
                 sevAmount = hediffStage.minSeverity;
             }
 
-            damageType = DamageDefOf.Arrow;
+            damageType = DefDatabase<DamageDef>.GetNamed("Arrow");
         }
 
         public override void DoWindowContents(Rect inRect)

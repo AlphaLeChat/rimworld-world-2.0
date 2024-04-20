@@ -378,8 +378,10 @@
     <Compile Include="Patches\WorldPatches\WE_World_WorldUpdate_Patch.cs" />
     <Compile Include="ReflectionUtility.cs" />
     <Compile Include="Settings\SettingsManager.cs" />
+    <Compile Include="SitePartDefOfLocal.cs" />
     <Compile Include="WorldEdit.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WorldObjectDefOfLocal.cs" />
     <Compile Include="WorldTemplateGenerator.cs" />
   </ItemGroup>
   <ItemGroup>

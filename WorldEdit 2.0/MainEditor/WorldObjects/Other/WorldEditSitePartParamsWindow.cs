@@ -50,7 +50,7 @@ namespace WorldEdit_2_0.MainEditor.WorldObjects.Other
             Widgets.Label(new Rect(0, 40, 220, 25), "WorldEditSitePartParamsWindow_ThreatPoints".Translate());
             float.TryParse(Widgets.TextField(new Rect(225, 40, 205, 25), setThreatPoints.ToString()), out setThreatPoints);
 
-            if(sitePart.def == SitePartDefOf.Turrets)
+            if(sitePart.def == SitePartDefOfLocal.Turrets)
             {
                 y += 30;
 
@@ -61,7 +61,7 @@ namespace WorldEdit_2_0.MainEditor.WorldObjects.Other
 
                 Widgets.Label(new Rect(0, y, 220, 25), "WorldEditSitePartParamsWindow_MortarsCount".Translate());
                 int.TryParse(Widgets.TextField(new Rect(225, y, 205, 25), setMortarsCount.ToString()), out setMortarsCount);
-            }else if(sitePart.def == SitePartDefOf.Manhunters)
+            }else if(sitePart.def == SitePartDefOfLocal.Manhunters)
             {
                 y += 30;
 
@@ -118,12 +118,12 @@ namespace WorldEdit_2_0.MainEditor.WorldObjects.Other
                 setThreatPoints = 35;
 
             sitePart.parms.threatPoints = setThreatPoints;
-            if (sitePart.def == SitePartDefOf.Turrets)
+            if (sitePart.def == SitePartDefOfLocal.Turrets)
             {
                 sitePart.parms.turretsCount = setTurretsCount;
                 sitePart.parms.mortarsCount = setMortarsCount;
             }
-            else if (sitePart.def == SitePartDefOf.Manhunters)
+            else if (sitePart.def == SitePartDefOfLocal.Manhunters)
             {
                 sitePart.parms.animalKind = setAnimalKind;
             }

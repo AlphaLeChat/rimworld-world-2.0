@@ -55,7 +55,7 @@ namespace WorldEdit_2_0.MainEditor.Models
 
         public virtual void ExposeData()
         {
-            DataExposeUtility.ByteArray(ref data, "data");
+            DataExposeUtility.LookByteArray(ref data, "data");
         }
     }
 }

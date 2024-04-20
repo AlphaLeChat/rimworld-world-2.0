@@ -10,6 +10,7 @@ using System.Xml.Linq;
 using UnityEngine;
 using Verse;
 using WorldEdit_2_0.MainEditor.Templates.PawnEditor;
+using LudeonTK;
 
 namespace WorldEdit_2_0.MainEditor.Templates
 {
@@ -57,7 +58,7 @@ namespace WorldEdit_2_0.MainEditor.Templates
             author = Widgets.TextField(new Rect(0, 70, 300, 20), author);
 
             Widgets.Label(new Rect(0, 100, 150, 20), Translator.Translate("TemplateEditorWindow_Description"));
-            description = Widgets.TextAreaScrollable(new Rect(0, 120, 300, 430), description, ref scrollDesc);
+            description = DevGUI.TextAreaScrollable(new Rect(0, 120, 300, 430), description, ref scrollDesc);
 
             /*
             Widgets.Label(new Rect(310, 15, 400, 20), Translator.Translate("TemplateEditorWindow_SelectStoryteller"));
