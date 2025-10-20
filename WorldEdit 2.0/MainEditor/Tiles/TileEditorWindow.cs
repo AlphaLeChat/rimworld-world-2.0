@@ -76,8 +76,8 @@ namespace WorldEdit_2_0.MainEditor.Tiles
 
             biomeDefSize = tileEditor.AvaliableBiomes.Count * 25;
 
-            terrainSubMeshes = tileEditor.LayersSubMeshes["WorldLayer_Terrain"];
-            hillinessSubMeshes = tileEditor.LayersSubMeshes["WorldLayer_Hills"];
+            terrainSubMeshes = tileEditor.LayersSubMeshes["WorldDrawLayer_Terrain"];
+            hillinessSubMeshes = tileEditor.LayersSubMeshes["WorldDrawLayer_Hills"];
         }
 
         public override void DoWindowContents(Rect inRect)
@@ -94,11 +94,11 @@ namespace WorldEdit_2_0.MainEditor.Tiles
             }
             if (row.ButtonText(Translator.Translate("TileEditorWindow_UpdateHillsLayer"), Translator.Translate("TileEditorWindow_UpdateHillsLayerInfo")))
             {
-                worldUpdater.UpdateLayer(tileEditor.Layers["WorldLayer_Hills"]);
+                worldUpdater.UpdateLayer(tileEditor.Layers["WorldDrawLayer_Hills"]);
             }
             if (row.ButtonText(Translator.Translate("TileEditorWindow_UpdateTerrainLayer"), Translator.Translate("TileEditorWindow_UpdateTerrainLayerInfo")))
             {
-                worldUpdater.UpdateLayer(tileEditor.Layers["WorldLayer_Terrain"]);
+                worldUpdater.UpdateLayer(tileEditor.Layers["WorldDrawLayer_Terrain"]);
             }
 
             Widgets.Label(new Rect(80, 25, 50, 20), Translator.Translate("TileEditorWindow_Biome"));
@@ -266,7 +266,7 @@ namespace WorldEdit_2_0.MainEditor.Tiles
                 }
             }
 
-            int clickTileId = Find.WorldSelector.selectedTile;
+            int clickTileId = Find.WorldSelector.SelectedTile;
             if (clickTileId >= 0 && clickTileId != selectedTileId)
             {
                 selectedTileId = clickTileId;
@@ -279,22 +279,22 @@ namespace WorldEdit_2_0.MainEditor.Tiles
         {
             if (tileID >= 0)
             {
-                Tile tile = Find.WorldGrid[tileID];
+                SurfaceTile tile = Find.WorldGrid[tileID];
 
                 if (tile != null)
                 {
                     if (selectedBiome != null)
                     {
-                        if (selectedBiome != tile.biome)
+                        if (!IsBiome(tile,selectedBiome))
                         {
-                            tile.biome = selectedBiome;
+                            tile.PrimaryBiome = selectedBiome;
 
                             if (selectedBiome == BiomeDefOf.Ocean || selectedBiome == BiomeDefOf.Lake)
                             {
                                 tile.elevation = -400f;
                             }
 
-                            worldEditor.WorldUpdater.RenderSingleTile(tileID, tile.biome.DrawMaterial, terrainSubMeshes);
+                            worldEditor.WorldUpdater.RenderSingleTile(tileID, tile.PrimaryBiome.DrawMaterial, terrainSubMeshes);
                         }
                     }
 
@@ -303,7 +303,8 @@ namespace WorldEdit_2_0.MainEditor.Tiles
                         if (tile.hilliness != selectedHilliness)
                         {
                             tile.hilliness = selectedHilliness;
-                            Find.WorldPathGrid.RecalculatePerceivedMovementDifficultyAt(tileID);
+                            bool useless = false;
+                            Find.WorldPathGrid.RecalculatePerceivedMovementDifficultyAt(tileID,out useless);
                             worldEditor.WorldUpdater.RenderSingleHill(tileID, hillinessSubMeshes);
                         }
                     }
@@ -344,11 +345,12 @@ namespace WorldEdit_2_0.MainEditor.Tiles
 
         private void RadiusTile()
         {
-            int tileID = GenWorld.MouseTile();
+            PlanetTile selTile = GenWorld.MouseTile();
+            List<PlanetTile> extraRoot = new List<PlanetTile>();
 
             List<int> radiusTiles = new List<int>();
-            Find.WorldFloodFiller.FloodFill(tileID, (int tile) => Find.WorldGrid.InBounds(tile), delegate (int tile, int dist)
-            {
+
+            selTile.Layer.Filler.FloodFill(selTile, (PlanetTile tile) => Find.WorldGrid.InBounds(tile), delegate (PlanetTile tile, int dist){
                 if (dist > brushRadius.max)
                     return true;
 
@@ -358,7 +360,8 @@ namespace WorldEdit_2_0.MainEditor.Tiles
                 }
 
                 return false;
-            });
+            },5000,extraRoot);
+            
 
             foreach(var tile in radiusTiles)
             {
@@ -418,6 +421,11 @@ namespace WorldEdit_2_0.MainEditor.Tiles
                     }
             }
         }
+        
+        private bool IsOceanOrLake(Tile tile)
+        {
+            return tile.PrimaryBiome == BiomeDefOf.Ocean || tile.PrimaryBiome == BiomeDefOf.Lake;
+        }
 
         private void SetToAllMap(SetType type)
         {
@@ -427,7 +435,7 @@ namespace WorldEdit_2_0.MainEditor.Tiles
             {
                 case SetType.Temperature:
                     {
-                        grid.tiles.Where(tile => tile.biome != BiomeDefOf.Ocean && tile.biome != BiomeDefOf.Lake).ToList().ForEach(tile => tile.temperature = temperature);
+                        grid.Tiles.Where(tile => !IsOceanOrLake(tile)).ToList().ForEach(tile => tile.temperature = temperature);
 
                         Messages.Message("SetToAllMap_Message".Translate(GetString(type), temperature), MessageTypeDefOf.NeutralEvent, false);
 
@@ -435,7 +443,7 @@ namespace WorldEdit_2_0.MainEditor.Tiles
                     }
                 case SetType.Elevation:
                     {
-                        grid.tiles.Where(tile => tile.biome != BiomeDefOf.Ocean && tile.biome != BiomeDefOf.Lake).ToList().ForEach(tile => tile.elevation = elevation);
+                        grid.Tiles.Where(tile =>  !IsOceanOrLake(tile)).ToList().ForEach(tile => tile.elevation = elevation);
 
                         Messages.Message("SetToAllMap_Message".Translate(GetString(type), elevation), MessageTypeDefOf.NeutralEvent, false);
 
@@ -443,7 +451,7 @@ namespace WorldEdit_2_0.MainEditor.Tiles
                     }
                 case SetType.Rainfall:
                     {
-                        grid.tiles.Where(tile => tile.biome != BiomeDefOf.Ocean && tile.biome != BiomeDefOf.Lake).ToList().ForEach(tile => tile.rainfall = rainfall);
+                        grid.Tiles.Where(tile =>  !IsOceanOrLake(tile)).ToList().ForEach(tile => tile.rainfall = rainfall);
 
                         Messages.Message("SetToAllMap_Message".Translate(GetString(type), rainfall), MessageTypeDefOf.NeutralEvent, false);
 
@@ -451,7 +459,7 @@ namespace WorldEdit_2_0.MainEditor.Tiles
                     }
                 case SetType.Swampiness:
                     {
-                        grid.tiles.Where(tile => tile.biome != BiomeDefOf.Ocean && tile.biome != BiomeDefOf.Lake).ToList().ForEach(tile => tile.swampiness = swampiness);
+                        grid.Tiles.Where(tile =>  !IsOceanOrLake(tile)).ToList().ForEach(tile => tile.swampiness = swampiness);
 
                         Messages.Message("SetToAllMap_Message".Translate(GetString(type), swampiness), MessageTypeDefOf.NeutralEvent, false);
 
@@ -460,6 +468,12 @@ namespace WorldEdit_2_0.MainEditor.Tiles
             }
         }
 
+        private bool IsBiome(Tile tile, BiomeDef biome )
+        {
+            return tile.Biomes.Any(b => b == biome);
+        }            
+
+        
         private void SetToAllBiomes(SetType type)
         {
             if (selectedBiome == null)
@@ -474,7 +488,7 @@ namespace WorldEdit_2_0.MainEditor.Tiles
             {
                 case SetType.Temperature:
                     {
-                        grid.tiles.Where(tile => tile.biome == selectedBiome).ToList().ForEach(tile => tile.temperature = temperature);
+                        grid.Tiles.Where(tile => IsBiome(tile,selectedBiome)).ToList().ForEach(tile => tile.temperature = temperature);
 
                         Messages.Message("SetToAllBiomes_Message".Translate(GetString(type), temperature, selectedBiome.defName), MessageTypeDefOf.NeutralEvent, false);
 
@@ -482,7 +496,7 @@ namespace WorldEdit_2_0.MainEditor.Tiles
                     }
                 case SetType.Elevation:
                     {
-                        grid.tiles.Where(tile => tile.biome == selectedBiome).ToList().ForEach(tile => tile.elevation = elevation);
+                        grid.Tiles.Where(tile => IsBiome(tile,selectedBiome)).ToList().ForEach(tile => tile.elevation = elevation);
 
                         Messages.Message("SetToAllBiomes_Message".Translate(GetString(type), elevation, selectedBiome.defName), MessageTypeDefOf.NeutralEvent, false);
 
@@ -490,7 +504,7 @@ namespace WorldEdit_2_0.MainEditor.Tiles
                     }
                 case SetType.Rainfall:
                     {
-                        grid.tiles.Where(tile => tile.biome == selectedBiome).ToList().ForEach(tile => tile.rainfall = rainfall);
+                        grid.Tiles.Where(tile => IsBiome(tile,selectedBiome)).ToList().ForEach(tile => tile.rainfall = rainfall);
 
                         Messages.Message("SetToAllBiomes_Message".Translate(GetString(type), rainfall, selectedBiome.defName), MessageTypeDefOf.NeutralEvent, false);
 
@@ -498,7 +512,7 @@ namespace WorldEdit_2_0.MainEditor.Tiles
                     }
                 case SetType.Swampiness:
                     {
-                        grid.tiles.Where(tile => tile.biome == selectedBiome).ToList().ForEach(tile => tile.swampiness = swampiness);
+                        grid.Tiles.Where(tile => IsBiome(tile,selectedBiome)).ToList().ForEach(tile => tile.swampiness = swampiness);
 
                         Messages.Message("SetToAllBiomes_Message".Translate(GetString(type), swampiness, selectedBiome.defName), MessageTypeDefOf.NeutralEvent, false);
 

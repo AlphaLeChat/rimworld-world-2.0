@@ -68,7 +68,7 @@ namespace WorldEdit_2_0.MainEditor.Templates
 
         private void DoCustomBottomButtons()
         {
-            int num = (!TutorSystem.TutorialMode) ? 5 : 4;
+            int num = TutorSystem.TutorialMode ? 4 : 5;
             int num2 = (num < 4 || !((float)UI.screenWidth < 1340f)) ? 1 : 2;
             int num3 = Mathf.CeilToInt((float)num / (float)num2);
             Vector2 bottomButSize = Page.BottomButSize;
@@ -103,7 +103,7 @@ namespace WorldEdit_2_0.MainEditor.Templates
                 Vector2 bottomButSize7 = Page.BottomButSize;
                 if (Widgets.ButtonText(new Rect(x3, y2, x4, bottomButSize7.y), "Advanced".Translate()))
                 {
-                    Find.WindowStack.Add(new Dialog_AdvancedGameConfig(Find.WorldInterface.SelectedTile));
+                    //Find.WindowStack.Add(new Dialog_AdvancedGameConfig(Find.WorldInterface.SelectedTile));
                 }
                 float num10 = num7;
                 Vector2 bottomButSize8 = Page.BottomButSize;

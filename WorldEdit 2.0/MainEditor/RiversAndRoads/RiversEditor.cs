@@ -24,7 +24,7 @@ namespace WorldEdit_2_0.MainEditor.RiversAndRoads
 
         private WorldEditor worldEditor => WorldEditor.WorldEditorInstance;
 
-        public WorldLayer RiversLayer { get; private set; }
+        public WorldDrawLayerBase RiversLayer { get; private set; }
         public List<LayerSubMesh> SingleTileSubMesh { get; private set; }
 
         public RiversEditor()
@@ -35,29 +35,39 @@ namespace WorldEdit_2_0.MainEditor.RiversAndRoads
         public override void WorldFinalizeInit()
         {
             base.WorldFinalizeInit();
-
-            RiversLayer = WorldEditor.WorldEditorInstance.GetEditor<TileEditor>().Layers["WorldLayer_Rivers"];
-            SingleTileSubMesh = WorldEditor.WorldEditorInstance.GetEditor<TileEditor>().LayersSubMeshes["WorldLayer_SelectedTile"];
+            RiversLayer = WorldEditor.WorldEditorInstance.GetEditor<TileEditor>().Layers["WorldDrawLayer_Rivers"];
+            SingleTileSubMesh = WorldEditor.WorldEditorInstance.GetEditor<TileEditor>().LayersSubMeshes["WorldDrawLayer_SelectedTile"];
         }
 
+        private bool ContainsOceanOrLakes(SurfaceTile tile)
+        {
+            return tile.Biomes.Any(b => b == BiomeDefOf.Ocean || b == BiomeDefOf.Lake);
+        }
         public List<int> FindOceansOrLakesAround(int rootTile)
         {
+
+            
             if (rootTile < 0)
             {
                 Messages.Message($"RiversEditorWindow_CreateSource_NoTile".Translate(), MessageTypeDefOf.NeutralEvent, false);
                 return null;
             }
 
-            if (Find.WorldGrid[rootTile].biome == BiomeDefOf.Ocean || Find.WorldGrid[rootTile].biome == BiomeDefOf.Lake)
+            if (ContainsOceanOrLakes(Find.WorldGrid[rootTile]))
             {
                 Messages.Message($"RiversEditorWindow_CreateSource_WaterTile".Translate(), MessageTypeDefOf.NeutralEvent, false);
                 return null;
             }
 
-            List<int> outList = new List<int>();
+            List<PlanetTile> outList = new List<PlanetTile>();
             Find.WorldGrid.GetTileNeighbors(rootTile, outList);
-
-            List<int> oceansOrLakes = outList.Where(id => Find.WorldGrid[id].biome == BiomeDefOf.Ocean || Find.WorldGrid[id].biome == BiomeDefOf.Lake).ToList();
+            
+            
+            
+            List<int> oceansOrLakes = outList.Where(tile =>  Find.WorldGrid[tile.tileId].Biomes.Any(b => b == BiomeDefOf.Ocean || b == BiomeDefOf.Lake ))
+                .Select(t => t.tileId )
+                .ToList();
+            
             if (oceansOrLakes.Count == 0)
             {
                 Messages.Message($"RiversEditorWindow_CreateSource_NoOceansOrLakes".Translate(), MessageTypeDefOf.NeutralEvent, false);
@@ -67,11 +77,12 @@ namespace WorldEdit_2_0.MainEditor.RiversAndRoads
             return oceansOrLakes;
         }
 
+       
         public void RemoveAllRivers()
         {
             for (int i = 0; i < Find.WorldGrid.TilesCount; i++)
             {
-                Tile tile = Find.WorldGrid[i];
+                SurfaceTile tile = Find.WorldGrid[i];
 
                 tile.potentialRivers = null;
             }
@@ -81,10 +92,10 @@ namespace WorldEdit_2_0.MainEditor.RiversAndRoads
             Messages.Message($"RiversEditorWindow_RemoveAllRiversInfo".Translate(), MessageTypeDefOf.NeutralEvent, false);
         }
 
-        public void CreateRiver(int tile1ID, int tile2ID, RiverDef river)
+        public void CreateRiver(PlanetTile tile1ID, PlanetTile tile2ID, RiverDef river)
         {
             WorldGrid worldGrid = Find.WorldGrid;
-            var path = Find.WorldPathFinder.FindPath(tile1ID, tile2ID, null);
+            var path = tile1ID.Layer.Pather.FindPath(tile1ID, tile2ID, null);
 
             for (int i = 0; i < path.NodesLeftCount - 1; i++)
             {
@@ -94,17 +105,18 @@ namespace WorldEdit_2_0.MainEditor.RiversAndRoads
             worldEditor.WorldUpdater.UpdateLayer(RiversLayer);
         }
 
-        public void RemoveRiver(int tile1ID, int tile2ID)
+        public void RemoveRiver(PlanetTile tile1ID, PlanetTile tile2ID)
         {
             WorldGrid worldGrid = Find.WorldGrid;
-            var path = Find.WorldPathFinder.FindPath(tile1ID, tile2ID, null);
+            var path = tile1ID.Layer.Pather.FindPath(tile1ID, tile2ID, null);
+
             for (int i = 0; i < path.NodesLeftCount - 1; i++)
             {
-                Tile tile = worldGrid[path.Peek(i)];
+                SurfaceTile tile = worldGrid[path.Peek(i).tileId];
                 tile.potentialRivers = null;
             }
 
-            worldGrid[tile2ID].potentialRivers = null;
+            worldGrid[tile2ID.tileId].potentialRivers = null;
 
             worldEditor.WorldUpdater.UpdateLayer(RiversLayer);
         }

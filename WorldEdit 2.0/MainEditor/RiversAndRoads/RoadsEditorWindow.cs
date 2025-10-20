@@ -24,10 +24,10 @@ namespace WorldEdit_2_0.MainEditor.RiversAndRoads
 
         private RoadDef selectedRoad;
 
-        private int startRoadTile;
-        private int endRoadTile;
+        private PlanetTile startRoadTile;
+        private PlanetTile endRoadTile;
 
-        private WorldLayer roadsLayer => roadsEditor.RoadsLayer;
+        private WorldDrawLayerBase roadsLayer => roadsEditor.RoadsLayer;
 
         private bool removeMode;
 
@@ -96,7 +96,7 @@ namespace WorldEdit_2_0.MainEditor.RiversAndRoads
             {
                 endRoadTile = GenWorld.MouseTile();
 
-                if (startRoadTile >= 0 && endRoadTile >= 0)
+                if (startRoadTile != null && endRoadTile != null && startRoadTile >= 0 && endRoadTile >= 0)
                 {
                     if (!removeMode && selectedRoad != null)
                         roadsEditor.CreateRoad(startRoadTile, endRoadTile, selectedRoad);

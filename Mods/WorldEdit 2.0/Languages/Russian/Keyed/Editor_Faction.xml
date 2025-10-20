@@ -25,6 +25,4 @@
 	<FactionGroupBy_FactionDef>Def шаблон фракции</FactionGroupBy_FactionDef>
 	
 	<FactionEditorWindow_Sort>Сортировать по: {0}</FactionEditorWindow_Sort>
-	<FactionEditorWindow_SelectIdeo>Идеология: {0} (Культура: {1})</FactionEditorWindow_SelectIdeo>
-	
 </LanguageData>

@@ -29,7 +29,7 @@ namespace WorldEdit_2_0.MainEditor
             Find.World.renderer.SetAllLayersDirty();
         }
 
-        public void UpdateLayer(WorldLayer layer)
+        public void UpdateLayer(WorldDrawLayerBase layer)
         {
             layer.RegenerateNow();
         }
@@ -98,8 +98,8 @@ namespace WorldEdit_2_0.MainEditor
 
             Vector3 posForTangents = tileCenter;
             float magnitude = tileCenter.magnitude;
-            tileCenter = (tileCenter + Rand.UnitVector3 * floatRange.RandomInRange * grid.averageTileSize).normalized * magnitude;
-            WorldRendererUtility.PrintQuadTangentialToPlanet(tileCenter, posForTangents, BaseSizeRange.RandomInRange * grid.averageTileSize, 0.005f, subMesh, counterClockwise: false, randomizeRotation: true, printUVs: false);
+            tileCenter = (tileCenter + Rand.UnitVector3 * floatRange.RandomInRange * grid.AverageTileSize).normalized * magnitude;
+            WorldRendererUtility.PrintQuadTangentialToPlanet(tileCenter, posForTangents, BaseSizeRange.RandomInRange * grid.AverageTileSize, 0.005f, subMesh, counterClockwise: false, printUVs: false);
             IntVec2 texturesInAtlas = TexturesInAtlas;
             int indexX = Rand.Range(0, texturesInAtlas.x);
             IntVec2 texturesInAtlas2 = TexturesInAtlas;

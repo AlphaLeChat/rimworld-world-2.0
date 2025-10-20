@@ -23,7 +23,7 @@ namespace WorldEdit_2_0.MainEditor.Tiles
 
         public List<BiomeDef> AvaliableBiomes { get; private set; }
 
-        public Dictionary<string, WorldLayer> Layers { get; private set; }
+        public Dictionary<string, WorldDrawLayerBase> Layers { get; private set; }
         public Dictionary<string, List<LayerSubMesh>> LayersSubMeshes { get; private set; }
 
         public TileEditor()
@@ -33,12 +33,12 @@ namespace WorldEdit_2_0.MainEditor.Tiles
 
         public override void WorldFinalizeInit()
         {
-            FieldInfo fieldlayers = typeof(WorldRenderer).GetField("layers", BindingFlags.NonPublic | BindingFlags.Instance);
-            FieldInfo fieldMeshes = typeof(WorldLayer).GetField("subMeshes", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic
+            FieldInfo fieldMeshes = typeof(WorldDrawLayerBase).GetField("subMeshes", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic
                 | BindingFlags.Static);
 
-            var tempLayers = fieldlayers.GetValue(Find.World.renderer) as List<WorldLayer>;
-            Layers = new Dictionary<string, WorldLayer>(tempLayers.Count);
+            List<WorldDrawLayerBase> tempLayers = new List<WorldDrawLayerBase>(Find.World.renderer.AllDrawLayers);
+            //var tempLayers = fieldlayers.GetValue(Find.World.renderer) as List<WorldLayer>;
+            Layers = new Dictionary<string, WorldDrawLayerBase>(tempLayers.Count);
             LayersSubMeshes = new Dictionary<string, List<LayerSubMesh>>(tempLayers.Count);
             foreach (var layer in tempLayers)
             {
@@ -62,17 +62,24 @@ namespace WorldEdit_2_0.MainEditor.Tiles
             WorldGrid grid = Find.WorldGrid;
             if (oceanAlso)
             {
-                grid.tiles.ForEach(tile =>
+                foreach (var tile in grid.Tiles)
                 {
-                    tile.biome = biome;
-                });
+                    tile.PrimaryBiome = biome;
+                }
+                
             }
             else
             {
-                foreach (var tile in grid.tiles.Where(tile => tile.biome != BiomeDefOf.Ocean && tile.biome != BiomeDefOf.Lake))
+                foreach (var tile in grid.Tiles)
                 {
-                    tile.biome = biome;
+                    if (tile.Biomes.All(b => b != BiomeDefOf.Ocean && b != BiomeDefOf.Lake))
+                    {
+                        tile.PrimaryBiome = biome;
+                    }
+       
                 }
+                
+         
             }
 
             LongEventHandler.QueueLongEvent(delegate

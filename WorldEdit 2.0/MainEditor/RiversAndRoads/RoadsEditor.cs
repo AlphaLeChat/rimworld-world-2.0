@@ -22,7 +22,7 @@ namespace WorldEdit_2_0.MainEditor.RiversAndRoads
 
         public List<RoadDef> AvaliableRoads { get; private set; }
 
-        public WorldLayer RoadsLayer { get; private set; }
+        public WorldDrawLayerBase RoadsLayer { get; private set; }
 
         private WorldEditor worldEditor => WorldEditor.WorldEditorInstance;
 
@@ -33,15 +33,14 @@ namespace WorldEdit_2_0.MainEditor.RiversAndRoads
 
         public override void WorldFinalizeInit()
         {
-            RoadsLayer = WorldEditor.WorldEditorInstance.GetEditor<TileEditor>().Layers["WorldLayer_Roads"];
+            RoadsLayer = WorldEditor.WorldEditorInstance.GetEditor<TileEditor>().Layers["WorldDrawLayer_Roads"];
         }
 
         public void RemoveAllRoads()
         {
             for (int i = 0; i < Find.WorldGrid.TilesCount; i++)
             {
-                Tile tile = Find.WorldGrid[i];
-
+                SurfaceTile tile = Find.WorldGrid[i];
                 tile.potentialRoads = null;
             }
 
@@ -50,11 +49,12 @@ namespace WorldEdit_2_0.MainEditor.RiversAndRoads
             Messages.Message($"RoadsEditorWindow_RemoveAllRoadsInfo".Translate(), MessageTypeDefOf.NeutralEvent, false);
         }
 
-        public void CreateRoad(int tile1ID, int tile2ID, RoadDef road)
+        public void CreateRoad(PlanetTile tile1ID, PlanetTile tile2ID, RoadDef road)
         {
             WorldGrid worldGrid = Find.WorldGrid;
-            var path = Find.WorldPathFinder.FindPath(tile1ID, tile2ID, null);
-
+            
+            var path = tile1ID.Layer.Pather.FindPath(tile1ID, tile2ID, null);
+            //var path = Find.WorldPathFinder.FindPath(tile1ID, tile2ID, null);
             for (int i = 0; i < path.NodesLeftCount - 1; i++)
             {
                 worldGrid.OverlayRoad(path.Peek(i), path.Peek(i + 1), road);
@@ -63,17 +63,19 @@ namespace WorldEdit_2_0.MainEditor.RiversAndRoads
             worldEditor.WorldUpdater.UpdateLayer(RoadsLayer);
         }
 
-        public void RemoveRoad(int tile1ID, int tile2ID)
+        public void RemoveRoad(PlanetTile tile1ID, PlanetTile tile2ID)
         {
+            
             WorldGrid worldGrid = Find.WorldGrid;
-            var path = Find.WorldPathFinder.FindPath(tile1ID, tile2ID, null);
+            var path = tile1ID.Layer.Pather.FindPath(tile1ID, tile2ID, null);
+
             for (int i = 0; i < path.NodesLeftCount - 1; i++)
             {
-                Tile tile = worldGrid[path.Peek(i)];
+                SurfaceTile tile = worldGrid[path.Peek(i).tileId];
                 tile.potentialRoads = null;
             }
 
-            worldGrid[tile2ID].potentialRoads = null;
+            worldGrid[tile2ID.tileId].potentialRoads = null;
 
             worldEditor.WorldUpdater.UpdateLayer(RoadsLayer);
         }

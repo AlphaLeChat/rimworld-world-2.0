@@ -35,8 +35,9 @@ This causes an almost complete reload of the world, which can take a long time. 
 
 	<TileEditorWindow_BrushEnable>Enable brush</TileEditorWindow_BrushEnable>
 	<TileEditorWindow_BrushSettings>Radius</TileEditorWindow_BrushSettings>
+	<TileEditorWindow_Enable>Active</TileEditorWindow_Enable>
+	<TileEditorWindow_VanillaRocks>Default rocks generation (vanilla)</TileEditorWindow_VanillaRocks>
   
 	<TileEditorWindow_SetBiomeToWholeMap>Set biome to whole map </TileEditorWindow_SetBiomeToWholeMap>
-	<TileEditorWindow_Enable>Enabled</TileEditorWindow_Enable>
   
 </LanguageData>

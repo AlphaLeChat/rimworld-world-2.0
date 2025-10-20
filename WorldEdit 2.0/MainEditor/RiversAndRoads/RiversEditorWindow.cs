@@ -24,10 +24,10 @@ namespace WorldEdit_2_0.MainEditor.RiversAndRoads
 
         private RiverDef selectedRiver;
 
-        private int startRiverTile;
-        private int endRiverTile;
+        private PlanetTile startRiverTile;
+        private PlanetTile endRiverTile;
 
-        private WorldLayer riversLayer => riversEditor.RiversLayer;
+        private WorldDrawLayerBase riversLayer => riversEditor.RiversLayer;
         private List<LayerSubMesh> singleTileSubMesh => riversEditor.SingleTileSubMesh;
 
         private bool removeMode;
@@ -105,11 +105,11 @@ namespace WorldEdit_2_0.MainEditor.RiversAndRoads
                 return;
             }
 
-            int tileID = Find.WorldSelector.selectedTile;
+            int tileID = Find.WorldSelector.SelectedTile;
             List<int> oceansOrLakes = riversEditor.FindOceansOrLakesAround(tileID);
 
             worldEditor.WorldUpdater.RenderSingleTile(oceansOrLakes, WorldMaterials.SelectedTile, singleTileSubMesh);
-
+            
             Messages.Message($"RiversEditorWindow_CreateSource_ClickInfo".Translate(), MessageTypeDefOf.NeutralEvent, false);
 
             setEdgeRiver = true;
@@ -145,7 +145,7 @@ namespace WorldEdit_2_0.MainEditor.RiversAndRoads
             {
                 endRiverTile = GenWorld.MouseTile();
 
-                if (startRiverTile >= 0 && endRiverTile >= 0)
+                if (startRiverTile != null && endRiverTile != null && startRiverTile >= 0 && endRiverTile >= 0)
                 {
                     if (!removeMode && selectedRiver != null)
                         riversEditor.CreateRiver(startRiverTile, endRiverTile, selectedRiver);

@@ -16,7 +16,7 @@ namespace WorldEdit_2_0.Patches.WorldPatches
     {
         private static GameComponent_CustomNaturalRocks customNaturalRocks => Current.Game.GetComponent<GameComponent_CustomNaturalRocks>();
 
-        public static bool Prefix(int tile, ref IEnumerable<ThingDef> __result)
+        public static bool Prefix(PlanetTile tile, ref IEnumerable<ThingDef> __result)
         {
             if (customNaturalRocks.ResourceData.ContainsKey(tile))
             {

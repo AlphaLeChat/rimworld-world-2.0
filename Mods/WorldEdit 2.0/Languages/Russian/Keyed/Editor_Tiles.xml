@@ -35,9 +35,11 @@
 	
 	<TileEditorWindow_BrushEnable>Включить кисть</TileEditorWindow_BrushEnable>
 	<TileEditorWindow_BrushSettings>Радиус</TileEditorWindow_BrushSettings>
+	<TileEditorWindow_Enable>Включено</TileEditorWindow_Enable>
+	<TileEditorWindow_VanillaRocks>Обычная генерация пород</TileEditorWindow_VanillaRocks>
 	
 	<TileEditorWindow_SetBiomeToWholeMap>Установить биом на всю карту</TileEditorWindow_SetBiomeToWholeMap>
 	
-	<TileEditorWindow_Enable>Активно</TileEditorWindow_Enable>
+
   
 </LanguageData>

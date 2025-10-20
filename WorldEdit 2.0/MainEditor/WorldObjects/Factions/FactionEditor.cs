@@ -59,7 +59,7 @@ namespace WorldEdit_2_0.MainEditor.WorldObjects.Factions
             if (faction == null)
                 return;
 
-            List<Faction> allFactions = typeof(FactionManager).GetField("allFactions", BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic).GetValue(Find.FactionManager) as List<Faction>;
+            List<Faction> allFactions = Find.FactionManager.AllFactionsListForReading; //  typeof(FactionManager).GetField("allFactions", BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic).GetValue(Find.FactionManager) as List<Faction>;
 
             if (!allFactions.Contains(faction))
             {
