@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<LanguageData>
+	<SettlementEditorWindow_SettlementsList>Colonies</SettlementEditorWindow_SettlementsList>
+	<SettlementEditorWindow_AddNewSettlement>Ajouter une nouvelle colonie</SettlementEditorWindow_AddNewSettlement>
+	<SettlementEditorWindow_DeleteSelectedSettlement>Supprimer la colonie sélectionnée</SettlementEditorWindow_DeleteSelectedSettlement>
+	<SettlementEditorWindow_SettlementInfoTitle>Paramètres de la colonie</SettlementEditorWindow_SettlementInfoTitle>
+	<SettlementEditorWindow_SettlementNameField>Nom de la colonie</SettlementEditorWindow_SettlementNameField>
+	<SettlementEditorWindow_SelectSettlementPlace>Sélectionnez l'emplacement de la colonie en cliquant dessus avec le bouton gauche de la souris</SettlementEditorWindow_SelectSettlementPlace>
+	<SettlementEditorWindow_FixedFaction>Faction d'apparition fixe : {0}</SettlementEditorWindow_FixedFaction>
+	<SettlementEditorWindow_NoAvaliableFactions>Il n'y a pas de factions disponibles pour créer une colonie. Les factions Mécanoïdes, Insectes et Anciennes ne peuvent pas être utilisées pour les colonies. Créez une faction puis ouvrez l'éditeur de colonies.</SettlementEditorWindow_NoAvaliableFactions>
+	<SettlementEditorWindow_Def>Faction : {0}</SettlementEditorWindow_Def>
+	<SettlementEditorWindow_SaveSettlement>Enregistrer les modifications</SettlementEditorWindow_SaveSettlement>
+	
+	<SettlementEditorWindow_DeleteAllSettlements>Supprimer toutes les colonies</SettlementEditorWindow_DeleteAllSettlements>
+	<SettlementEditorWindow_SaveSettlementInfo>Modifications enregistrées</SettlementEditorWindow_SaveSettlementInfo>
+	<SettlementEditorWindow_AllSettlementsDeleted>Toutes les colonies ont été supprimées</SettlementEditorWindow_AllSettlementsDeleted>
+	
+	<SettlementEditorWindow_Group>Grouper par : {0}</SettlementEditorWindow_Group>
+	<SettlementGroupBy_None>Aucun groupe</SettlementGroupBy_None>
+	<SettlementGroupBy_FactionName>Faction</SettlementGroupBy_FactionName>
+	<SettlementGroupBy_FactionDef>Définition de la faction</SettlementGroupBy_FactionDef>
+	<SettlementGroupBy_SettlementDef>Définition de la colonie</SettlementGroupBy_SettlementDef>
+	
+	<SettlementEditorWindow_Sort>Trier par : {0}</SettlementEditorWindow_Sort>
+	
+	<SettlementEditor_DragAndDropKey>Bouton 'glisser-déposer' de la colonie</SettlementEditor_DragAndDropKey>
+	
+	<SettlementEditorWindow_NoAvaliableSettlementDefs>Aucun modèle disponible pour les colonies</SettlementEditorWindow_NoAvaliableSettlementDefs>
+	<SettlementEditor_DeleteSettlementKey>Suppression de la colonie sélectionnée</SettlementEditor_DeleteSettlementKey>
+	
+</LanguageData>

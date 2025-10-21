@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<LanguageData>
+	<CreateWorldParams_EnabledEditorLabel>Activer l'éditeur</CreateWorldParams_EnabledEditorLabel>
+	<NoText>Non</NoText>
+	
+	<SortWorldObjectBy_ID>ID</SortWorldObjectBy_ID>
+	<SortWorldObjectBy_ABC>ABC</SortWorldObjectBy_ABC>
+	
+	<Page_SelectWorldTemplate>Choisir un modèle de monde</Page_SelectWorldTemplate>
+	
+	<HowWorldTemplateWork>Le modèle de monde définit un monde pré-généré et ses paramètres (comme le scénario, le conteur, etc., s'ils sont définis)</HowWorldTemplateWork>
+	
+	<PSWL_Author>Auteur : {0}</PSWL_Author>
+	
+	<MustChooseWorldTemplateDef>Choisissez un modèle de monde</MustChooseWorldTemplateDef>
+	
+</LanguageData>

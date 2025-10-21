@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<LanguageData>
+	<RiversEditorWindow_RemoveAllRivers>Supprimer toutes les rivières</RiversEditorWindow_RemoveAllRivers>
+	<RiversEditorWindow_SelectedRiver>Modèle de rivière : {0}</RiversEditorWindow_SelectedRiver>
+	<RiversEditorWindow_RiverList>Types de rivières</RiversEditorWindow_RiverList>
+	<RiversEditorWindow_RemoveAllRiversInfo>Toutes les rivières de la planète ont été supprimées</RiversEditorWindow_RemoveAllRiversInfo>
+	<RiversEditorWindow_RemoveMode>Mode suppression</RiversEditorWindow_RemoveMode>
+	<RiversEditorWindow_RemoveModeChanged>Mode suppression activé. Cela signifie que les rivières seront supprimées au lieu d'être créées.</RiversEditorWindow_RemoveModeChanged>
+	<RiversEditorWindow_CreateSource>Créer une source</RiversEditorWindow_CreateSource>
+	<RiversEditorWindow_CreateSource_NoRiverDef>Sélectionnez le type de rivière</RiversEditorWindow_CreateSource_NoRiverDef>
+    <RiversEditorWindow_CreateSource_NoTile>Sélectionnez une case</RiversEditorWindow_CreateSource_NoTile>
+	<RiversEditorWindow_CreateSource_WaterTile>Sélectionnez une case qui n'est pas un océan ou un lac</RiversEditorWindow_CreateSource_WaterTile>
+	<RiversEditorWindow_CreateSource_NoOceansOrLakes>Il n'y a pas de cases de lac ou d'océan à proximité. Pour créer une source, il faut au moins une case de lac ou d'océan à proximité.</RiversEditorWindow_CreateSource_NoOceansOrLakes>
+	<RiversEditorWindow_CreateSource_ClickInfo>Sélectionnez une des cases surlignées en cliquant dessus avec le bouton gauche de la souris</RiversEditorWindow_CreateSource_ClickInfo>
+  
+</LanguageData>

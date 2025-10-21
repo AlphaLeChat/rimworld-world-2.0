@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<LanguageData>
+	<WorldFeatureEditorWindow_WorldPrintsTitle>Caractéristiques géographiques</WorldFeatureEditorWindow_WorldPrintsTitle>
+	<WorldFeatureEditorWindow_CreateNewFeature>Créer une caractéristique géographique</WorldFeatureEditorWindow_CreateNewFeature>
+	<WorldFeatureEditorWindow_DeleteFeature>Supprimer la selection</WorldFeatureEditorWindow_DeleteFeature>
+	<WorldFeatureEditorWindow_DeleteAllFeatures>Tout supprimer</WorldFeatureEditorWindow_DeleteAllFeatures>
+	<WorldFeatureEditorWindow_WrongTile>Sélectionnez d'abord la tuile sur laquelle la caractéristique géographique sera placée</WorldFeatureEditorWindow_WrongTile>
+	<WorldFeatureEditorWindow_Created>Caractéristique géographique créée. Modifiez-la en la sélectionnant dans la liste.</WorldFeatureEditorWindow_Created>
+	<WorldFeatureEditorWindow_DeleteAllFeaturesMessage>Toutes les caractéristiques géographiques ont été supprimées</WorldFeatureEditorWindow_DeleteAllFeaturesMessage>
+	<WorldFeatureEditorWindow_FeaturesInfoTitle>Paramètres de la caractéristique géographique</WorldFeatureEditorWindow_FeaturesInfoTitle>
+	
+	<WorldFeatureEditorWindow_WorldFeatureName>Libellé</WorldFeatureEditorWindow_WorldFeatureName>
+	<WorldFeatureEditorWindow_RotateFeature>Angle</WorldFeatureEditorWindow_RotateFeature>
+	<WorldFeatureEditorWindow_FeatureLengthMax>Taille</WorldFeatureEditorWindow_FeatureLengthMax>
+	<WorldFeatureEditorWindow_SaveWorldFeature>Enregistrer les modifications</WorldFeatureEditorWindow_SaveWorldFeature>
+	<WorldFeatureEditorWindow_SaveWorldFeatureInfo>Enregistré</WorldFeatureEditorWindow_SaveWorldFeatureInfo>
+	
+	<WorldFeatureEditorWindow_SelectWorldFeaturePlace>Sélectionnez la tuile sur laquelle la caractéristique géographique sera créée avec le bouton gauche de la souris</WorldFeatureEditorWindow_SelectWorldFeaturePlace>
+	
+</LanguageData>

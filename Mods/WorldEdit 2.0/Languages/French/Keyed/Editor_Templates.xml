@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<LanguageData>
+	<TemplateEditorWindow_TemplateName>Nom du modèle</TemplateEditorWindow_TemplateName>
+	<TemplateEditorWindow_Author>Auteur</TemplateEditorWindow_Author>
+	<TemplateEditorWindow_Description>Description du modèle</TemplateEditorWindow_Description>
+  
+	<TemplateEditorWindow_SelectStoryteller>Conteur forcé</TemplateEditorWindow_SelectStoryteller>
+	<TemplateEditorWindow_SelectScenario>Changer de scénario</TemplateEditorWindow_SelectScenario>
+	
+	<TemplateEditorWindow_SelectPawnMode>Mode de sélection des colons</TemplateEditorWindow_SelectPawnMode>
+    <TemplateEditorWindow_SelectPawnModeInfo>Sans choix - les colons sont préparés à l'avance, ils ne peuvent pas être re-sélectionnés ;
+  
+     Choix standard - menu de choix standard</TemplateEditorWindow_SelectPawnModeInfo>
+    <TemplateEditorWindow_Allowed>Choix standard</TemplateEditorWindow_Allowed>
+    <TemplateEditorWindow_NotAllowed>Sans choix</TemplateEditorWindow_NotAllowed>
+	<TemplateEditorWindow_EditStartPawns>Édition des colons</TemplateEditorWindow_EditStartPawns>
+	<TemplateEditorWindow_SelectPawnInfoButton>Sélectionner les colons</TemplateEditorWindow_SelectPawnInfoButton>
+	<TemplateEditorWindow_CreateTemplate>Créer un modèle</TemplateEditorWindow_CreateTemplate>
+	
+	<TemplateEditorWindow_EnterCorrectName>Entrez le nom correct du modèle</TemplateEditorWindow_EnterCorrectName>
+	<TemplateEditorWindow_EnterCorrectAuthor>Veuillez entrer un nom d'auteur correct</TemplateEditorWindow_EnterCorrectAuthor>
+	<TemplateEditorWindow_EnterCorrectDescription>Entrez au moins une description minimale du modèle</TemplateEditorWindow_EnterCorrectDescription>
+	
+	<TemplateEditorWindow_SuccessSave>Le modèle a été enregistré avec succès à l'emplacement {0}. Il peut être chargé via "Charger la partie"</TemplateEditorWindow_SuccessSave>
+  
+</LanguageData>

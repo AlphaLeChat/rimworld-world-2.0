@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<LanguageData>
+	<RoadsEditorWindow_RemoveAllRoads>Supprimer toutes les routes</RoadsEditorWindow_RemoveAllRoads>
+	<RoadsEditorWindow_RemoveAllRoadsInfo>Toutes les routes ont été supprimées du monde</RoadsEditorWindow_RemoveAllRoadsInfo>
+	
+	<RoadsEditorWindow_RoadsList>Types de routes</RoadsEditorWindow_RoadsList>
+	<RoadsEditorWindow_SelectedRoad>Modèle de route : {0}</RoadsEditorWindow_SelectedRoad>
+	
+	<RoadsEditorWindow_RemoveMode>Mode suppression</RoadsEditorWindow_RemoveMode>
+	<RoadsEditorWindow_RemoveModeChanged>Mode suppression activé. Cela signifie que les routes seront supprimées au lieu d'être créées</RoadsEditorWindow_RemoveModeChanged>
+
+</LanguageData>

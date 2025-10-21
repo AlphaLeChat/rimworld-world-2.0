@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<LanguageData>
+	<FactionEditorWindow_FactionCreatorTitle>Liste des factions</FactionEditorWindow_FactionCreatorTitle>
+	<FactionEditorWindow_AddNewFaction>Ajouter une nouvelle faction</FactionEditorWindow_AddNewFaction>
+	<FactionEditorWindow_DeleteSelectedFaction>Supprimer la faction sélectionnée</FactionEditorWindow_DeleteSelectedFaction>
+	<FactionEditorWindow_DeleteAllFaction>Supprimer toutes les factions</FactionEditorWindow_DeleteAllFaction>
+	
+	<FactionEditorWindow_FactionSettingsTitle>Paramètres de la faction</FactionEditorWindow_FactionSettingsTitle>
+	<FactionEditorWindow_Def>Modèle de faction : {0}</FactionEditorWindow_Def>
+	<FactionEditorWindow_Name>Nom de la faction</FactionEditorWindow_Name>
+	<FactionEditorWindow_Defeated>Vaincue ?</FactionEditorWindow_Defeated>
+	<FactionEditorWindow_DefeatedYes>Oui</FactionEditorWindow_DefeatedYes>
+	<FactionEditorWindow_DefeatedNo>Non</FactionEditorWindow_DefeatedNo>
+	
+	<FactionEditorWindow_FactionRelative>Relations (CHANGEMENT IMMÉDIAT, PAS BESOIN DE SAUVEGARDER)</FactionEditorWindow_FactionRelative>
+	<FactionEditorWindow_FactionRelativeName>Faction : {0}</FactionEditorWindow_FactionRelativeName>
+	<FactionEditorWindow_FactionGoodness>Relations</FactionEditorWindow_FactionGoodness>
+	<FactionEditorWindow_FactionLeaderName>Nom du chef</FactionEditorWindow_FactionLeaderName>
+	<FactionEditorWindow_SaveFaction>Enregistrer les modifications</FactionEditorWindow_SaveFaction>
+	<FactionEditorWindow_SaveFactionInfo>Faction enregistrée</FactionEditorWindow_SaveFactionInfo>
+	<FactionEditorWindow_FactionRemoved>Faction supprimée</FactionEditorWindow_FactionRemoved>
+	
+	<FactionEditorWindow_Group>Grouper par : {0}</FactionEditorWindow_Group>
+	<FactionGroupBy_None>Aucun groupe</FactionGroupBy_None>
+	<FactionGroupBy_FactionDef>Définition du modèle de faction</FactionGroupBy_FactionDef>
+	
+	<FactionEditorWindow_Sort>Trier par : {0}</FactionEditorWindow_Sort>
+</LanguageData>

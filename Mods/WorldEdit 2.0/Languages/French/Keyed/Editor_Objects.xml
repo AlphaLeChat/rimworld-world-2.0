@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<LanguageData>
+	
+	<ObjectsEditorWindow_ObjectsList>Objets du monde</ObjectsEditorWindow_ObjectsList>
+	<ObjectsEditorWindow_AddNewObject>Créer un nouvel objet</ObjectsEditorWindow_AddNewObject>
+	<ObjectsEditorWindow_DeleteSelectedObject>Supprimer l'objet sélectionné</ObjectsEditorWindow_DeleteSelectedObject>
+	<ObjectsEditorWindow_DeleteAllObjects>Supprimer tous les objets</ObjectsEditorWindow_DeleteAllObjects>
+	<ObjectsEditorWindow_AllObjectsDeleted>Tous les objets ont été supprimés</ObjectsEditorWindow_AllObjectsDeleted>
+	<ObjectsEditorWindow_SelectNewPlace>Sélectionner l'emplacement de l'objet</ObjectsEditorWindow_SelectNewPlace>
+
+	<ObjectGroupBy_None>Aucun groupe</ObjectGroupBy_None>
+	<ObjectGroupBy_Def>Définition de l'objet</ObjectGroupBy_Def>
+	<ObjectGroupBy_Faction>Faction</ObjectGroupBy_Faction>
+
+	<ObjectsEditor_DragAndDropKey>Bouton 'glisser-déposer' des objets</ObjectsEditor_DragAndDropKey>
+	<ObjectsEditor_EditKey>Bouton d'édition de l'objet</ObjectsEditor_EditKey>
+
+	<WorldEditWorldObject_Saved>Enregistré</WorldEditWorldObject_Saved>
+	<WorldEditWorldObject_SaveOrCreate>Enregistrer</WorldEditWorldObject_SaveOrCreate>
+	<WorldEditWorldObject_FactionOwner>Faction</WorldEditWorldObject_FactionOwner>
+	<WorldEditWorldObjectCompUtility_DrawWorldEditWorldObjectComps>Composants</WorldEditWorldObjectCompUtility_DrawWorldEditWorldObjectComps>
+
+	<WorldEditWorldObject_AbandonedSettlement>Colonie abandonnée</WorldEditWorldObject_AbandonedSettlement>
+	<WorldEditWorldObject_AbandonedSettlementWindow_Title>Colonie abandonnée</WorldEditWorldObject_AbandonedSettlementWindow_Title>
+
+	<WorldEditWorldObject_DestroyedSettlement>Colonie détruite</WorldEditWorldObject_DestroyedSettlement>
+	<WorldEditWorldObject_DestroyedSettlementWindow_Title>Colonie détruite</WorldEditWorldObject_DestroyedSettlementWindow_Title>
+
+	<WorldEditWorldObject_EscapeShip>Vaisseau d'évasion</WorldEditWorldObject_EscapeShip>
+	<WorldEditWorldObject_EscapeShipWindow>Vaisseau d'évasion</WorldEditWorldObject_EscapeShipWindow>
+
+	<WorldEditWorldObject_Site>Site</WorldEditWorldObject_Site>
+	<WorldEditWorldObject_SiteWindow_MainCorePart>Noyau principal</WorldEditWorldObject_SiteWindow_MainCorePart>
+	<WorldEditWorldObject_SiteWindow_ConfigureSitePart>Paramètres</WorldEditWorldObject_SiteWindow_ConfigureSitePart>
+	<WorldEditWorldObject_SiteWindow_AddNewPart>Ajouter un noyau supplémentaire</WorldEditWorldObject_SiteWindow_AddNewPart>
+	<WorldEditWorldObject_SiteWindow_DeletePart>Supprimer</WorldEditWorldObject_SiteWindow_DeletePart>
+	<WorldEditWorldObject_SiteWindow_AdditionalParts>Parties supplémentaires</WorldEditWorldObject_SiteWindow_AdditionalParts>
+
+	<WorldEditWorldObjectComp_OpenSettings>Paramètres</WorldEditWorldObjectComp_OpenSettings>
+
+	<WorldEditWorldObject_PeaceTalks>Négociations de paix</WorldEditWorldObject_PeaceTalks>
+
+	<WorldEditTimeoutComp>Expiration</WorldEditTimeoutComp>
+	<WorldEditTimeoutComp_Description>Le composant définit le temps après lequel l'endroit ne sera plus disponible</WorldEditTimeoutComp_Description>
+	<WorldEditTimeoutCompWindow_Time>Temps (jours)</WorldEditTimeoutCompWindow_Time>
+	<WorldEditCompWindow_AcceptChanges>Enregistrer les modifications</WorldEditCompWindow_AcceptChanges>
+	<WorldEditTimeoutCompWindow_EnterCorrectTime>Temps incorrect saisi</WorldEditTimeoutCompWindow_EnterCorrectTime>
+
+	<WorldEditDefeatAllEnemiesQuestComp>Récompense pour avoir vaincu tous les ennemis (hérité)</WorldEditDefeatAllEnemiesQuestComp>
+	<WorldEditDefeatAllEnemiesQuestComp_Description>Composant contenant une récompense pour avoir détruit cet endroit</WorldEditDefeatAllEnemiesQuestComp_Description>
+	<WorldEditDefeatAllEnemiesQuestCompWindow_Faction>Faction récompensante</WorldEditDefeatAllEnemiesQuestCompWindow_Faction>
+	<WorldEditDefeatAllEnemiesQuestCompWindow_Relations>Bonus de relations</WorldEditDefeatAllEnemiesQuestCompWindow_Relations>
+	<WorldEditDefeatAllEnemiesQuestCompWindow_EnterCorrectRelations>Valeur invalide pour le bonus de relations. Défini à 0.</WorldEditDefeatAllEnemiesQuestCompWindow_EnterCorrectRelations>
+
+	<WorldEditItemStashContentsComp>Objets de la cache (hérité)</WorldEditItemStashContentsComp>
+	<WorldEditItemStashContentsComp_Description>Liste des objets qui seront générés dans la cache</WorldEditItemStashContentsComp_Description>
+
+	<WorldEditSitePartParamsWindow_ThreatPoints>Points de menace</WorldEditSitePartParamsWindow_ThreatPoints>
+	<WorldEditSitePartParamsWindow_Save>Enregistrer les modifications</WorldEditSitePartParamsWindow_Save>
+	<WorldEditSitePartParamsWindow_TurretsCount>Nombre de tourelles</WorldEditSitePartParamsWindow_TurretsCount>
+	<WorldEditSitePartParamsWindow_MortarsCount>Mortars count</WorldEditSitePartParamsWindow_MortarsCount>
+	<WorldEditSitePartParamsWindow_AnimalKind>Animal type</WorldEditSitePartParamsWindow_AnimalKind>
+	<WorldEditSitePartParamsWindow_LumpResources>Resource type </WorldEditSitePartParamsWindow_LumpResources>
+	<WorldEditSitePartParamsWindow_ConfigureMapItems>Map items</WorldEditSitePartParamsWindow_ConfigureMapItems>
+	
+</LanguageData>

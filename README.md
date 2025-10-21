@@ -7,12 +7,14 @@ It now requires "Harmony"  https://steamcommunity.com/sharedfiles/filedetails/?i
 
 Some features might not work with Odyssey, like modifying space. 
 
-WorldEditGeologicalLandforms and WorldEditRimCity are not ported to 1.6  
+WorldEditGeologicalLandforms and WorldEditRimCity are not ported to 1.6,
+you might have to unload the project to compile the mod.
 
-## BUild from source 
+## Build from source 
 - Install net framework 4.8 
 - modify the "WorldEdit 2.0.csproj", change the path to rimworld's dll
-- replace the DLL output Mods/WorldEdit 2.0/1.6/Assemblies/
+- Compile the project "WorldEdit 2.0"
+- Copy the DLL output in the folder Mods/WorldEdit 2.0/1.6/Assemblies/
 
 
 ## Know issues: 

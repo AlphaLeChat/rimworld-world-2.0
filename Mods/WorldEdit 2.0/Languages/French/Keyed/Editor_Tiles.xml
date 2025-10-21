@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<LanguageData>
+
+	<TileEditorWindow_UpdateAllTiles>Rafraîchir toutes les couches</TileEditorWindow_UpdateAllTiles>
+	<TileEditorWindow_UpdateAllTilesInfo>Commence à rafraîchir toutes les couches pour refléter tous les changements effectués et les "fixer".
+	Cela provoque un rechargement presque complet du monde, ce qui peut prendre beaucoup de temps. Il est recommandé de l'utiliser pour la finalisation des modifications</TileEditorWindow_UpdateAllTilesInfo>
+	<TileEditorWindow_UpdateHillsLayer>Rafraîchir les montagnes</TileEditorWindow_UpdateHillsLayer>
+	<TileEditorWindow_UpdateHillsLayerInfo>Commence à rafraîchir la couche montagne. Cela mettra à jour les textures de toutes les montagnes sur la carte. Prend beaucoup moins de temps que de rafraîchir toutes les couches</TileEditorWindow_UpdateHillsLayerInfo>
+	<TileEditorWindow_UpdateTerrainLayer>Rafraîchir le terrain</TileEditorWindow_UpdateTerrainLayer>
+	<TileEditorWindow_UpdateTerrainLayerInfo>Commence à rafraîchir la couche terrain. Cela mettra à jour les textures de toutes les tuiles selon le biome. Prend moins de temps que de rafraîchir toutes les couches</TileEditorWindow_UpdateTerrainLayerInfo>
+	
+	<TileEditorWindow_Biome>Biome</TileEditorWindow_Biome>
+	<TileEditorWindow_NoText>Non choisi</TileEditorWindow_NoText>
+	<TileEditorWindow_Undefined>Non choisi</TileEditorWindow_Undefined>
+	<TileEditorWindow_Hilliness>Type de montagne</TileEditorWindow_Hilliness>
+	
+	<TileEditorWindow_Temperature>Température</TileEditorWindow_Temperature>
+	<TileEditorWindow_Elevation>Élévation</TileEditorWindow_Elevation>
+	<TileEditorWindow_Rainfall>Précipitations</TileEditorWindow_Rainfall>
+	<TileEditorWindow_Swampiness>Marécageux</TileEditorWindow_Swampiness>
+	
+	<TileEditorWindow_CurrentTileInfo>ID de la tuile sélectionnée : {0}</TileEditorWindow_CurrentTileInfo>
+	
+	<TileEditorWindow_SetToAllMap>Appliquer à toute la carte</TileEditorWindow_SetToAllMap>
+	<TileEditorWindow_SetToAllBiome>Appliquer au biome sélectionné</TileEditorWindow_SetToAllBiome>
+	<SetType_Temperature>Température</SetType_Temperature>
+	<SetType_Elevation>Élévation</SetType_Elevation>
+	<SetType_Rainfall>Précipitations</SetType_Rainfall>
+	<SetType_Swampiness>Marécageux</SetType_Swampiness>
+	<SetToAllMap_Message>{0} pour toute la carte est défini à {1}</SetToAllMap_Message>
+	<SetToAllBiomes_InvalidBiomeMessage>Aucun biome sélectionné. Sélectionnez un biome.</SetToAllBiomes_InvalidBiomeMessage>
+	<SetToAllBiomes_Message>{0} défini à {1} sur le biome {2}</SetToAllBiomes_Message>
+	
+	<TileEditorWindow_AddNewNaturalRock>Ajouter une roche</TileEditorWindow_AddNewNaturalRock>
+	<TileEditorWindow_HasCaves>Ajouter des grottes</TileEditorWindow_HasCaves>
+
+	<TileEditorWindow_BrushEnable>Activer le pinceau</TileEditorWindow_BrushEnable>
+	<TileEditorWindow_BrushSettings>Rayon</TileEditorWindow_BrushSettings>
+	<TileEditorWindow_Enable>Actif</TileEditorWindow_Enable>
+	<TileEditorWindow_VanillaRocks>Génération de roches par défaut (vanilla)</TileEditorWindow_VanillaRocks>
+  
+	<TileEditorWindow_SetBiomeToWholeMap>Définir le biome sur toute la carte</TileEditorWindow_SetBiomeToWholeMap>
+  
+</LanguageData>

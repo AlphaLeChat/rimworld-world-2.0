@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<LanguageData>
+	<WE_Settings_General>Paramètres principaux</WE_Settings_General>
+	<WE_Settings_HidePrevOpenedEditor>Masquer l'éditeur précédent après en avoir ouvert un nouveau</WE_Settings_HidePrevOpenedEditor>
+	
+	<WE_Settings_ActiveEditor_ToolTip>L'éditeur est-il activé</WE_Settings_ActiveEditor_ToolTip>
+	<WE_Settings_ActiveEditor>Activer</WE_Settings_ActiveEditor>
+	
+	<WE_Settings_TileEditorKey>Éditeur de tuiles</WE_Settings_TileEditorKey>
+	<WE_Settings_Key_Update>Nouveau bouton : {0}</WE_Settings_Key_Update>
+	
+	<WE_Settings_TemplateEditorKey>Éditeur de modèles</WE_Settings_TemplateEditorKey>
+	<WE_Settings_RiversEditorKey>Éditeur de rivières</WE_Settings_RiversEditorKey>
+	
+	<WE_Settings_RoadsEditorKey>Éditeur de routes</WE_Settings_RoadsEditorKey>
+	
+	<WE_Settings_WorldFeatureEditorKey>Éditeur de caractéristiques géographiques</WE_Settings_WorldFeatureEditorKey>
+	
+	<WE_Settings_FactionEditorKey>Éditeur de factions</WE_Settings_FactionEditorKey>
+	
+	<WE_Settings_SettlementEditorKey>Éditeur de colonies</WE_Settings_SettlementEditorKey>
+  
+	<WE_Settings_ObjectsEditorKey>Éditeur d'objets</WE_Settings_ObjectsEditorKey>
+  
+</LanguageData>

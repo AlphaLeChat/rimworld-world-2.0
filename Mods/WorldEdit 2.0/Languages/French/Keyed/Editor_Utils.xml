@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<LanguageData>
+
+	<ThingMenu_Title>Édition d'un objet</ThingMenu_Title>
+	<ThingsMenu_NoItemsFromThisCategory>Aucun objet trouvé dans cette catégorie</ThingsMenu_NoItemsFromThisCategory>
+	<ThingsMenu_NoStuffsAvaliable>Aucun matériau trouvé pour fabriquer cet objet</ThingsMenu_NoStuffsAvaliable>
+	<ThingsMenu_StackCount>Quantité</ThingsMenu_StackCount>
+	<ThingsMenu_NoThingDef>Sélectionner un objet</ThingsMenu_NoThingDef>
+	<ThingsMenu_SuccessAdded>Objet ajouté</ThingsMenu_SuccessAdded>
+	<ThingsMenu_DeleteGood>Supprimer</ThingsMenu_DeleteGood>
+	<ThingsMenu_AddNewGood>Ajouter un objet</ThingsMenu_AddNewGood>
+	<ThingsMenu_Category>Catégorie</ThingsMenu_Category>
+	<ThingsMenu_CategoryItem>Objet</ThingsMenu_CategoryItem>
+	<ThingsMenu_ThingDefStuff>Matériau</ThingsMenu_ThingDefStuff>
+	<ThingsMenu_ThingDefQuality>Qualité</ThingsMenu_ThingDefQuality>
+	<ThingsMenu_GenerateItem>Ajouter un objet</ThingsMenu_GenerateItem>
+	
+	<ThingsMenu_ItemName>Nom de l'objet</ThingsMenu_ItemName>
+	<ThingsMenu_ItemCount>Quantité</ThingsMenu_ItemCount>
+	<ThingsMenu_ItemStuff>Matériau</ThingsMenu_ItemStuff>
+	<ThingsMenu_ItemQuality>Qualité</ThingsMenu_ItemQuality>
+	<ThingsMenu_NoStuffLabel>Non</ThingsMenu_NoStuffLabel>
+	<ThingsMenu_NoQualityLabel>Non</ThingsMenu_NoQualityLabel>
+	<ThingsMenu_Close>Fermer</ThingsMenu_Close>
+	<ThingsMenu_Title>Édition des objets</ThingsMenu_Title>
+
+</LanguageData>
