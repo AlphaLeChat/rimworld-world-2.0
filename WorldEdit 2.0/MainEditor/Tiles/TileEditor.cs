@@ -40,8 +40,11 @@ namespace WorldEdit_2_0.MainEditor.Tiles
             //var tempLayers = fieldlayers.GetValue(Find.World.renderer) as List<WorldLayer>;
             Layers = new Dictionary<string, WorldDrawLayerBase>(tempLayers.Count);
             LayersSubMeshes = new Dictionary<string, List<LayerSubMesh>>(tempLayers.Count);
+            var layerToSkip = new List<Type> { typeof(WorldDrawLayer_DebugNoise) };
             foreach (var layer in tempLayers)
             {
+                if (layerToSkip.Contains(layer.GetType()))
+                    continue;
                 if (!Layers.ContainsKey(layer.GetType().Name))
                 {
                     Layers.Add(layer.GetType().Name, layer);

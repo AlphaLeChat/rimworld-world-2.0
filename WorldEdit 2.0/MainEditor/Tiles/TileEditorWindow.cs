@@ -89,6 +89,7 @@ namespace WorldEdit_2_0.MainEditor.Tiles
             {
                 foreach(var layer in tileEditor.Layers)
                 {
+                    Verse.Log.Message("Updating layer: " + layer.Key);
                     worldUpdater.UpdateLayer(layer.Value);
                 }
             }
