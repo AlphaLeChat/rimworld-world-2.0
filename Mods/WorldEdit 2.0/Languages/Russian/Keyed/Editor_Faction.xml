@@ -23,6 +23,8 @@
 	<FactionEditorWindow_Group>Группировать по: {0}</FactionEditorWindow_Group>
 	<FactionGroupBy_None>Без группировки</FactionGroupBy_None>
 	<FactionGroupBy_FactionDef>Def шаблон фракции</FactionGroupBy_FactionDef>
+
+	<FactionEditorWindow_SelectIdeo>Выберите идеологию</FactionEditorWindow_SelectIdeo>
 	
 	<FactionEditorWindow_Sort>Сортировать по: {0}</FactionEditorWindow_Sort>
 </LanguageData>

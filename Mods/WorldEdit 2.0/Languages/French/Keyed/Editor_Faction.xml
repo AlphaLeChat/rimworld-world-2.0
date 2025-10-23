@@ -23,6 +23,9 @@
 	<FactionEditorWindow_Group>Grouper par : {0}</FactionEditorWindow_Group>
 	<FactionGroupBy_None>Aucun groupe</FactionGroupBy_None>
 	<FactionGroupBy_FactionDef>Définition du modèle de faction</FactionGroupBy_FactionDef>
-	
+
+	<FactionEditorWindow_SelectIdeo>Sélectionner l'idéologie </FactionEditorWindow_SelectIdeo>
+
+
 	<FactionEditorWindow_Sort>Trier par : {0}</FactionEditorWindow_Sort>
 </LanguageData>
